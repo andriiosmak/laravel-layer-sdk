@@ -320,7 +320,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [ico-version]: https://img.shields.io/packagist/v/aosmak/laravel-layer-sdk.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/andriiosmak/laravel-layer-sdk/release/v1.0.0.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/andriiosmak/laravel-layer-sdk/master.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/aosmak/laravel-layer-sdk.svg?style=flat-square
 [ico-stable]: https://poser.pugx.org/aosmak/laravel-layer-sdk/v/stable
 [ico-unstable]: https://poser.pugx.org/aosmak/laravel-layer-sdk/v/unstable
