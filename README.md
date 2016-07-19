@@ -2,8 +2,8 @@
 
 ![Build Status][ico-travis]
 ![Downloads][ico-downloads]
-![Stable][https://poser.pugx.org/aosmak/laravel-layer-sdk/v/stable]
-![Unstable][https://poser.pugx.org/aosmak/laravel-layer-sdk/v/unstable]
+![Stable][ico-stable]
+![Unstable][ico-unstable]
 [![Software License][ico-license]](LICENSE.md)
 
 Powerful package that helps Larevel 5 projects to access Layer Services ([layer.com][link-layer]).
