@@ -1,5 +1,5 @@
 {
-    "name": "aosmak/layer",
+    "name": "aosmak/laravel-layer-sdk",
     "type": "library",
     "description": "Powerful package that helps Larevel 5 projects to interact with Layer (http://layer.com).",
     "keywords": [
@@ -7,7 +7,7 @@
         "php 7",
         "layer"
     ],
-    "homepage": "https://github.com/andriiosmak/layer",
+    "homepage": "https://github.com/andriiosmak/laravel-layer-sdk",
     "license": "MIT",
     "authors": [
         {
