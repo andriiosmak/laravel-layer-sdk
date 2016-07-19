@@ -44,7 +44,7 @@ Add the package to your application service providers in config/app.php file.
     /**
      * Third Party Service Providers...
      */
-    Aosmak\Layer\LayerProvider::class,
+    Aosmak\Larevel\Layer\Sdk\LayerProvider::class,
 
 ],
 ```
@@ -54,7 +54,7 @@ Config File
 Publish the package config file to your application. Run this command inside your terminal.
 
 ``` bash
-php artisan vendor:publish --provider="Aosmak\Layer\LayerProvider" --tag=config
+php artisan vendor:publish --provider="Aosmak\Larevel\Layer\Sdk\LayerProvider" --tag=config
 ```
 
 Put your application ID and auth token in config/layer.php.
@@ -76,7 +76,7 @@ Don`t have an account? Click [here][link-signup-layer] to sign up.
 Usage in controller
 
 ``` php
-use Aosmak\Layer\Services\LayerServiceInterface;
+use Aosmak\Larevel\Layer\Sdk\Services\LayerServiceInterface;
 
 class Controller
 {

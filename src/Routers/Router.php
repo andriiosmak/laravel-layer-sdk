@@ -1,38 +1,38 @@
 <?php
 
-namespace Aosmak\Layer\Routers;
+namespace Aosmak\Larevel\Layer\Sdk\Routers;
 
 /**
  * Class Router
- * @package namespace Aosmak\Layer\Routers;
+ * @package namespace Aosmak\Larevel\Layer\Sdk\Routers;
  */
 class Router
 {
     /**
      * Announcement Router
      *
-     * @var \Aosmak\Layer\Routers\AnnouncementRouter
+     * @var \Aosmak\Larevel\Layer\Sdk\Routers\AnnouncementRouter
      */
     private $announcementRouter;
 
     /**
      * Conversation Router
      *
-     * @var \Aosmak\Layer\Routers\ConversationRouter
+     * @var \Aosmak\Larevel\Layer\Sdk\Routers\ConversationRouter
      */
     private $conversationRouter;
 
     /**
      * Message Router
      *
-     * @var \Aosmak\Layer\Routers\MessageRouter
+     * @var \Aosmak\Larevel\Layer\Sdk\Routers\MessageRouter
      */
     private $messageRouter;
 
     /**
      * User Router
      *
-     * @var \Aosmak\Layer\Routers\UserRouter
+     * @var \Aosmak\Larevel\Layer\Sdk\Routers\UserRouter
      */
     private $userRouter;
 
@@ -46,10 +46,10 @@ class Router
     /**
      * Constructor
      *
-     * @param \Aosmak\Layer\Routers\AnnouncementRouter $announcementRouter
-     * @param \Aosmak\Layer\Routers\ConversationRouter $conversationRouter
-     * @param \Aosmak\Layer\Routers\MessageRouter $messageRouter
-     * @param \Aosmak\Layer\Routers\UserRouter $userRouter
+     * @param \Aosmak\Larevel\Layer\Sdk\Routers\AnnouncementRouter $announcementRouter
+     * @param \Aosmak\Larevel\Layer\Sdk\Routers\ConversationRouter $conversationRouter
+     * @param \Aosmak\Larevel\Layer\Sdk\Routers\MessageRouter $messageRouter
+     * @param \Aosmak\Larevel\Layer\Sdk\Routers\UserRouter $userRouter
      *
      * @return void
      */
@@ -80,7 +80,7 @@ class Router
     /**
      * Get Announcement Router
      *
-     * @return \Aosmak\Layer\Routers\AnnouncementRouter $announcementRouter
+     * @return \Aosmak\Larevel\Layer\Sdk\Routers\AnnouncementRouter $announcementRouter
      */
     public function getAnnouncementRouter() : AnnouncementRouter
     {
@@ -90,7 +90,7 @@ class Router
     /**
      * Get Conversation Router
      *
-     * @return \Aosmak\Layer\Routers\ConversationRouter $conversationRouter
+     * @return \Aosmak\Larevel\Layer\Sdk\Routers\ConversationRouter $conversationRouter
      */
     public function getConversationRouter() : ConversationRouter
     {
@@ -100,7 +100,7 @@ class Router
     /**
      * Get Message Router
      *
-     * @return \Aosmak\Layer\Routers\MessageRouter $messageRouter
+     * @return \Aosmak\Larevel\Layer\Sdk\Routers\MessageRouter $messageRouter
      */
     public function getMessageRouter() : MessageRouter
     {
@@ -110,7 +110,7 @@ class Router
     /**
      * Get User Router
      *
-     * @return \Aosmak\Layer\Routers\UserRouter $userRouter
+     * @return \Aosmak\Larevel\Layer\Sdk\Routers\UserRouter $userRouter
      */
     public function getUserRouter() : UserRouter
     {
@@ -120,9 +120,9 @@ class Router
     /**
      * Get router
      *
-     * @param Aosmak\Layer\Routers\BaseRouter $router
+     * @param Aosmak\Larevel\Layer\Sdk\Routers\BaseRouter $router
      *
-     * @return Aosmak\Layer\Routers\BaseRouter $router
+     * @return Aosmak\Larevel\Layer\Sdk\Routers\BaseRouter $router
      */
     private function getRouter($router) : BaseRouter
     {

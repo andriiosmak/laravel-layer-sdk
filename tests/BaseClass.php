@@ -1,26 +1,26 @@
 <?php
 
-namespace Aosmak\Layer;
+namespace Aosmak\Larevel\Layer\Sdk;
 
-use Aosmak\Layer\Services\LayerService;
-use Aosmak\Layer\Services\UserService;
-use Aosmak\Layer\Services\ConversationService;
-use Aosmak\Layer\Services\MessageService;
-use Aosmak\Layer\Services\AnnouncementService;
+use Aosmak\Larevel\Layer\Sdk\Services\LayerService;
+use Aosmak\Larevel\Layer\Sdk\Services\UserService;
+use Aosmak\Larevel\Layer\Sdk\Services\ConversationService;
+use Aosmak\Larevel\Layer\Sdk\Services\MessageService;
+use Aosmak\Larevel\Layer\Sdk\Services\AnnouncementService;
 use GuzzleHttp\Client;
-use Aosmak\Layer\Models\ResponseStatus;
-use Aosmak\Layer\Routers\Router;
-use Aosmak\Layer\Routers\AnnouncementRouter;
-use Aosmak\Layer\Routers\ConversationRouter;
-use Aosmak\Layer\Routers\MessageRouter;
-use Aosmak\Layer\Routers\UserRouter;
+use Aosmak\Larevel\Layer\Sdk\Models\ResponseStatus;
+use Aosmak\Larevel\Layer\Sdk\Routers\Router;
+use Aosmak\Larevel\Layer\Sdk\Routers\AnnouncementRouter;
+use Aosmak\Larevel\Layer\Sdk\Routers\ConversationRouter;
+use Aosmak\Larevel\Layer\Sdk\Routers\MessageRouter;
+use Aosmak\Larevel\Layer\Sdk\Routers\UserRouter;
 
 abstract class BaseClass extends \PHPUnit_Framework_TestCase
 {
     /**
      * Layer Service
      *
-     * @var Aosmak\Layer\Services\LayerService
+     * @var Aosmak\Larevel\Layer\Sdk\Services\LayerService
      */
     public $service;
     
@@ -47,7 +47,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     /**
      * Get user service
      *
-     * @return Aosmak\Layer\Services\User\UserService
+     * @return Aosmak\Larevel\Layer\Sdk\Services\User\UserService
      */
     public function getUserService()
     {
@@ -57,7 +57,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     /**
      * Get conversation service
      *
-     * @return Aosmak\Layer\Services\Conversation\ConversationService
+     * @return Aosmak\Larevel\Layer\Sdk\Services\Conversation\ConversationService
      */
     public function getConversationService()
     {
@@ -67,7 +67,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     /**
      * Get message service
      *
-     * @return Aosmak\Layer\Services\Message\MessageService
+     * @return Aosmak\Larevel\Layer\Sdk\Services\Message\MessageService
      */
     public function getMessageService()
     {
@@ -77,7 +77,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     /**
      * Get announcement service
      *
-     * @return Aosmak\Layer\Services\Announcements\AnnouncementService
+     * @return Aosmak\Larevel\Layer\Sdk\Services\Announcements\AnnouncementService
      */
     public function getAnnouncementService()
     {

@@ -31,12 +31,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Aosmak\\Layer\\": "src"
+            "Aosmak\\Larevel\\Layer\\Sdk\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Aosmak\\Layer\\": "tests"
+            "Aosmak\\Larevel\\Layer\\Sdk\\": "tests"
         }
     },
     "scripts": {

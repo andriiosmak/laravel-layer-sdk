@@ -1,10 +1,10 @@
 <?php
 
-namespace Aosmak\Layer\Routers;
+namespace Aosmak\Larevel\Layer\Sdk\Routers;
 
 /**
  * Class MessageRouter
- * @package namespace Aosmak\Layer\Routers;
+ * @package namespace Aosmak\Larevel\Layer\Sdk\Routers;
  */
 class MessageRouter extends BaseRouter
 {

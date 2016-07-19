@@ -1,13 +1,13 @@
 <?php
 
-namespace Aosmak\Layer\Services;
+namespace Aosmak\Larevel\Layer\Sdk\Services;
 
 use GuzzleHttp\Psr7\Response;
-use Aosmak\Layer\Services\Service;
+use Aosmak\Larevel\Layer\Sdk\Services\Service;
 
 /**
  * Class MessageService
- * @package namespace Aosmak\Layer\Services;
+ * @package namespace Aosmak\Larevel\Layer\Sdk\Services;
  */
 class MessageService extends Service
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Aosmak\Layer;
+namespace Aosmak\Larevel\Layer\Sdk;
 
 class ConversationServiceTest extends BaseClass
 {

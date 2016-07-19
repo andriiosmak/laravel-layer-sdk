@@ -1,12 +1,12 @@
 <?php
 
-namespace Aosmak\Layer\Services;
+namespace Aosmak\Larevel\Layer\Sdk\Services;
 
-use Aosmak\Layer\Services\Service;
+use Aosmak\Larevel\Layer\Sdk\Services\Service;
 
 /**
  * Class UserService
- * @package namespace Aosmak\Layer\Services;
+ * @package namespace Aosmak\Larevel\Layer\Sdk\Services;
  */
 class UserService extends Service
 {
