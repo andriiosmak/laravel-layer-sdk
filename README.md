@@ -24,7 +24,7 @@ Powerful package that helps Larevel 5 projects to access Layer Services ([layer.
 Composer
 
 ``` bash
-$ composer require aosmak/laravel-layer-sdk
+$ composer require aosmak/layer
 ```
 
 Service Provider
@@ -318,14 +318,14 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-layer-documentation-conversation]: https://developer.layer.com/docs/platform/conversations#retrieve-a-conversation
 [link-layer-documentation-message]: https://developer.layer.com/docs/platform/messages#send-a-message
 
-[ico-version]: https://img.shields.io/packagist/v/aosmak/laravel-layer-sdk.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/aosmak/layer.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/andriiosmak/laravel-layer-sdk/master.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/aosmak/laravel-layer-sdk.svg?style=flat-square
-[ico-stable]: https://poser.pugx.org/aosmak/laravel-layer-sdk/v/stable
-[ico-unstable]: https://poser.pugx.org/aosmak/laravel-layer-sdk/v/unstable
+[ico-downloads]: https://img.shields.io/packagist/dt/aosmak/layer.svg?style=flat-square
+[ico-stable]: https://poser.pugx.org/aosmak/layer/v/stable
+[ico-unstable]: https://poser.pugx.org/aosmak/layer/v/unstable
 
-[link-packagist]: https://packagist.org/packages/aosmak/laravel-layer-sdk
+[link-packagist]: https://packagist.org/packages/aosmak/layer
 [link-travis]: https://travis-ci.org/:vendor/:package_name
-[link-downloads]: https://packagist.org/packages/aosmak/laravel-layer-sdk
+[link-downloads]: https://packagist.org/packages/aosmak/layer
 [link-contributors]: ../../contributors
