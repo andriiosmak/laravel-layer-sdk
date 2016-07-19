@@ -184,17 +184,17 @@ abstract class Service
     {
         $defaultHeaders = [
             'headers'        => [
-                'Authorization' => 'Bearer ' . $this->config['LAYER_AUTH'],
+                'Authorization' => 'Bearer ' . $this->config['LAYER_SDK_AUTH'],
                 'Accept'        => 'application/vnd.layer+json; version=1.0',
                 'Content-Type'  => 'application/json',
             ],
             'json'           => $data,
             'decode_content' => false,
-            'http_errors'    => $this->config['LAYER_SHOW_HTTP_ERRORS'],
+            'http_errors'    => $this->config['LAYER_SDK_SHOW_HTTP_ERRORS'],
         ];
 
         $headers  = array_replace_recursive($defaultHeaders, $requestHeaders);
-        $response = $this->client->request($method, $this->config['LAYER_BASE_URL'] . $url, $headers);
+        $response = $this->client->request($method, $this->config['LAYER_SDK_BASE_URL'] . $url, $headers);
         $this->setResponseContent($response);
 
         return $response;

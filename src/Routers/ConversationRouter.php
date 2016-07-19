@@ -18,7 +18,7 @@ class ConversationRouter extends BaseRouter
     public function getConversationURL(string $conversationId) : string
     {
         $data = [
-            ':app_id'            => $this->config['LAYER_APP_ID'],
+            ':app_id'            => $this->config['LAYER_SDK_APP_ID'],
             ':conversation_uuid' => $conversationId
         ];
 
@@ -35,7 +35,7 @@ class ConversationRouter extends BaseRouter
     public function getConversationsURL(string $userId) : string
     {
         $data = [
-            ':app_id'  => $this->config['LAYER_APP_ID'],
+            ':app_id'  => $this->config['LAYER_SDK_APP_ID'],
             ':user_id' => $userId
         ];
 
@@ -50,7 +50,7 @@ class ConversationRouter extends BaseRouter
     public function getURL() : string
     {
         $data = [
-            ':app_id' => $this->config['LAYER_APP_ID'],
+            ':app_id' => $this->config['LAYER_SDK_APP_ID'],
         ];
 
         return $this->genereteURL(':app_id/conversations', $data);

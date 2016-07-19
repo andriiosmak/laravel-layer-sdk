@@ -18,7 +18,7 @@ class UserRouter extends BaseRouter
     public function getURL(string $userId) : string
     {
         $data = [
-            ':app_id'  => $this->config['LAYER_APP_ID'],
+            ':app_id'  => $this->config['LAYER_SDK_APP_ID'],
             ':user_id' => $userId
         ];
 
