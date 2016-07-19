@@ -1,6 +1,6 @@
 <?php
 
-namespace Aosmak\Larevel\Layer\Sdk;
+namespace Aosmak\Laravel\Layer\Sdk;
 
 class MessageServiceTest extends BaseClass
 {

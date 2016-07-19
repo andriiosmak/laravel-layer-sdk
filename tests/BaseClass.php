@@ -1,26 +1,26 @@
 <?php
 
-namespace Aosmak\Larevel\Layer\Sdk;
+namespace Aosmak\Laravel\Layer\Sdk;
 
-use Aosmak\Larevel\Layer\Sdk\Services\LayerService;
-use Aosmak\Larevel\Layer\Sdk\Services\UserService;
-use Aosmak\Larevel\Layer\Sdk\Services\ConversationService;
-use Aosmak\Larevel\Layer\Sdk\Services\MessageService;
-use Aosmak\Larevel\Layer\Sdk\Services\AnnouncementService;
+use Aosmak\Laravel\Layer\Sdk\Services\LayerService;
+use Aosmak\Laravel\Layer\Sdk\Services\UserService;
+use Aosmak\Laravel\Layer\Sdk\Services\ConversationService;
+use Aosmak\Laravel\Layer\Sdk\Services\MessageService;
+use Aosmak\Laravel\Layer\Sdk\Services\AnnouncementService;
 use GuzzleHttp\Client;
-use Aosmak\Larevel\Layer\Sdk\Models\ResponseStatus;
-use Aosmak\Larevel\Layer\Sdk\Routers\Router;
-use Aosmak\Larevel\Layer\Sdk\Routers\AnnouncementRouter;
-use Aosmak\Larevel\Layer\Sdk\Routers\ConversationRouter;
-use Aosmak\Larevel\Layer\Sdk\Routers\MessageRouter;
-use Aosmak\Larevel\Layer\Sdk\Routers\UserRouter;
+use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
+use Aosmak\Laravel\Layer\Sdk\Routers\Router;
+use Aosmak\Laravel\Layer\Sdk\Routers\AnnouncementRouter;
+use Aosmak\Laravel\Layer\Sdk\Routers\ConversationRouter;
+use Aosmak\Laravel\Layer\Sdk\Routers\MessageRouter;
+use Aosmak\Laravel\Layer\Sdk\Routers\UserRouter;
 
 abstract class BaseClass extends \PHPUnit_Framework_TestCase
 {
     /**
      * Layer Service
      *
-     * @var Aosmak\Larevel\Layer\Sdk\Services\LayerService
+     * @var Aosmak\Laravel\Layer\Sdk\Services\LayerService
      */
     public $service;
     
@@ -47,7 +47,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     /**
      * Get user service
      *
-     * @return Aosmak\Larevel\Layer\Sdk\Services\User\UserService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\User\UserService
      */
     public function getUserService()
     {
@@ -57,7 +57,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     /**
      * Get conversation service
      *
-     * @return Aosmak\Larevel\Layer\Sdk\Services\Conversation\ConversationService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Conversation\ConversationService
      */
     public function getConversationService()
     {
@@ -67,7 +67,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     /**
      * Get message service
      *
-     * @return Aosmak\Larevel\Layer\Sdk\Services\Message\MessageService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Message\MessageService
      */
     public function getMessageService()
     {
@@ -77,7 +77,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     /**
      * Get announcement service
      *
-     * @return Aosmak\Larevel\Layer\Sdk\Services\Announcements\AnnouncementService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Announcements\AnnouncementService
      */
     public function getAnnouncementService()
     {

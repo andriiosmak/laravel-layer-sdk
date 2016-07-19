@@ -1,13 +1,13 @@
 <?php
 
-namespace Aosmak\Larevel\Layer\Sdk\Services;
+namespace Aosmak\Laravel\Layer\Sdk\Services;
 
 use GuzzleHttp\Psr7\Response;
-use Aosmak\Larevel\Layer\Sdk\Traits\SetterTrait;
+use Aosmak\Laravel\Layer\Sdk\Traits\SetterTrait;
 
 /**
  * Class Service
- * @package namespace Aosmak\Larevel\Layer\Sdk\Services;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Services;
  */
 abstract class Service
 {
@@ -16,7 +16,7 @@ abstract class Service
     /**
      * Router
      *
-     * @var \Aosmak\Larevel\Layer\Sdk\Routers\BaseRouter
+     * @var \Aosmak\Laravel\Layer\Sdk\Routers\BaseRouter
      */
     public $router;
 

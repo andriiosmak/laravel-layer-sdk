@@ -1,10 +1,10 @@
 <?php
 
-namespace Aosmak\Larevel\Layer\Sdk\Services;
+namespace Aosmak\Laravel\Layer\Sdk\Services;
 
 /**
  * Interface LayerServiceInterface.
- * @package namespace Aosmak\Larevel\Layer\Sdk;
+ * @package namespace Aosmak\Laravel\Layer\Sdk;
  */
 interface LayerServiceInterface
 {

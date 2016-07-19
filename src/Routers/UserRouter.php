@@ -1,10 +1,10 @@
 <?php
 
-namespace Aosmak\Larevel\Layer\Sdk\Routers;
+namespace Aosmak\Laravel\Layer\Sdk\Routers;
 
 /**
  * Class UserRouter
- * @package namespace Aosmak\Larevel\Layer\Sdk\Routers;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Routers;
  */
 class UserRouter extends BaseRouter
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Aosmak\Larevel\Layer\Sdk\Routers;
+namespace Aosmak\Laravel\Layer\Sdk\Routers;
 
 /**
  * Class AnnouncementRouter
- * @package namespace Aosmak\Larevel\Layer\Sdk\Routers;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Routers;
  */
 class AnnouncementRouter extends BaseRouter
 {

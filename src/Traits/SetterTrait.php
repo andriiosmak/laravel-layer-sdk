@@ -1,14 +1,14 @@
 <?php
 
-namespace Aosmak\Larevel\Layer\Sdk\Traits;
+namespace Aosmak\Laravel\Layer\Sdk\Traits;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
-use Aosmak\Larevel\Layer\Sdk\Models\ResponseStatus;
+use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
 
 /**
  * Trait SetterTrait
- * @package namespace Aosmak\Larevel\Layer\Sdk\Traits;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Traits;
  */
 trait SetterTrait
 {
@@ -29,7 +29,7 @@ trait SetterTrait
     /**
      * Response Status object
      *
-     * @var \Aosmak\Larevel\Layer\Sdk\Models\ResponseStatus
+     * @var \Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus
      */
     protected $responseStatus;
 
@@ -74,7 +74,7 @@ trait SetterTrait
     /**
      * Set response status object
      *
-     * @param \Aosmak\Larevel\Layer\Sdk\Models\ResponseStatus $responseStatus
+     * @param \Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus $responseStatus
      *
      * @return void
      */

@@ -31,12 +31,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Aosmak\\Larevel\\Layer\\Sdk\\": "src"
+            "Aosmak\\Laravel\\Layer\\Sdk\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Aosmak\\Larevel\\Layer\\Sdk\\": "tests"
+            "Aosmak\\Laravel\\Layer\\Sdk\\": "tests"
         }
     },
     "scripts": {

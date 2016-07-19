@@ -1,12 +1,12 @@
 <?php
 
-namespace Aosmak\Larevel\Layer\Sdk\Services;
+namespace Aosmak\Laravel\Layer\Sdk\Services;
 
-use Aosmak\Larevel\Layer\Sdk\Services\Service;
+use Aosmak\Laravel\Layer\Sdk\Services\Service;
 
 /**
  * Class ConversationService
- * @package namespace Aosmak\Larevel\Layer\Sdk\Services;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Services;
  */
 class ConversationService extends Service
 {

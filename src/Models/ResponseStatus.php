@@ -1,10 +1,10 @@
 <?php
 
-namespace Aosmak\Larevel\Layer\Sdk\Models;
+namespace Aosmak\Laravel\Layer\Sdk\Models;
 
 /**
  * Class ResponseStatus
- * @package namespace Aosmak\Larevel\Layer\Sdk\Models;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Models;
  */
 class ResponseStatus
 {
