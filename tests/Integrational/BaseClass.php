@@ -13,13 +13,9 @@ use Aosmak\Laravel\Layer\Sdk\Routers\AnnouncementRouter;
 use Aosmak\Laravel\Layer\Sdk\Routers\ConversationRouter;
 use Aosmak\Laravel\Layer\Sdk\Routers\MessageRouter;
 use Aosmak\Laravel\Layer\Sdk\Routers\UserRouter;
-
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Exception\RequestException;
-
-use GuzzleHttp\Psr7;
 
 abstract class BaseClass extends \PHPUnit_Framework_TestCase
 {
