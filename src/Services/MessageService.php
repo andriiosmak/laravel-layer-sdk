@@ -82,6 +82,10 @@ class MessageService extends Service
     {
         $response = $this->makeGetRequest($this->router->getMessageSytemURL($messageId, $conversationId));
 
+        // var_dump($response);
+        // var_dump($this->getResponseContent());
+        // die();
+
         return $this->getResponse($response, 'HTTP_OK', true);
     }
 

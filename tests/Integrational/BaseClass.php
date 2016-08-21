@@ -1,19 +1,25 @@
 <?php
 
-namespace Aosmak\Laravel\Layer\Sdk;
+namespace Aosmak\Laravel\Layer\Sdk\Integrational;
 
 use Aosmak\Laravel\Layer\Sdk\Services\LayerService;
 use Aosmak\Laravel\Layer\Sdk\Services\UserService;
 use Aosmak\Laravel\Layer\Sdk\Services\ConversationService;
 use Aosmak\Laravel\Layer\Sdk\Services\MessageService;
 use Aosmak\Laravel\Layer\Sdk\Services\AnnouncementService;
-use GuzzleHttp\Client;
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
 use Aosmak\Laravel\Layer\Sdk\Routers\Router;
 use Aosmak\Laravel\Layer\Sdk\Routers\AnnouncementRouter;
 use Aosmak\Laravel\Layer\Sdk\Routers\ConversationRouter;
 use Aosmak\Laravel\Layer\Sdk\Routers\MessageRouter;
 use Aosmak\Laravel\Layer\Sdk\Routers\UserRouter;
+
+use GuzzleHttp\Client;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Exception\RequestException;
+
+use GuzzleHttp\Psr7;
 
 abstract class BaseClass extends \PHPUnit_Framework_TestCase
 {
@@ -22,26 +28,25 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      *
      * @var Aosmak\Laravel\Layer\Sdk\Services\LayerService
      */
-    public $service;
-    
+    protected static $service;
+
     /**
-     * Set up Layer Service
+     * Set Up Guzzle Service
      *
-     * @return void
      */
-    public function setUp()
+    protected static function setUpService(MockHandler $mock)
     {
+        $handler = HandlerStack::create($mock);
+        $client  = new Client(['handler' => $handler]);
         $router  = new Router(new AnnouncementRouter, new ConversationRouter, new MessageRouter, new UserRouter); 
         $router->setConfig(require('Config/layer.php'));
-
         $service = new LayerService(new UserService, new ConversationService, new MessageService, new AnnouncementService);
-
         $service->setConfig(require('Config/layer.php'));
-        $service->setClient(new Client);
+        $service->setClient($client);
         $service->setRouter($router);
         $service->setResponseStatus(new ResponseStatus);
 
-        $this->service = $service;
+        self::$service = $service;
     }
 
     /**
@@ -51,7 +56,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      */
     public function getUserService()
     {
-        return $this->service->getUserService();
+        return self::$service->getUserService();
     }
 
     /**
@@ -61,7 +66,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      */
     public function getConversationService()
     {
-        return $this->service->getConversationService();
+        return self::$service->getConversationService();
     }
 
     /**
@@ -71,7 +76,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      */
     public function getMessageService()
     {
-        return $this->service->getMessageService();
+        return self::$service->getMessageService();
     }
 
     /**
@@ -81,6 +86,6 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      */
     public function getAnnouncementService()
     {
-        return $this->service->getAnnouncementService();
+        return self::$service->getAnnouncementService();
     }
 }
