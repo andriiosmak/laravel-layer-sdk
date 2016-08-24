@@ -2,12 +2,8 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services;
 
-use Aosmak\Laravel\Layer\Sdk\Traits\SetterTrait;
-use Aosmak\Laravel\Layer\Sdk\Services\UserService;
-use Aosmak\Laravel\Layer\Sdk\Services\ConversationService;
-use Aosmak\Laravel\Layer\Sdk\Services\MessageService;
-use Aosmak\Laravel\Layer\Sdk\Services\AnnouncementService;
 use Aosmak\Laravel\Layer\Sdk\Routers\Router;
+use Aosmak\Laravel\Layer\Sdk\Traits\SetterTrait;
 
 /**
  * Class LayerService
@@ -18,11 +14,11 @@ class LayerService implements LayerServiceInterface
     use SetterTrait;
 
     /**
-     * User service
+     * Announcement service
      *
-     * @var \Aosmak\Laravel\Layer\Sdk\Services\UserService
+     * @var \Aosmak\Laravel\Layer\Sdk\Services\AnnouncementService
      */
-    private $userService;
+    private $announcementService;
 
     /**
      * Conversation service
@@ -39,11 +35,11 @@ class LayerService implements LayerServiceInterface
     private $messageService;
 
     /**
-     * Announcement service
+     * User service
      *
-     * @var \Aosmak\Laravel\Layer\Sdk\Services\AnnouncementService
+     * @var \Aosmak\Laravel\Layer\Sdk\Services\UserService
      */
-    private $announcementService;
+    private $userService;
 
     /**
      * Router
@@ -99,13 +95,13 @@ class LayerService implements LayerServiceInterface
     }
 
     /**
-     * Get user service
+     * Get announcement service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\UserService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\AnnouncementService
      */
-    public function getUserService() : UserService
+    public function getAnnouncementService() : AnnouncementService
     {
-        return $this->getService($this->userService, $this->getRouter()->getUserRouter());
+        return $this->getService($this->announcementService, $this->getRouter()->getAnnouncementRouter());
     }
 
     /**
@@ -129,13 +125,13 @@ class LayerService implements LayerServiceInterface
     }
 
     /**
-     * Get announcement service
+     * Get user service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\AnnouncementService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\UserService
      */
-    public function getAnnouncementService() : AnnouncementService
+    public function getUserService() : UserService
     {
-        return $this->getService($this->announcementService, $this->getRouter()->getAnnouncementRouter());
+        return $this->getService($this->userService, $this->getRouter()->getUserRouter());
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace Aosmak\Laravel\Layer\Sdk\Services;
 
 use GuzzleHttp\Psr7\Response;
-use Aosmak\Laravel\Layer\Sdk\Services\Service;
 
 /**
  * Class MessageService

@@ -2,8 +2,6 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services;
 
-use Aosmak\Laravel\Layer\Sdk\Services\Service;
-
 /**
  * Class ConversationService
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services;

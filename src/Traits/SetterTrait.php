@@ -34,13 +34,6 @@ trait SetterTrait
     protected $responseStatus;
 
     /**
-     * Last error
-     *
-     * @var array contains last error details
-     */
-    protected $lastError;
-
-    /**
      * Response content
      *
      * @var array
