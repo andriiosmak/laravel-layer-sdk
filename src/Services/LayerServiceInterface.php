@@ -9,9 +9,9 @@ namespace Aosmak\Laravel\Layer\Sdk\Services;
 interface LayerServiceInterface
 {
     /**
-     * Get user service
+     * Get announcement service
      */
-    public function getUserService();
+    public function getAnnouncementService();
 
     /**
      * Get conversation service
@@ -22,4 +22,9 @@ interface LayerServiceInterface
      * Get message service
      */
     public function getMessageService();
+
+    /**
+     * Get user service
+     */
+    public function getUserService();
 }

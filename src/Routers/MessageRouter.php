@@ -19,7 +19,6 @@ class MessageRouter extends BaseRouter
     public function getMessageUserURL(string $messageId, string $userId) : string
     {
         $data = [
-            ':app_id'     => $this->config['LAYER_SDK_APP_ID'],
             ':user_id'    => $userId,
             ':message_id' => $messageId
         ];
@@ -38,7 +37,6 @@ class MessageRouter extends BaseRouter
     public function getMessageSytemURL(string $messageId, string $conversationId) : string
     {
         $data = [
-            ':app_id'          => $this->config['LAYER_SDK_APP_ID'],
             ':conversation_id' => $conversationId,
             ':message_id'      => $messageId
         ];
@@ -56,7 +54,6 @@ class MessageRouter extends BaseRouter
     public function getConversationURL(string $conversationId) : string
     {
         $data = [
-            ':app_id'          => $this->config['LAYER_SDK_APP_ID'],
             ':conversation_id' => $conversationId
         ];
 
@@ -74,7 +71,6 @@ class MessageRouter extends BaseRouter
     public function getConversationUserURL(string $conversationId, string $userId) : string
     {
         $data = [
-            ':app_id'          => $this->config['LAYER_SDK_APP_ID'],
             ':user_id'         => $userId,
             ':conversation_id' => $conversationId
         ];

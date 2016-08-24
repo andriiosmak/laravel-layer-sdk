@@ -15,10 +15,6 @@ class AnnouncementRouter extends BaseRouter
      */
     public function getURL() : string
     {
-        $data = [
-            ':app_id' => $this->config['LAYER_SDK_APP_ID'],
-        ];
-
-        return $this->genereteURL(':app_id/announcements', $data);
+        return $this->genereteURL(':app_id/announcements', []);
     }
 }
