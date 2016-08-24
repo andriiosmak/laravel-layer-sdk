@@ -4,8 +4,6 @@ namespace Aosmak\Laravel\Layer\Sdk\Integrational;
 
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
 use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7;
 
 class ConversationServiceTest extends BaseClass
@@ -16,27 +14,24 @@ class ConversationServiceTest extends BaseClass
     public static function setUpBeforeClass()
     {
         $mock = new MockHandler([
-            new Response(
+            self::getResponse(
                 ResponseStatus::HTTP_OK, 
-                ['Content-Type' => 'application/json'], 
                 Psr7\stream_for('{"id":"layer:///conversations/5055b704-f980-43c1-88c0-3705bad5beca"}')
             ),
-            new Response(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY, ['Content-Type' => 'application/json']),
-            new Response(
+            self::getResponse(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY),
+            self::getResponse(
                 ResponseStatus::HTTP_NO_CONTENT, 
-                ['Content-Type' => 'application/json'], 
                 Psr7\stream_for('{"id":"layer:///conversations/5055b704-f980-43c1-88c0-3705bad5beca"}')
             ),
-            new Response(
+            self::getResponse(
                 ResponseStatus::HTTP_OK, 
-                ['Content-Type' => 'application/json'], 
                 Psr7\stream_for('{"url":"layer:///conversations/5055b704-f980-43c1-88c0-3705bad5beca"}')
             ),
-            new Response(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY, ['Content-Type' => 'application/json']),
-            new Response(ResponseStatus::HTTP_OK, ['Content-Type' => 'application/json']),
-            new Response(ResponseStatus::HTTP_OK, ['Content-Type' => 'application/json']),
-            new Response(ResponseStatus::HTTP_NO_CONTENT, ['Content-Type' => 'application/json']),
-            new Response(ResponseStatus::HTTP_NOT_FOUND, ['Content-Type' => 'application/json']),
+            self::getResponse(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY),
+            self::getResponse(ResponseStatus::HTTP_OK),
+            self::getResponse(ResponseStatus::HTTP_OK),
+            self::getResponse(ResponseStatus::HTTP_NO_CONTENT),
+            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
         ]);
         self::setUpService($mock);
     }

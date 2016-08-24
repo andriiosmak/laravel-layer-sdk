@@ -16,6 +16,7 @@ use Aosmak\Laravel\Layer\Sdk\Routers\UserRouter;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
 
 abstract class BaseClass extends \PHPUnit_Framework_TestCase
 {
@@ -29,13 +30,20 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     /**
      * Set Up Guzzle Service
      *
+     * @param GuzzleHttp\Handler\MockHandler $mock
+     *
      */
     protected static function setUpService(MockHandler $mock)
     {
         $handler = HandlerStack::create($mock);
         $client  = new Client(['handler' => $handler]);
         $service = new LayerService(new UserService, new ConversationService, new MessageService, new AnnouncementService);
-        $service->setConfig(require('Config/layer.php'));
+        $service->setConfig([
+            'LAYER_SDK_APP_ID'           => 'id',
+            'LAYER_SDK_AUTH'             => 'key',
+            'LAYER_SDK_BASE_URL'         => 'url',
+            'LAYER_SDK_SHOW_HTTP_ERRORS' => false
+        ]);
         $service->setClient($client);
         $service->setRouter(new Router(new AnnouncementRouter, new ConversationRouter, new MessageRouter, new UserRouter));
         $service->setResponseStatus(new ResponseStatus);
@@ -81,5 +89,18 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     public function getAnnouncementService()
     {
         return self::$service->getAnnouncementService();
+    }
+
+    /**
+     * Set Up Guzzle Service
+     *
+     * @param GuzzleHttp\Handler\MockHandler $mock
+     * @param string $content response content
+     *
+     * @return GuzzleHttp\Psr7\Response
+     */
+    public static function getResponse(int $status, $content = false)
+    {
+        return new Response($status, ['Content-Type' => 'application/json'], $content);
     }
 }

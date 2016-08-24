@@ -4,8 +4,6 @@ namespace Aosmak\Laravel\Layer\Sdk\Integrational;
 
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
 use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7;
 
 class AnnouncementServiceTest extends BaseClass
@@ -16,12 +14,11 @@ class AnnouncementServiceTest extends BaseClass
     public static function setUpBeforeClass()
     {
         $mock = new MockHandler([
-            new Response(
+            self::getResponse(
                 ResponseStatus::HTTP_ACCEPTED, 
-                ['Content-Type' => 'application/json'], 
                 Psr7\stream_for('{"id":"layer:///announcements/fbdd0bc4-e75d-46e5-b615-cca97e62601e"}')
             ),
-            new Response(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY, ['Content-Type' => 'application/json']),
+            self::getResponse(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY),
         ]);
         self::setUpService($mock);
     }

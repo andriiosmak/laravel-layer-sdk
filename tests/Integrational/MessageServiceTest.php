@@ -4,8 +4,6 @@ namespace Aosmak\Laravel\Layer\Sdk\Integrational;
 
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
 use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7;
 
 class MessageServiceTest extends BaseClass
@@ -16,33 +14,30 @@ class MessageServiceTest extends BaseClass
     public static function setUpBeforeClass()
     {
         $mock = new MockHandler([
-            new Response(
+            self::getResponse(
                 ResponseStatus::HTTP_CREATED, 
-                ['Content-Type' => 'application/json'], 
                 Psr7\stream_for('{"id":"layer:///messages/712e7754-22c1-402b-8e09-7254d1b95e43"}')
             ),
-            new Response(ResponseStatus::HTTP_NOT_FOUND, ['Content-Type' => 'application/json']),
-            new Response(ResponseStatus::HTTP_OK, ['Content-Type' => 'application/json']),
-            new Response(ResponseStatus::HTTP_NOT_FOUND, ['Content-Type' => 'application/json']),
-            new Response(ResponseStatus::HTTP_OK, ['Content-Type' => 'application/json']),
-            new Response(ResponseStatus::HTTP_NOT_FOUND, ['Content-Type' => 'application/json']),
-            new Response(ResponseStatus::HTTP_NOT_FOUND, ['Content-Type' => 'application/json']),
-            new Response(
+            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
+            self::getResponse(ResponseStatus::HTTP_OK),
+            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
+            self::getResponse(ResponseStatus::HTTP_OK),
+            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
+            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
+            self::getResponse(
                 ResponseStatus::HTTP_OK, 
-                ['Content-Type' => 'application/json'], 
                 Psr7\stream_for('{"id":"layer:///messages/712e7754-22c1-402b-8e09-7254d1b95e43"}')
             ),
-            new Response(ResponseStatus::HTTP_NOT_FOUND, ['Content-Type' => 'application/json']),
-            new Response(ResponseStatus::HTTP_NOT_FOUND, ['Content-Type' => 'application/json']),
-            new Response(
+            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
+            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
+             self::getResponse(
                 ResponseStatus::HTTP_OK, 
-                ['Content-Type' => 'application/json'], 
                 Psr7\stream_for('{"id":"layer:///messages/712e7754-22c1-402b-8e09-7254d1b95e43"}')
             ),
-            new Response(ResponseStatus::HTTP_NOT_FOUND, ['Content-Type' => 'application/json']),
-            new Response(ResponseStatus::HTTP_NOT_FOUND, ['Content-Type' => 'application/json']),
-            new Response(ResponseStatus::HTTP_NO_CONTENT, ['Content-Type' => 'application/json']),
-            new Response(ResponseStatus::HTTP_NOT_FOUND, ['Content-Type' => 'application/json']),
+            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
+            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
+            self::getResponse(ResponseStatus::HTTP_NO_CONTENT),
+            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
         ]);
         self::setUpService($mock);
     }
