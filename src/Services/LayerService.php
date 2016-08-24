@@ -146,7 +146,7 @@ class LayerService implements LayerServiceInterface
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Service
      */
-    private function getService($service, $router)
+    private function getService($service, $router) : Service
     {
         $service->setConfig($this->config);
         $service->setClient($this->client);
