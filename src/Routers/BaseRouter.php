@@ -9,22 +9,22 @@ namespace Aosmak\Laravel\Layer\Sdk\Routers;
 abstract class BaseRouter
 {
     /**
-     * Config
+     * Application ID
      *
-     * @var array contains configuration variables
+     * @var string application ID
      */
-    protected $config;
+    protected $appId;
 
     /**
-     * Set config
+     * Set application ID
      *
-     * @param array $config contains configuration variables
+     * @param string $appId application ID
      *
      * @return void
      */
-    public function setConfig(array $config)
+    public function setAppId(string $appId)
     {
-        $this->config = $config;
+        $this->appId = $appId;
     }
     
     /**
@@ -37,6 +37,8 @@ abstract class BaseRouter
      */
     public function genereteURL(string $url, array $data) : string
     {
+        $data[':app_id'] = $this->appId;
+
         return str_replace(array_keys($data), $data, $url);
     }
 }

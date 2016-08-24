@@ -87,13 +87,25 @@ class LayerService implements LayerServiceInterface
     }
 
     /**
+     * Get router
+     *
+     * @return \Aosmak\Laravel\Layer\Sdk\Routers\Router $router
+     */
+    public function getRouter() : Router
+    {
+        $router = $this->router;
+        $router->setAppId($this->config['LAYER_SDK_APP_ID']);
+        return $router;
+    }
+
+    /**
      * Get user service
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\UserService
      */
     public function getUserService() : UserService
     {
-        return $this->getService($this->userService, $this->router->getUserRouter());
+        return $this->getService($this->userService, $this->getRouter()->getUserRouter());
     }
 
     /**
@@ -103,7 +115,7 @@ class LayerService implements LayerServiceInterface
      */
     public function getConversationService() : ConversationService
     {
-        return $this->getService($this->conversationService, $this->router->getConversationRouter());
+        return $this->getService($this->conversationService, $this->getRouter()->getConversationRouter());
     }
 
     /**
@@ -113,7 +125,7 @@ class LayerService implements LayerServiceInterface
      */
     public function getMessageService() : MessageService
     {
-        return $this->getService($this->messageService, $this->router->getMessageRouter());
+        return $this->getService($this->messageService, $this->getRouter()->getMessageRouter());
     }
 
     /**
@@ -123,7 +135,7 @@ class LayerService implements LayerServiceInterface
      */
     public function getAnnouncementService() : AnnouncementService
     {
-        return $this->getService($this->announcementService, $this->router->getAnnouncementRouter());
+        return $this->getService($this->announcementService, $this->getRouter()->getAnnouncementRouter());
     }
 
     /**
@@ -134,12 +146,12 @@ class LayerService implements LayerServiceInterface
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Service
      */
-    private function getService($service, $router)
+    private function getService($service, $router) : Service
     {
         $service->setConfig($this->config);
         $service->setClient($this->client);
         $service->setResponseStatus($this->responseStatus);
-        $service->router = $router;
+        $service->setRouter($router);
 
         return $service;
     }

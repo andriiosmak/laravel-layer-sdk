@@ -4,6 +4,7 @@ namespace Aosmak\Laravel\Layer\Sdk\Services;
 
 use GuzzleHttp\Psr7\Response;
 use Aosmak\Laravel\Layer\Sdk\Traits\SetterTrait;
+use Aosmak\Laravel\Layer\Sdk\Routers\BaseRouter;
 
 /**
  * Class Service
@@ -19,6 +20,18 @@ abstract class Service
      * @var \Aosmak\Laravel\Layer\Sdk\Routers\BaseRouter
      */
     public $router;
+
+    /**
+     * Set router
+     *
+     * @param \Aosmak\Laravel\Layer\Sdk\Routers\BaseRouter $router
+     *
+     * @return void
+     */
+    public function setRouter(BaseRouter $router)
+    {
+        $this->router = $router;
+    }
 
     /**
      * Get layer response content
@@ -140,9 +153,6 @@ abstract class Service
     public function getResponse(Response $result, string $successStatus, bool $returnContent = false)
     {
         $statusCode = $this->responseStatus->getStatusCode($successStatus);
-        // var_dump($statusCode);
-        // var_dump($result->getStatusCode());
-        // die();
         if ($result->getStatusCode() === $statusCode) {
             if ($returnContent) {
                 return $this->getResponseContent();

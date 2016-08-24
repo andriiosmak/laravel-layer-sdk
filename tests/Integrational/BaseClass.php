@@ -16,6 +16,7 @@ use Aosmak\Laravel\Layer\Sdk\Routers\UserRouter;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
 
 abstract class BaseClass extends \PHPUnit_Framework_TestCase
 {
@@ -29,30 +30,34 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     /**
      * Set Up Guzzle Service
      *
+     * @param GuzzleHttp\Handler\MockHandler $mock
+     *
      */
     protected static function setUpService(MockHandler $mock)
     {
         $handler = HandlerStack::create($mock);
-        $client  = new Client(['handler' => $handler]);
-        $router  = new Router(new AnnouncementRouter, new ConversationRouter, new MessageRouter, new UserRouter); 
-        $router->setConfig(require('Config/layer.php'));
         $service = new LayerService(new UserService, new ConversationService, new MessageService, new AnnouncementService);
-        $service->setConfig(require('Config/layer.php'));
-        $service->setClient($client);
-        $service->setRouter($router);
+        $service->setConfig([
+            'LAYER_SDK_APP_ID'           => 'id',
+            'LAYER_SDK_AUTH'             => 'key',
+            'LAYER_SDK_BASE_URL'         => 'url',
+            'LAYER_SDK_SHOW_HTTP_ERRORS' => false
+        ]);
+        $service->setClient(new Client(['handler' => $handler]));
+        $service->setRouter(new Router(new AnnouncementRouter, new ConversationRouter, new MessageRouter, new UserRouter));
         $service->setResponseStatus(new ResponseStatus);
 
         self::$service = $service;
     }
 
     /**
-     * Get user service
+     * Get announcement service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\User\UserService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Announcements\AnnouncementService
      */
-    public function getUserService()
+    public function getAnnouncementService() : AnnouncementService
     {
-        return self::$service->getUserService();
+        return self::$service->getAnnouncementService();
     }
 
     /**
@@ -60,7 +65,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Conversation\ConversationService
      */
-    public function getConversationService()
+    public function getConversationService() : ConversationService
     {
         return self::$service->getConversationService();
     }
@@ -70,18 +75,31 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Message\MessageService
      */
-    public function getMessageService()
+    public function getMessageService() : MessageService
     {
         return self::$service->getMessageService();
     }
 
     /**
-     * Get announcement service
+     * Get user service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Announcements\AnnouncementService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\User\UserService
      */
-    public function getAnnouncementService()
+    public function getUserService() : UserService
     {
-        return self::$service->getAnnouncementService();
+        return self::$service->getUserService();
+    }
+
+    /**
+     * Set Up Guzzle Service
+     *
+     * @param GuzzleHttp\Handler\MockHandler $mock
+     * @param string $content response content
+     *
+     * @return GuzzleHttp\Psr7\Response
+     */
+    public static function getResponse(int $status, $content = false) : Response
+    {
+        return new Response($status, ['Content-Type' => 'application/json'], $content);
     }
 }

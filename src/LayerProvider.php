@@ -18,13 +18,10 @@ class LayerProvider extends ServiceProvider
         ], 'config');
 
         $this->app->bind('Aosmak\Laravel\Layer\Sdk\Services\LayerServiceInterface', function ($app) {
-            $router = $app->make('Aosmak\Laravel\Layer\Sdk\Routers\Router');
-            $router->setConfig($app['config']['layer']);
-
             $service = $app->make('Aosmak\Laravel\Layer\Sdk\Services\LayerService');
             $service->setConfig($app['config']['layer']);
             $service->setClient($app->make('GuzzleHttp\Client'));
-            $service->setRouter($router);
+            $service->setRouter($app->make('Aosmak\Laravel\Layer\Sdk\Routers\Router'));
             $service->setResponseStatus($app->make('Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus'));
 
             return $service;
