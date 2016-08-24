@@ -36,7 +36,6 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     protected static function setUpService(MockHandler $mock)
     {
         $handler = HandlerStack::create($mock);
-        $client  = new Client(['handler' => $handler]);
         $service = new LayerService(new UserService, new ConversationService, new MessageService, new AnnouncementService);
         $service->setConfig([
             'LAYER_SDK_APP_ID'           => 'id',
@@ -44,7 +43,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
             'LAYER_SDK_BASE_URL'         => 'url',
             'LAYER_SDK_SHOW_HTTP_ERRORS' => false
         ]);
-        $service->setClient($client);
+        $service->setClient(new Client(['handler' => $handler]));
         $service->setRouter(new Router(new AnnouncementRouter, new ConversationRouter, new MessageRouter, new UserRouter));
         $service->setResponseStatus(new ResponseStatus);
 
