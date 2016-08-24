@@ -52,13 +52,13 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get user service
+     * Get announcement service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\User\UserService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Announcements\AnnouncementService
      */
-    public function getUserService()
+    public function getAnnouncementService() : AnnouncementService
     {
-        return self::$service->getUserService();
+        return self::$service->getAnnouncementService();
     }
 
     /**
@@ -66,7 +66,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Conversation\ConversationService
      */
-    public function getConversationService()
+    public function getConversationService() : ConversationService
     {
         return self::$service->getConversationService();
     }
@@ -76,19 +76,19 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Message\MessageService
      */
-    public function getMessageService()
+    public function getMessageService() : MessageService
     {
         return self::$service->getMessageService();
     }
 
     /**
-     * Get announcement service
+     * Get user service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Announcements\AnnouncementService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\User\UserService
      */
-    public function getAnnouncementService()
+    public function getUserService() : UserService
     {
-        return self::$service->getAnnouncementService();
+        return self::$service->getUserService();
     }
 
     /**
@@ -99,7 +99,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      *
      * @return GuzzleHttp\Psr7\Response
      */
-    public static function getResponse(int $status, $content = false)
+    public static function getResponse(int $status, $content = false) : Response
     {
         return new Response($status, ['Content-Type' => 'application/json'], $content);
     }

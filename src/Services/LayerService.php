@@ -91,7 +91,7 @@ class LayerService implements LayerServiceInterface
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Routers\Router $router
      */
-    public function getRouter()
+    public function getRouter() : Router
     {
         $router = $this->router;
         $router->setAppId($this->config['LAYER_SDK_APP_ID']);
