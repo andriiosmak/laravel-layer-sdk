@@ -2,12 +2,8 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services;
 
-use Aosmak\Laravel\Layer\Sdk\Traits\SetterTrait;
-use Aosmak\Laravel\Layer\Sdk\Services\UserService;
-use Aosmak\Laravel\Layer\Sdk\Services\ConversationService;
-use Aosmak\Laravel\Layer\Sdk\Services\MessageService;
-use Aosmak\Laravel\Layer\Sdk\Services\AnnouncementService;
 use Aosmak\Laravel\Layer\Sdk\Routers\Router;
+use Aosmak\Laravel\Layer\Sdk\Traits\SetterTrait;
 
 /**
  * Class LayerService
