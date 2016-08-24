@@ -34,12 +34,10 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     {
         $handler = HandlerStack::create($mock);
         $client  = new Client(['handler' => $handler]);
-        $router  = new Router(new AnnouncementRouter, new ConversationRouter, new MessageRouter, new UserRouter); 
-        $router->setConfig(require('Config/layer.php'));
         $service = new LayerService(new UserService, new ConversationService, new MessageService, new AnnouncementService);
         $service->setConfig(require('Config/layer.php'));
         $service->setClient($client);
-        $service->setRouter($router);
+        $service->setRouter(new Router(new AnnouncementRouter, new ConversationRouter, new MessageRouter, new UserRouter));
         $service->setResponseStatus(new ResponseStatus);
 
         self::$service = $service;

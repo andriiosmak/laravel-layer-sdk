@@ -83,6 +83,7 @@ class LayerService implements LayerServiceInterface
      */
     public function setRouter(Router $router)
     {
+        $router->setAppId($this->config['LAYER_SDK_APP_ID']);
         $this->router = $router;
     }
 
@@ -139,7 +140,7 @@ class LayerService implements LayerServiceInterface
         $service->setConfig($this->config);
         $service->setClient($this->client);
         $service->setResponseStatus($this->responseStatus);
-        $service->router = $router;
+        $service->setRouter($router);
 
         return $service;
     }

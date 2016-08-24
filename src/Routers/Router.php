@@ -37,11 +37,11 @@ class Router
     private $userRouter;
 
     /**
-     * Config
+     * Application ID
      *
-     * @var array contains configuration variables
+     * @var string application ID
      */
-    private $config;
+    protected $appId;
 
     /**
      * Constructor
@@ -66,15 +66,15 @@ class Router
     }
 
     /**
-     * Set config
+     * Set application ID
      *
-     * @param array $config contains configuration variables
+     * @param string $appId application ID
      *
      * @return void
      */
-    public function setConfig(array $config)
+    public function setAppId(string $appId)
     {
-        $this->config = $config;
+        $this->appId = $appId;
     }
 
     /**
@@ -126,7 +126,7 @@ class Router
      */
     private function getRouter($router) : BaseRouter
     {
-        $router->setConfig($this->config);
+        $router->setAppId($this->appId);
         return $router;
     }
 }
