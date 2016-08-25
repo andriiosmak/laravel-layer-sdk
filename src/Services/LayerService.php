@@ -14,13 +14,6 @@ class LayerService implements LayerServiceInterface
     use SetterTrait;
 
     /**
-     * Announcement service
-     *
-     * @var \Aosmak\Laravel\Layer\Sdk\Services\AnnouncementService
-     */
-    private $announcementService;
-
-    /**
      * Conversation service
      *
      * @var \Aosmak\Laravel\Layer\Sdk\Services\ConversationService
@@ -54,20 +47,17 @@ class LayerService implements LayerServiceInterface
      * @param \Aosmak\Laravel\Layer\Sdk\Services\UserService $userService
      * @param \Aosmak\Laravel\Layer\Sdk\Services\ConversationService $conversationService
      * @param \Aosmak\Laravel\Layer\Sdk\Services\MessageService $messageService
-     * @param \Aosmak\Laravel\Layer\Sdk\Services\AnnouncementService $announcementService
      *
      * @return void
      */
     public function __construct(
         UserService $userService,
         ConversationService $conversationService,
-        MessageService $messageService,
-        AnnouncementService $announcementService
+        MessageService $messageService
     ) {
         $this->userService         = $userService;
         $this->conversationService = $conversationService;
         $this->messageService      = $messageService;
-        $this->announcementService = $announcementService;
     }
 
     /**
@@ -92,16 +82,6 @@ class LayerService implements LayerServiceInterface
         $router = $this->router;
         $router->setAppId($this->config['LAYER_SDK_APP_ID']);
         return $router;
-    }
-
-    /**
-     * Get announcement service
-     *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\AnnouncementService
-     */
-    public function getAnnouncementService() : AnnouncementService
-    {
-        return $this->getService($this->announcementService, $this->getRouter()->getAnnouncementRouter());
     }
 
     /**

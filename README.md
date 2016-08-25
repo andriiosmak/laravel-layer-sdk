@@ -271,10 +271,6 @@ $result = $layer->getMessageService()->delete('messageId', 'conversationID');
 echo $result; //boolean
 ```
 
-Additional information you can find [here][link-layer-documentation-message].
-
-###Announcements
-
 Create an announcement
 
 ``` php
@@ -294,7 +290,7 @@ $data = [
     ],
 ];
 
-$result = $layer->getAnnouncementService()->create($data);
+$result = $layer->getMessageService()->createAnnouncement($data);
 
 echo $result //string
 ```

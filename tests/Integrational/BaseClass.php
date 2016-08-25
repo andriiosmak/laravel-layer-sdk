@@ -6,10 +6,8 @@ use Aosmak\Laravel\Layer\Sdk\Services\LayerService;
 use Aosmak\Laravel\Layer\Sdk\Services\UserService;
 use Aosmak\Laravel\Layer\Sdk\Services\ConversationService;
 use Aosmak\Laravel\Layer\Sdk\Services\MessageService;
-use Aosmak\Laravel\Layer\Sdk\Services\AnnouncementService;
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
 use Aosmak\Laravel\Layer\Sdk\Routers\Router;
-use Aosmak\Laravel\Layer\Sdk\Routers\AnnouncementRouter;
 use Aosmak\Laravel\Layer\Sdk\Routers\ConversationRouter;
 use Aosmak\Laravel\Layer\Sdk\Routers\MessageRouter;
 use Aosmak\Laravel\Layer\Sdk\Routers\UserRouter;
@@ -36,7 +34,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     protected static function setUpService(MockHandler $mock)
     {
         $handler = HandlerStack::create($mock);
-        $service = new LayerService(new UserService, new ConversationService, new MessageService, new AnnouncementService);
+        $service = new LayerService(new UserService, new ConversationService, new MessageService);
         $service->setConfig([
             'LAYER_SDK_APP_ID'           => 'id',
             'LAYER_SDK_AUTH'             => 'key',
@@ -44,20 +42,10 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
             'LAYER_SDK_SHOW_HTTP_ERRORS' => false
         ]);
         $service->setClient(new Client(['handler' => $handler]));
-        $service->setRouter(new Router(new AnnouncementRouter, new ConversationRouter, new MessageRouter, new UserRouter));
+        $service->setRouter(new Router(new ConversationRouter, new MessageRouter, new UserRouter));
         $service->setResponseStatus(new ResponseStatus);
 
         self::$service = $service;
-    }
-
-    /**
-     * Get announcement service
-     *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Announcements\AnnouncementService
-     */
-    public function getAnnouncementService() : AnnouncementService
-    {
-        return self::$service->getAnnouncementService();
     }
 
     /**

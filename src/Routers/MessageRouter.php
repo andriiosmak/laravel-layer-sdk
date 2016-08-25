@@ -77,4 +77,14 @@ class MessageRouter extends BaseRouter
 
         return $this->genereteURL(':app_id/users/:user_id/conversations/:conversation_id/messages', $data);
     }
+
+    /**
+     * Get announcement request URL
+     *
+     * @return string
+     */
+    public function getAnnouncementURL() : string
+    {
+        return $this->genereteURL(':app_id/announcements', []);
+    }
 }
