@@ -196,7 +196,7 @@ abstract class Service
     private function makeRequest(string $method, string $url, array $data, array $requestHeaders) : Response
     {
         $defaultHeaders = [
-            'headers'        => [
+            'headers' => [
                 'Authorization' => 'Bearer ' . $this->config['LAYER_SDK_AUTH'],
                 'Accept'        => 'application/vnd.layer+json; version=1.0',
                 'Content-Type'  => 'application/json',
