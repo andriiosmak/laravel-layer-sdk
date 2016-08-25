@@ -179,6 +179,7 @@ $result = $this->getConversationService()->update([
         'value'     =>  ["userId1", "userId2", "userId3"],
     ],
 ], 'conversationID');
+
 echo $result; //boolean
 ```
 
