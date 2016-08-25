@@ -98,4 +98,18 @@ class MessageService extends Service
 
         return $this->getResponse($response, 'HTTP_NO_CONTENT');
     }
+
+    /**
+     * Create an announcement
+     *
+     * @param array $data announcement data
+     *
+     * @return mixed
+     */
+    public function createAnnouncement(array $data)
+    {
+        $response = $this->makePostRequest($this->router->getAnnouncementURL(), $data);
+
+        return $this->getCreateItemId($response, 'HTTP_ACCEPTED', 'announcements');
+    }
 }

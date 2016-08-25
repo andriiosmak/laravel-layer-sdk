@@ -9,13 +9,6 @@ namespace Aosmak\Laravel\Layer\Sdk\Routers;
 class Router
 {
     /**
-     * Announcement Router
-     *
-     * @var \Aosmak\Laravel\Layer\Sdk\Routers\AnnouncementRouter
-     */
-    private $announcementRouter;
-
-    /**
      * Conversation Router
      *
      * @var \Aosmak\Laravel\Layer\Sdk\Routers\ConversationRouter
@@ -46,7 +39,6 @@ class Router
     /**
      * Constructor
      *
-     * @param \Aosmak\Laravel\Layer\Sdk\Routers\AnnouncementRouter $announcementRouter
      * @param \Aosmak\Laravel\Layer\Sdk\Routers\ConversationRouter $conversationRouter
      * @param \Aosmak\Laravel\Layer\Sdk\Routers\MessageRouter $messageRouter
      * @param \Aosmak\Laravel\Layer\Sdk\Routers\UserRouter $userRouter
@@ -54,12 +46,10 @@ class Router
      * @return void
      */
     public function __construct(
-        AnnouncementRouter $announcementRouter,
         ConversationRouter $conversationRouter,
         MessageRouter $messageRouter,
         UserRouter $userRouter
     ) {
-        $this->announcementRouter = $announcementRouter;
         $this->conversationRouter = $conversationRouter;
         $this->messageRouter      = $messageRouter;
         $this->userRouter         = $userRouter;
@@ -75,16 +65,6 @@ class Router
     public function setAppId(string $appId)
     {
         $this->appId = $appId;
-    }
-
-    /**
-     * Get Announcement Router
-     *
-     * @return \Aosmak\Laravel\Layer\Sdk\Routers\AnnouncementRouter $announcementRouter
-     */
-    public function getAnnouncementRouter() : AnnouncementRouter
-    {
-        return $this->getRouter($this->announcementRouter);
     }
 
     /**
