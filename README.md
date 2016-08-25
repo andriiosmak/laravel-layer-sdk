@@ -102,7 +102,7 @@ $data = [
 
 $result = $layer->getUserService()->create($data, 'testUserOne');
 
-echo $result; //true
+echo $result; //boolean
 ```
 
 Replace a user
@@ -117,7 +117,7 @@ $data = [
 
 $result = $layer->getUserService()->replace($data, 'testUserOne');
 
-echo $result; //true
+echo $result; //boolean
 ```
 
 Update a user
@@ -133,7 +133,7 @@ $data = [
 
 $result = $layer->getUserService()->update($data, 'testUserOne');
 
-echo $result; //true
+echo $result; //boolean
 ```
 
 Get user details
@@ -149,7 +149,7 @@ Delete a user
 ``` php
 $result = $layer->getUserService()->delete('userId');
 
-echo $result; //true
+echo $result; //boolean
 ```
 
 Additional information you can find [here][link-layer-documentation-user].
@@ -159,12 +159,14 @@ Additional information you can find [here][link-layer-documentation-user].
 Create a conversation
 
 ``` php
-$id = $layer->getConversationService()->create([
+$result = $layer->getConversationService()->create([
     'participants' => [
         "userId1",
         "userId2",
     ],
 ]);
+
+echo $result; //string
 ```
 
 Update a conversation
@@ -177,7 +179,7 @@ $result = $this->getConversationService()->update([
         'value'     =>  ["userId1", "userId2", "userId3"],
     ],
 ], 'conversationID');
-echo $result; //true
+echo $result; //boolean
 ```
 
 Get conversation details
@@ -201,7 +203,7 @@ Delete a conversation
 ``` php
 $result = $layer->getConversationService()->delete('conversationID');
 
-echo $result; //true
+echo $result; //boolean
 ```
 
 Additional information you can find [here][link-layer-documentation-conversation].
@@ -225,7 +227,7 @@ $data = [
 
 $result = $layer->getMessageService()->create($data, 'conversationID');
 
-echo $result; //true
+echo $result; //boolean
 ```
 
 Get messages (system)
@@ -265,7 +267,7 @@ Delete a message
 ``` php
 $result = $layer->getMessageService()->delete('messageId', 'conversationID');
 
-echo $result; //true
+echo $result; //boolean
 ```
 
 Additional information you can find [here][link-layer-documentation-message].
@@ -292,6 +294,7 @@ $data = [
 ];
 
 $result = $layer->getAnnouncementService()->create($data);
+
 echo $result //string
 ```
 
