@@ -85,6 +85,13 @@ use Aosmak\Laravel\Layer\Sdk\Services\LayerServiceInterface;
 
 class Controller
 {
+    /**
+     * Test method
+     *
+     * @param \Aosmak\Laravel\Layer\Sdk\Services\LayerService $layer
+     *
+     * @return void
+     */
     public function test(LayerServiceInterface $layer)
     {
     	$userService = $layer->getUserService();
