@@ -8,6 +8,7 @@
 
 Powerful package that helps Laravel 5 projects to access Layer Services ([layer.com][link-layer]).
 
+- [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
     - [Users](#users)
@@ -17,6 +18,11 @@ Powerful package that helps Laravel 5 projects to access Layer Services ([layer.
 - [Security](#security)
 - [Credits](#credits)
 - [License](#license)
+
+## Requirements
+
+- [PHP 7.0.5 +]
+- [Laravel 5.2 +]
 
 ## Installation
 
