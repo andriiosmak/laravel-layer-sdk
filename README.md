@@ -8,6 +8,7 @@
 
 Powerful package that helps Laravel 5 projects to access Layer Services ([layer.com][link-layer]).
 
+- [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
     - [Users](#users)
@@ -17,6 +18,11 @@ Powerful package that helps Laravel 5 projects to access Layer Services ([layer.
 - [Security](#security)
 - [Credits](#credits)
 - [License](#license)
+
+## Requirements
+
+- PHP 7.0.5 +
+- Laravel 5.2 +
 
 ## Installation
 
@@ -79,6 +85,13 @@ use Aosmak\Laravel\Layer\Sdk\Services\LayerServiceInterface;
 
 class Controller
 {
+    /**
+     * Test method
+     *
+     * @param \Aosmak\Laravel\Layer\Sdk\Services\LayerService $layer
+     *
+     * @return void
+     */
     public function test(LayerServiceInterface $layer)
     {
     	$userService = $layer->getUserService();
@@ -319,7 +332,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [ico-version]: https://img.shields.io/packagist/v/aosmak/laravel-layer-sdk.svg
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg
-[ico-travis]: https://img.shields.io/travis/andriiosmak/laravel-layer-sdk/release/v0.8.2.svg
+[ico-travis]: https://img.shields.io/travis/andriiosmak/laravel-layer-sdk/release/v0.8.3.svg
 [ico-downloads]: https://img.shields.io/packagist/dt/aosmak/laravel-layer-sdk.svg
 [ico-stable]: https://poser.pugx.org/aosmak/laravel-layer-sdk/v/stable.svg
 [ico-unstable]: https://poser.pugx.org/aosmak/laravel-layer-sdk/v/unstable.svg
