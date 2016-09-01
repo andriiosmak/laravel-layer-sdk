@@ -112,7 +112,7 @@ $data = [
     "phone_number" => 'testPhoneNumber',
 ];
 
-$result = $layer->getUserService()->create($data, 'testUserOne');
+$result = $layer->getUserService()->create($data, 'userId');
 
 echo $result; //boolean
 ```
@@ -127,7 +127,7 @@ $data = [
     "phone_number" => 'testPhoneNumberReplacement',
 ];
 
-$result = $layer->getUserService()->replace($data, 'testUserOne');
+$result = $layer->getUserService()->replace($data, 'userId');
 
 echo $result; //boolean
 ```
@@ -143,7 +143,7 @@ $data = [
     ],
 ];
 
-$result = $layer->getUserService()->update($data, 'testUserOne');
+$result = $layer->getUserService()->update($data, 'userId');
 
 echo $result; //boolean
 ```
