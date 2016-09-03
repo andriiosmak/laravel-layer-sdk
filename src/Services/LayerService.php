@@ -3,7 +3,9 @@
 namespace Aosmak\Laravel\Layer\Sdk\Services;
 
 use Aosmak\Laravel\Layer\Sdk\Routers\Router;
-use Aosmak\Laravel\Layer\Sdk\Traits\SetterTrait;
+use Aosmak\Laravel\Layer\Sdk\Traits\ClientTrait;
+use Aosmak\Laravel\Layer\Sdk\Traits\ConfigTrait;
+use Aosmak\Laravel\Layer\Sdk\Traits\ResponseStatusTrait;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
@@ -15,7 +17,7 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\BaseService;
  */
 class LayerService implements LayerServiceInterface
 {
-    use SetterTrait;
+    use ClientTrait, ConfigTrait, ResponseStatusTrait;
 
     /**
      * Conversation service
