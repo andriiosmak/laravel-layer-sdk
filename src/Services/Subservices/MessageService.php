@@ -1,12 +1,12 @@
 <?php
 
-namespace Aosmak\Laravel\Layer\Sdk\Services;
+namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
 use GuzzleHttp\Psr7\Response;
 
 /**
  * Class MessageService
- * @package namespace Aosmak\Laravel\Layer\Sdk\Services;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
  */
 class MessageService extends Service
 {
