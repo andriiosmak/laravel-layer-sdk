@@ -18,12 +18,10 @@ class MessageRouter extends BaseRouter
      */
     public function getMessageUserURL(string $messageId, string $userId) : string
     {
-        $data = [
+        return $this->genereteURL('users/:user_id/messages/:message_id', [
             ':user_id'    => $userId,
             ':message_id' => $messageId
-        ];
-
-        return $this->genereteURL(':app_id/users/:user_id/messages/:message_id', $data);
+        ]);
     }
 
     /**
@@ -36,12 +34,10 @@ class MessageRouter extends BaseRouter
      */
     public function getMessageSytemURL(string $messageId, string $conversationId) : string
     {
-        $data = [
+        return $this->genereteURL('conversations/:conversation_id/messages/:message_id', [
             ':conversation_id' => $conversationId,
             ':message_id'      => $messageId
-        ];
-
-        return $this->genereteURL(':app_id/conversations/:conversation_id/messages/:message_id', $data);
+        ]);
     }
 
     /**
@@ -53,11 +49,7 @@ class MessageRouter extends BaseRouter
      */
     public function getConversationURL(string $conversationId) : string
     {
-        $data = [
-            ':conversation_id' => $conversationId
-        ];
-
-        return $this->genereteURL(':app_id/conversations/:conversation_id/messages', $data);
+        return $this->genereteURL('conversations/:conversation_id/messages', [':conversation_id' => $conversationId]);
     }
 
     /**
@@ -70,12 +62,10 @@ class MessageRouter extends BaseRouter
      */
     public function getConversationUserURL(string $conversationId, string $userId) : string
     {
-        $data = [
+        return $this->genereteURL('users/:user_id/conversations/:conversation_id/messages', [
             ':user_id'         => $userId,
-            ':conversation_id' => $conversationId
-        ];
-
-        return $this->genereteURL(':app_id/users/:user_id/conversations/:conversation_id/messages', $data);
+            ':conversation_id' => $conversationId,
+        ]);
     }
 
     /**
@@ -85,6 +75,6 @@ class MessageRouter extends BaseRouter
      */
     public function getAnnouncementURL() : string
     {
-        return $this->genereteURL(':app_id/announcements', []);
+        return $this->genereteURL('announcements', []);
     }
 }
