@@ -2,12 +2,10 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Routers;
 
-use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\{
-    BaseRouter, 
-    ConversationRouter, 
-    MessageRouter, 
-    UserRouter
-};
+use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter;
+use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\ConversationRouter;
+use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\MessageRouter;
+use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\UserRouter;
 
 /**
  * Class Router
