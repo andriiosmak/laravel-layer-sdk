@@ -7,10 +7,10 @@ use Aosmak\Laravel\Layer\Sdk\Traits\SetterTrait;
 use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter;
 
 /**
- * Class Service
+ * Class BaseService
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
  */
-abstract class Service
+abstract class BaseService
 {
     use SetterTrait;
 

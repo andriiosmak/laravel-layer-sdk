@@ -7,7 +7,7 @@ use Aosmak\Laravel\Layer\Sdk\Traits\SetterTrait;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
-use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Service;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\BaseService;
 
 /**
  * Class LayerService
@@ -121,12 +121,12 @@ class LayerService implements LayerServiceInterface
     /**
      * Get service
      *
-     * @param Aosmak\Laravel\Layer\Sdk\Services\Subservices\Service $service
+     * @param Aosmak\Laravel\Layer\Sdk\Services\Subservices\BaseService $service
      * @param Aosmak\Laravel\Layer\Sdk\Services\Subrouters\BaseRouter $router
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Service
+     * @return Aosmak\Laravel\Layer\Sdk\Services\BaseService
      */
-    private function getService($service, $router) : Service
+    private function getService($service, $router) : BaseService
     {
         $service->setConfig($this->config);
         $service->setClient($this->client);
