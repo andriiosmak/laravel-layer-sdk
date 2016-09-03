@@ -6,7 +6,7 @@ namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
  * Class ConversationService
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
  */
-class ConversationService extends Service
+class ConversationService extends BaseService
 {
     /**
      * Create a conversation

@@ -8,7 +8,7 @@ use GuzzleHttp\Psr7\Response;
  * Class MessageService
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
  */
-class MessageService extends Service
+class MessageService extends BaseService
 {
     /**
      * Send a message

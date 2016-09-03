@@ -6,7 +6,7 @@ namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
  * Class UserService
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
  */
-class UserService extends Service
+class UserService extends BaseService
 {
     /**
      * Create a user
