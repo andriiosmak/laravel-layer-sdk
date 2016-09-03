@@ -3,7 +3,10 @@
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
 use GuzzleHttp\Psr7\Response;
-use Aosmak\Laravel\Layer\Sdk\Traits\SetterTrait;
+use Aosmak\Laravel\Layer\Sdk\Traits\ClientTrait;
+use Aosmak\Laravel\Layer\Sdk\Traits\ConfigTrait;
+use Aosmak\Laravel\Layer\Sdk\Traits\ResponseContentTrait;
+use Aosmak\Laravel\Layer\Sdk\Traits\ResponseStatusTrait;
 use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter;
 
 /**
@@ -12,7 +15,7 @@ use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter;
  */
 abstract class BaseService
 {
-    use SetterTrait;
+    use ClientTrait, ConfigTrait, ResponseContentTrait, ResponseStatusTrait;
 
     /**
      * Router
