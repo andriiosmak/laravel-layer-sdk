@@ -17,11 +17,7 @@ class ConversationRouter extends BaseRouter
      */
     public function getConversationURL(string $conversationId) : string
     {
-        $data = [
-            ':conversation_uuid' => $conversationId
-        ];
-
-        return $this->genereteURL(':app_id/conversations/:conversation_uuid', $data);
+        return $this->genereteURL('conversations/:conversation_uuid', [':conversation_uuid' => $conversationId]);
     }
 
     /**
@@ -33,11 +29,7 @@ class ConversationRouter extends BaseRouter
      */
     public function getConversationsURL(string $userId) : string
     {
-        $data = [
-            ':user_id' => $userId
-        ];
-
-        return $this->genereteURL(':app_id/users/:user_id/conversations', $data);
+        return $this->genereteURL('users/:user_id/conversations', [':user_id' => $userId]);
     }
 
     /**
@@ -47,6 +39,6 @@ class ConversationRouter extends BaseRouter
      */
     public function getURL() : string
     {
-        return $this->genereteURL(':app_id/conversations', []);
+        return $this->genereteURL('conversations', []);
     }
 }
