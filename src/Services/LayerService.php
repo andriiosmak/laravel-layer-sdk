@@ -4,6 +4,10 @@ namespace Aosmak\Laravel\Layer\Sdk\Services;
 
 use Aosmak\Laravel\Layer\Sdk\Routers\Router;
 use Aosmak\Laravel\Layer\Sdk\Traits\SetterTrait;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Service;
 
 /**
  * Class LayerService
@@ -16,21 +20,21 @@ class LayerService implements LayerServiceInterface
     /**
      * Conversation service
      *
-     * @var \Aosmak\Laravel\Layer\Sdk\Services\ConversationService
+     * @var \Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService
      */
     private $conversationService;
 
     /**
      * Message service
      *
-     * @var \Aosmak\Laravel\Layer\Sdk\Services\MessageService
+     * @var \Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService
      */
     private $messageService;
 
     /**
      * User service
      *
-     * @var \Aosmak\Laravel\Layer\Sdk\Services\UserService
+     * @var \Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService
      */
     private $userService;
 
@@ -44,9 +48,9 @@ class LayerService implements LayerServiceInterface
     /**
      * Constructor
      *
-     * @param \Aosmak\Laravel\Layer\Sdk\Services\UserService $userService
-     * @param \Aosmak\Laravel\Layer\Sdk\Services\ConversationService $conversationService
-     * @param \Aosmak\Laravel\Layer\Sdk\Services\MessageService $messageService
+     * @param \Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService $userService
+     * @param \Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService $conversationService
+     * @param \Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService $messageService
      *
      * @return void
      */
@@ -87,7 +91,7 @@ class LayerService implements LayerServiceInterface
     /**
      * Get conversation service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\ConversationService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService
      */
     public function getConversationService() : ConversationService
     {
@@ -97,7 +101,7 @@ class LayerService implements LayerServiceInterface
     /**
      * Get message service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\MessageService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService
      */
     public function getMessageService() : MessageService
     {
@@ -107,7 +111,7 @@ class LayerService implements LayerServiceInterface
     /**
      * Get user service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\UserService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService
      */
     public function getUserService() : UserService
     {
@@ -117,7 +121,7 @@ class LayerService implements LayerServiceInterface
     /**
      * Get service
      *
-     * @param Aosmak\Laravel\Layer\Sdk\Services\Service $service
+     * @param Aosmak\Laravel\Layer\Sdk\Services\Subservices\Service $service
      * @param Aosmak\Laravel\Layer\Sdk\Services\Subrouters\BaseRouter $router
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Service

@@ -3,9 +3,9 @@
 namespace Aosmak\Laravel\Layer\Sdk\Integrational;
 
 use Aosmak\Laravel\Layer\Sdk\Services\LayerService;
-use Aosmak\Laravel\Layer\Sdk\Services\UserService;
-use Aosmak\Laravel\Layer\Sdk\Services\ConversationService;
-use Aosmak\Laravel\Layer\Sdk\Services\MessageService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService;
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
 use Aosmak\Laravel\Layer\Sdk\Routers\Router;
 use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\ConversationRouter;
