@@ -2,6 +2,11 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Routers;
 
+use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\ConversationRouter;
+use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\MessageRouter;
+use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\UserRouter;
+use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter;
+
 /**
  * Class Router
  * @package namespace Aosmak\Laravel\Layer\Sdk\Routers;
@@ -11,21 +16,21 @@ class Router
     /**
      * Conversation Router
      *
-     * @var \Aosmak\Laravel\Layer\Sdk\Routers\ConversationRouter
+     * @var \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\ConversationRouter
      */
     private $conversationRouter;
 
     /**
      * Message Router
      *
-     * @var \Aosmak\Laravel\Layer\Sdk\Routers\MessageRouter
+     * @var \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\MessageRouter
      */
     private $messageRouter;
 
     /**
      * User Router
      *
-     * @var \Aosmak\Laravel\Layer\Sdk\Routers\UserRouter
+     * @var \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\UserRouter
      */
     private $userRouter;
 
@@ -39,9 +44,9 @@ class Router
     /**
      * Constructor
      *
-     * @param \Aosmak\Laravel\Layer\Sdk\Routers\ConversationRouter $conversationRouter
-     * @param \Aosmak\Laravel\Layer\Sdk\Routers\MessageRouter $messageRouter
-     * @param \Aosmak\Laravel\Layer\Sdk\Routers\UserRouter $userRouter
+     * @param \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\ConversationRouter $conversationRouter
+     * @param \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\MessageRouter $messageRouter
+     * @param \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\UserRouter $userRouter
      *
      * @return void
      */
@@ -70,7 +75,7 @@ class Router
     /**
      * Get Conversation Router
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Routers\ConversationRouter $conversationRouter
+     * @return \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\ConversationRouter $conversationRouter
      */
     public function getConversationRouter() : ConversationRouter
     {
@@ -80,7 +85,7 @@ class Router
     /**
      * Get Message Router
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Routers\MessageRouter $messageRouter
+     * @return \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\MessageRouter $messageRouter
      */
     public function getMessageRouter() : MessageRouter
     {
@@ -90,7 +95,7 @@ class Router
     /**
      * Get User Router
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Routers\UserRouter $userRouter
+     * @return \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\UserRouter $userRouter
      */
     public function getUserRouter() : UserRouter
     {
@@ -100,9 +105,9 @@ class Router
     /**
      * Get router
      *
-     * @param Aosmak\Laravel\Layer\Sdk\Routers\BaseRouter $router
+     * @param Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter $router
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Routers\BaseRouter $router
+     * @return Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter $router
      */
     private function getRouter($router) : BaseRouter
     {

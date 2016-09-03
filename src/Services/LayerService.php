@@ -118,7 +118,7 @@ class LayerService implements LayerServiceInterface
      * Get service
      *
      * @param Aosmak\Laravel\Layer\Sdk\Services\Service $service
-     * @param Aosmak\Laravel\Layer\Sdk\Services\BaseRouter $router
+     * @param Aosmak\Laravel\Layer\Sdk\Services\Subrouters\BaseRouter $router
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Service
      */
