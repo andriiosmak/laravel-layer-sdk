@@ -17,6 +17,7 @@ class ConversationService extends BaseService
      */
     public function create(array $data)
     {
+        //set default value
         if (!isset($data['distinct'])) {
             $data['distinct'] = true;
         }
