@@ -35,7 +35,7 @@ abstract class BaseRouter
      *
      * @return string
      */
-    public function genereteURL(string $url, array $data) : string
+    public function genereteURL(string $url, array $data): string
     {
         $data[':app_id'] = $this->appId;
 

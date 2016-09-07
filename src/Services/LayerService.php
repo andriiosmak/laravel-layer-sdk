@@ -13,7 +13,7 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\BaseService;
 
 /**
  * Class LayerService
- * @package namespace Aosmak\Laravel\Layer\Sdk
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Services
  */
 class LayerService implements LayerServiceInterface
 {
@@ -83,7 +83,7 @@ class LayerService implements LayerServiceInterface
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Routers\Router $router
      */
-    public function getRouter() : Router
+    public function getRouter(): Router
     {
         $router = $this->router;
         $router->setAppId($this->config['LAYER_SDK_APP_ID']);
@@ -95,7 +95,7 @@ class LayerService implements LayerServiceInterface
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService
      */
-    public function getConversationService() : ConversationService
+    public function getConversationService(): ConversationService
     {
         return $this->getService($this->conversationService, $this->getRouter()->getConversationRouter());
     }
@@ -105,7 +105,7 @@ class LayerService implements LayerServiceInterface
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService
      */
-    public function getMessageService() : MessageService
+    public function getMessageService(): MessageService
     {
         return $this->getService($this->messageService, $this->getRouter()->getMessageRouter());
     }
@@ -115,7 +115,7 @@ class LayerService implements LayerServiceInterface
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService
      */
-    public function getUserService() : UserService
+    public function getUserService(): UserService
     {
         return $this->getService($this->userService, $this->getRouter()->getUserRouter());
     }
@@ -128,7 +128,7 @@ class LayerService implements LayerServiceInterface
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\BaseService
      */
-    private function getService($service, $router) : BaseService
+    private function getService($service, $router): BaseService
     {
         $service->setConfig($this->config);
         $service->setClient($this->client);

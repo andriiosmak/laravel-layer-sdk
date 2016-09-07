@@ -41,7 +41,7 @@ class ConversationService extends BaseService
      *
      * @return bool
      */
-    public function update(array $data, string $conversationId) : bool
+    public function update(array $data, string $conversationId): bool
     {
         $response = $this->makePatchRequest($this->router->getConversationURL($conversationId), $data);
 
@@ -83,7 +83,7 @@ class ConversationService extends BaseService
      *
      * @return bool
      */
-    public function delete(string $conversationId) : bool
+    public function delete(string $conversationId): bool
     {
         $response = $this->makeDeleteRequest($this->router->getConversationURL($conversationId));
 

@@ -90,7 +90,7 @@ class MessageService extends BaseService
      *
      * @return bool
      */
-    public function delete(string $messageId, string $conversationId) : bool
+    public function delete(string $messageId, string $conversationId): bool
     {
         $response = $this->makeDeleteRequest($this->router->getMessageSytemURL($messageId, $conversationId));
 

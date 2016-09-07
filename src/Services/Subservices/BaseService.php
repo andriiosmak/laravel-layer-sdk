@@ -43,7 +43,7 @@ abstract class BaseService
      *
      * @var array
      */
-    public function obtainResponseContent(Response $response) : array
+    public function obtainResponseContent(Response $response): array
     {
         $content = $response->getBody()->getContents();
         if (strlen($content) > 1) {
@@ -62,7 +62,7 @@ abstract class BaseService
      *
      * @return \Guzzle\Psr7\Response
      */
-    public function makePostRequest(string $url, array $data = [], array $requestHeaders = []) : Response
+    public function makePostRequest(string $url, array $data = [], array $requestHeaders = []): Response
     {
         return $this->makeRequest('POST', $url, $data, $requestHeaders);
     }
@@ -76,7 +76,7 @@ abstract class BaseService
      *
      * @return \Guzzle\Psr7\Response
      */
-    public function makePutRequest(string $url, array $data = [], array $requestHeaders = []) : Response
+    public function makePutRequest(string $url, array $data = [], array $requestHeaders = []): Response
     {
         return $this->makeRequest('PUT', $url, $data, $requestHeaders);
     }
@@ -90,7 +90,7 @@ abstract class BaseService
      *
      * @return \Guzzle\Psr7\Response
      */
-    public function makePatchRequest(string $url, array $data = [], array $requestHeaders = []) : Response
+    public function makePatchRequest(string $url, array $data = [], array $requestHeaders = []): Response
     {
         $defaultHeaders = [
             'headers' => [
@@ -112,7 +112,7 @@ abstract class BaseService
      *
      * @return \Guzzle\Psr7\Response
      */
-    public function makeGetRequest(string $url, array $data = [], array $requestHeaders = []) : Response
+    public function makeGetRequest(string $url, array $data = [], array $requestHeaders = []): Response
     {
         return $this->makeRequest('GET', $url, $data, $requestHeaders);
     }
@@ -126,7 +126,7 @@ abstract class BaseService
      *
      * @return \Guzzle\Psr7\Response
      */
-    public function makeDeleteRequest(string $url, array $data = [], array $requestHeaders = []) : Response
+    public function makeDeleteRequest(string $url, array $data = [], array $requestHeaders = []): Response
     {
         return $this->makeRequest('DELETE', $url, $data, $requestHeaders);
     }
@@ -139,7 +139,7 @@ abstract class BaseService
      *
      * @return string
      */
-    public function genereteURL(string $url, array $data) : string
+    public function genereteURL(string $url, array $data): string
     {
         return str_replace(array_keys($data), $data, $url);
     }
@@ -196,7 +196,7 @@ abstract class BaseService
      *
      * @return \Guzzle\Psr7\Response
      */
-    private function makeRequest(string $method, string $url, array $data, array $requestHeaders) : Response
+    private function makeRequest(string $method, string $url, array $data, array $requestHeaders): Response
     {
         $defaultHeaders = [
             'headers' => [

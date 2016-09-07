@@ -4,7 +4,7 @@ namespace Aosmak\Laravel\Layer\Sdk\Services;
 
 /**
  * Interface LayerServiceInterface.
- * @package namespace Aosmak\Laravel\Layer\Sdk;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Services;
  */
 interface LayerServiceInterface
 {

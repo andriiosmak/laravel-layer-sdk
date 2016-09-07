@@ -34,7 +34,7 @@ trait ResponseContentTrait
      *
      * @return array
      */
-    public function getResponseContent() : array
+    public function getResponseContent(): array
     {
         return $this->responseContent;
     }
