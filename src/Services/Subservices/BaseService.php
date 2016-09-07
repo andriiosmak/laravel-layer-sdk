@@ -47,7 +47,7 @@ abstract class BaseService
     {
         $content = $response->getBody()->getContents();
         if (strlen($content) > 1) {
-            return is_array(json_decode($content, 1))? json_decode($content, 1): [];
+            return is_array(json_decode($content, 1))? json_decode($content, 1) : [];
         }
 
         return [];
