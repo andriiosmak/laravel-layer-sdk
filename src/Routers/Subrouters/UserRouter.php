@@ -15,7 +15,7 @@ class UserRouter extends BaseRouter
      *
      * @return string
      */
-    public function getURL(string $userId) : string
+    public function getURL(string $userId): string
     {
         return $this->genereteURL('users/:user_id/identity', [':user_id' => $userId]);
     }

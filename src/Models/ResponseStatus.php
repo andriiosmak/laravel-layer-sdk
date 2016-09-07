@@ -77,7 +77,7 @@ class ResponseStatus
      *
      * @return int
      */
-    public function getStatusCode(string $status) : int
+    public function getStatusCode(string $status): int
     {
         return constant('self::'. $status);
     }

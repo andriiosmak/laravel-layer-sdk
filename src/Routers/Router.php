@@ -77,7 +77,7 @@ class Router
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\ConversationRouter $conversationRouter
      */
-    public function getConversationRouter() : ConversationRouter
+    public function getConversationRouter(): ConversationRouter
     {
         return $this->getRouter($this->conversationRouter);
     }
@@ -87,7 +87,7 @@ class Router
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\MessageRouter $messageRouter
      */
-    public function getMessageRouter() : MessageRouter
+    public function getMessageRouter(): MessageRouter
     {
         return $this->getRouter($this->messageRouter);
     }
@@ -97,7 +97,7 @@ class Router
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\UserRouter $userRouter
      */
-    public function getUserRouter() : UserRouter
+    public function getUserRouter(): UserRouter
     {
         return $this->getRouter($this->userRouter);
     }
@@ -109,7 +109,7 @@ class Router
      *
      * @return Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter $router
      */
-    private function getRouter($router) : BaseRouter
+    private function getRouter($router): BaseRouter
     {
         $router->setAppId($this->appId);
         return $router;

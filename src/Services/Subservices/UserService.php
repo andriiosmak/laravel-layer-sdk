@@ -16,7 +16,7 @@ class UserService extends BaseService
      *
      * @return bool
      */
-    public function create(array $data, string $userId) : bool
+    public function create(array $data, string $userId): bool
     {
         $response = $this->makePostRequest($this->router->getURL($userId), $data);
 
@@ -31,7 +31,7 @@ class UserService extends BaseService
      *
      * @return bool
      */
-    public function update(array $data, string $userId) : bool
+    public function update(array $data, string $userId): bool
     {
         $response = $this->makePatchRequest($this->router->getURL($userId), $data);
 
@@ -46,7 +46,7 @@ class UserService extends BaseService
      *
      * @return bool
      */
-    public function replace(array $data, string $userId) : bool
+    public function replace(array $data, string $userId): bool
     {
         $response = $this->makePutRequest($this->router->getURL($userId), $data);
 
@@ -74,7 +74,7 @@ class UserService extends BaseService
      *
      * @return bool
      */
-    public function delete(string $userId) : bool
+    public function delete(string $userId): bool
     {
         $response = $this->makeDeleteRequest($this->router->getURL($userId));
 

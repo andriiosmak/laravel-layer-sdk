@@ -53,7 +53,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Conversation\ConversationService
      */
-    public function getConversationService() : ConversationService
+    public function getConversationService(): ConversationService
     {
         return self::$service->getConversationService();
     }
@@ -63,7 +63,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Message\MessageService
      */
-    public function getMessageService() : MessageService
+    public function getMessageService(): MessageService
     {
         return self::$service->getMessageService();
     }
@@ -73,7 +73,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\User\UserService
      */
-    public function getUserService() : UserService
+    public function getUserService(): UserService
     {
         return self::$service->getUserService();
     }
@@ -86,7 +86,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      *
      * @return GuzzleHttp\Psr7\Response
      */
-    public static function getResponse(int $status, $content = false) : Response
+    public static function getResponse(int $status, $content = false): Response
     {
         return new Response($status, ['Content-Type' => 'application/json'], $content);
     }
