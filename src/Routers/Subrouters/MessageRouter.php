@@ -77,4 +77,14 @@ class MessageRouter extends BaseRouter
     {
         return $this->genereteURL('announcements', []);
     }
+
+    /**
+     * Get notification request URL
+     *
+     * @return string
+     */
+    public function getNotificationURL(): string
+    {
+        return $this->genereteURL('notifications', []);
+    }
 }
