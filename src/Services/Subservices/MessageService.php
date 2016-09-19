@@ -110,4 +110,18 @@ class MessageService extends BaseService
 
         return $this->getCreateItemId($response, 'HTTP_ACCEPTED', 'announcements');
     }
+
+    /**
+     * Create a notification
+     *
+     * @param array $data notification data
+     *
+     * @return mixed
+     */
+    public function createNotification(array $data)
+    {
+        $response = $this->makePostRequest($this->router->getNotificationURL(), $data);
+
+        return $this->getCreateItemId($response, 'HTTP_ACCEPTED', 'notifications');
+    }
 }

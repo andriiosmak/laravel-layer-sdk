@@ -43,6 +43,11 @@ class MessageServiceTest extends BaseClass
                 Psr7\stream_for('{"id":"layer:///announcements/fbdd0bc4-e75d-46e5-b615-cca97e62601e"}')
             ),
             self::getResponse(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY),
+            self::getResponse(
+                ResponseStatus::HTTP_ACCEPTED, 
+                Psr7\stream_for('{"id":"layer:///notifications/fbdd0bc4-e75d-46e5-b615-cca97e62601e"}')
+            ),
+            self::getResponse(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY),
         ]);
         self::setUpService($mock);
     }
@@ -139,5 +144,25 @@ class MessageServiceTest extends BaseClass
 
         $this->assertInternalType('string', $this->getMessageService()->createAnnouncement($data));
         $this->assertFalse($this->getMessageService()->createAnnouncement([]));
+    }
+
+    /**
+     * Test notification creation
+     */
+    public function testCreateNotification()
+    {
+        $data = [
+            'recipients' => [
+                "tu1",
+                "tu2",
+            ],
+            'notification' => [
+                'text'  => 'This is the alert text to include with the Push Notification.',
+                'sound' => 'chime.aiff',
+            ],
+        ];
+
+        $this->assertInternalType('string', $this->getMessageService()->createNotification($data));
+        $this->assertFalse($this->getMessageService()->createNotification([]));
     }
 }
