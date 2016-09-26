@@ -21,7 +21,7 @@ abstract class BaseService
     /**
      * Router
      *
-     * @var \Aosmak\Laravel\Layer\Sdk\Routers\Router
+     * @var \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter
      */
     protected $router;
 
