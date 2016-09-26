@@ -3,11 +3,12 @@
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
 use GuzzleHttp\Psr7\Response;
-use Aosmak\Laravel\Layer\Sdk\Traits\ClientTrait;
 use Aosmak\Laravel\Layer\Sdk\Traits\ConfigTrait;
+use Aosmak\Laravel\Layer\Sdk\Traits\ClientTrait;
 use Aosmak\Laravel\Layer\Sdk\Traits\ResponseContentTrait;
-use Aosmak\Laravel\Layer\Sdk\Traits\ResponseStatusTrait;
 use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter;
+use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
+use Aosmak\Laravel\Layer\Sdk\Routers\Router;
 
 /**
  * Class BaseService
@@ -15,14 +16,33 @@ use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter;
  */
 abstract class BaseService
 {
-    use ClientTrait, ConfigTrait, ResponseContentTrait, ResponseStatusTrait;
+    use ConfigTrait, ClientTrait, ResponseContentTrait;
 
     /**
      * Router
      *
      * @var \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter
      */
-    public $router;
+    protected $router;
+
+    /**
+     * Response status
+     *
+     * @var \Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus
+     */
+    private $responseStatus;
+
+    /**
+     * Constructor
+     *
+     * @param \Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus $responseStatus
+     *
+     * @return void
+     */
+    public function __construct(ResponseStatus $responseStatus)
+    {
+        $this->responseStatus = $responseStatus;
+    }
 
     /**
      * Set router

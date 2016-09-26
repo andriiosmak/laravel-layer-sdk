@@ -6,15 +6,11 @@ use Aosmak\Laravel\Layer\Sdk\Services\LayerService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService;
-use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
-use Aosmak\Laravel\Layer\Sdk\Routers\Router;
-use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\ConversationRouter;
-use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\MessageRouter;
-use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\UserRouter;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use Illuminate\Container\Container;
 
 abstract class BaseClass extends \PHPUnit_Framework_TestCase
 {
@@ -33,17 +29,19 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      */
     protected static function setUpService(MockHandler $mock)
     {
-        $handler = HandlerStack::create($mock);
-        $service = new LayerService(new UserService, new ConversationService, new MessageService);
+        $handler   = HandlerStack::create($mock);
+        $container = new Container;
+        $service   = $container->make('Aosmak\Laravel\Layer\Sdk\Services\LayerService');
         $service->setConfig([
             'LAYER_SDK_APP_ID'           => 'id',
             'LAYER_SDK_AUTH'             => 'key',
             'LAYER_SDK_BASE_URL'         => 'url',
             'LAYER_SDK_SHOW_HTTP_ERRORS' => false
         ]);
-        $service->setClient(new Client(['handler' => $handler]));
-        $service->setRouter(new Router(new ConversationRouter, new MessageRouter, new UserRouter));
-        $service->setResponseStatus(new ResponseStatus);
+        $reflection = new \ReflectionClass($service);
+        $reflection_property = $reflection->getProperty('client');
+        $reflection_property->setAccessible(true);
+        $reflection_property->setValue($service, new Client(['handler' => $handler]));
 
         self::$service = $service;
     }
