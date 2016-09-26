@@ -28,27 +28,6 @@ class LayerService implements LayerServiceInterface
     private $client;
 
     /**
-     * Conversation service
-     *
-     * @var \Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService
-     */
-    private $conversationService;
-
-    /**
-     * Message service
-     *
-     * @var \Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService
-     */
-    private $messageService;
-
-    /**
-     * User service
-     *
-     * @var \Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService
-     */
-    private $userService;
-
-    /**
      * Router
      *
      * @var \Aosmak\Laravel\Layer\Sdk\Routers\Router
@@ -72,9 +51,6 @@ class LayerService implements LayerServiceInterface
     /**
      * Constructor
      *
-     * @param \Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService $userService
-     * @param \Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService $conversationService
-     * @param \Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService $messageService
      * @param \Illuminate\Container\Container $container
      * @param \GuzzleHttp\Client $client
      * @param \Aosmak\Laravel\Layer\Sdk\Routers\Router $client
@@ -83,17 +59,11 @@ class LayerService implements LayerServiceInterface
      * @return void
      */
     public function __construct(
-        UserService $userService,
-        ConversationService $conversationService,
-        MessageService $messageService,
         Container $container,
         Client $client,
         Router $router,
         ResponseStatus $responseStatus
     ) {
-        $this->userService         = $userService;
-        $this->conversationService = $conversationService;
-        $this->messageService      = $messageService;
         $this->container           = $container;
         $this->client              = $client;
         $this->router              = $router;
