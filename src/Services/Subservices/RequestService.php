@@ -38,6 +38,26 @@ class RequestService
     }
 
     /**
+     * Get create item ID
+     *
+     * @return \GuzzleHttp\Psr7\Response $response
+     * @return string $statusId
+     * @return string $path
+     *
+     * @return mixed conversation ID
+     */
+    public function getCreateItemId(Response $response, string $statusId, string $path)
+    {
+        $responseObject = $this->getResponse($response, $statusId, true);
+        if ($responseObject && isset($responseObject['id'])) {
+            return explode('layer:///' . $path . '/', $responseObject['id'], 2)[1];
+        }
+
+        return false;
+    }
+
+
+    /**
      * Get layer response content
      *
      * @param \Guzzle\Psr7\Response $response Guzzle response
@@ -150,25 +170,6 @@ class RequestService
             }
 
             return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Get create item ID
-     *
-     * @return \GuzzleHttp\Psr7\Response $response
-     * @return string $statusId
-     * @return string $path
-     *
-     * @return mixed conversation ID
-     */
-    public function getCreateItemId(Response $response, string $statusId, string $path)
-    {
-        $responseObject = $this->getResponse($response, $statusId, true);
-        if ($responseObject && isset($responseObject['id'])) {
-            return explode('layer:///' . $path . '/', $responseObject['id'], 2)[1];
         }
 
         return false;
