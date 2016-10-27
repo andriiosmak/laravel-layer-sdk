@@ -2,12 +2,13 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
+use GuzzleHttp\Client;
+
 use GuzzleHttp\Psr7\Response;
 use Aosmak\Laravel\Layer\Sdk\Traits\ConfigTrait;
 use Aosmak\Laravel\Layer\Sdk\Traits\ClientTrait;
 use Aosmak\Laravel\Layer\Sdk\Traits\ResponseContentTrait;
 use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter;
-use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
 use Aosmak\Laravel\Layer\Sdk\Routers\Router;
 
 /**
@@ -16,7 +17,7 @@ use Aosmak\Laravel\Layer\Sdk\Routers\Router;
  */
 abstract class BaseService
 {
-    use ConfigTrait, ClientTrait, ResponseContentTrait;
+    use ConfigTrait, ResponseContentTrait;
 
     /**
      * Router
@@ -28,20 +29,42 @@ abstract class BaseService
     /**
      * Response status
      *
-     * @var \Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus
+     * @var \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService
      */
-    private $responseStatus;
+    private $requestService;
 
     /**
      * Constructor
      *
-     * @param \Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus $responseStatus
+     * @param \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService $requestService
      *
      * @return void
      */
-    public function __construct(ResponseStatus $responseStatus)
+    public function __construct(RequestService $requestService)
     {
-        $this->responseStatus = $responseStatus;
+        $this->requestService = $requestService;
+    }
+
+    /**
+     * Set Guzzle client
+     *
+     * @param \GuzzleHttp\Client $client
+     *
+     * @return void
+     */
+    public function setClient(Client $client)
+    {
+        $this->requestService->setClient($client);
+    }
+
+    /**
+     * Get request service
+     *
+     * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService
+     */
+    public function getRequestService()
+    {
+        return $this->requestService;
     }
 
     /**
@@ -54,101 +77,6 @@ abstract class BaseService
     public function setRouter(BaseRouter $router)
     {
         $this->router = $router;
-    }
-
-    /**
-     * Get layer response content
-     *
-     * @param \Guzzle\Psr7\Response $response Guzzle response
-     *
-     * @var array
-     */
-    public function obtainResponseContent(Response $response): array
-    {
-        $content = $response->getBody()->getContents();
-        if (strlen($content) > 1) {
-            return is_array(json_decode($content, 1))? json_decode($content, 1) : [];
-        }
-
-        return [];
-    }
-
-    /**
-     * Make POST request
-     *
-     * @param string $url request url
-     * @param array $data request data
-     * @param array $requestHeaders request headers
-     *
-     * @return \Guzzle\Psr7\Response
-     */
-    public function makePostRequest(string $url, array $data = [], array $requestHeaders = []): Response
-    {
-        return $this->makeRequest('POST', $url, $data, $requestHeaders);
-    }
-
-    /**
-     * Make PUT request
-     *
-     * @param string $url request url
-     * @param array $data request data
-     * @param array $requestHeaders request headers
-     *
-     * @return \Guzzle\Psr7\Response
-     */
-    public function makePutRequest(string $url, array $data = [], array $requestHeaders = []): Response
-    {
-        return $this->makeRequest('PUT', $url, $data, $requestHeaders);
-    }
-
-    /**
-     * Make PATCH request
-     *
-     * @param string $url request url
-     * @param array $data request data
-     * @param array $requestHeaders request headers
-     *
-     * @return \Guzzle\Psr7\Response
-     */
-    public function makePatchRequest(string $url, array $data = [], array $requestHeaders = []): Response
-    {
-        $defaultHeaders = [
-            'headers' => [
-                'Content-Type' => 'application/vnd.layer-patch+json'
-            ],
-        ];
-
-        $headers = array_replace_recursive($defaultHeaders, $requestHeaders);
-
-        return $this->makeRequest('PATCH', $url, $data, $headers);
-    }
-
-    /**
-     * Make GET request
-     *
-     * @param string $url request url
-     * @param array $data request data
-     * @param array $requestHeaders request headers
-     *
-     * @return \Guzzle\Psr7\Response
-     */
-    public function makeGetRequest(string $url, array $data = [], array $requestHeaders = []): Response
-    {
-        return $this->makeRequest('GET', $url, $data, $requestHeaders);
-    }
-
-    /**
-     * Make DELETE request
-     *
-     * @param string $url request url
-     * @param array $data request data
-     * @param array $requestHeaders request headers
-     *
-     * @return \Guzzle\Psr7\Response
-     */
-    public function makeDeleteRequest(string $url, array $data = [], array $requestHeaders = []): Response
-    {
-        return $this->makeRequest('DELETE', $url, $data, $requestHeaders);
     }
 
     /**
@@ -165,29 +93,6 @@ abstract class BaseService
     }
 
     /**
-     * Get response
-     *
-     * @param \GuzzleHttp\Psr7\Response $result Guzzle response
-     * @param string $successStatus success status
-     * @param boolean $returnContent should method return content or not
-     *
-     * @return mixed
-     */
-    public function getResponse(Response $result, string $successStatus, bool $returnContent = false)
-    {
-        $statusCode = $this->responseStatus->getStatusCode($successStatus);
-        if ($result->getStatusCode() === $statusCode) {
-            if ($returnContent) {
-                return $this->getResponseContent();
-            }
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * Get create item ID
      *
      * @return \GuzzleHttp\Psr7\Response $response
@@ -198,41 +103,11 @@ abstract class BaseService
      */
     public function getCreateItemId(Response $response, string $statusId, string $path)
     {
-        $responseObject = $this->getResponse($response, $statusId, true);
+        $responseObject = $this->requestService->getResponse($response, $statusId, true);
         if ($responseObject && isset($responseObject['id'])) {
             return explode('layer:///' . $path . '/', $responseObject['id'], 2)[1];
         }
 
         return false;
-    }
-
-    /**
-     * Make HTTP request
-     *
-     * @param string $method HTTP method
-     * @param string $url request url
-     * @param array $data request data
-     * @param array $requestHeaders request headers
-     *
-     * @return \Guzzle\Psr7\Response
-     */
-    private function makeRequest(string $method, string $url, array $data, array $requestHeaders): Response
-    {
-        $defaultHeaders = [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->config['LAYER_SDK_AUTH'],
-                'Accept'        => 'application/vnd.layer+json; version=1.0',
-                'Content-Type'  => 'application/json',
-            ],
-            'json'           => $data,
-            'decode_content' => false,
-            'http_errors'    => $this->config['LAYER_SDK_SHOW_HTTP_ERRORS'],
-        ];
-
-        $headers  = array_replace_recursive($defaultHeaders, $requestHeaders);
-        $response = $this->client->request($method, $this->config['LAYER_SDK_BASE_URL'] . $url, $headers);
-        $this->setResponseContent($response);
-
-        return $response;
     }
 }
