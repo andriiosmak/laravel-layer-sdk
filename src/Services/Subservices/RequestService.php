@@ -9,7 +9,7 @@ use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
 use Aosmak\Laravel\Layer\Sdk\Traits\ResponseContentTrait;
 
 /**
- * Class BaseService
+ * Class RequestService
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
  */
 class RequestService
