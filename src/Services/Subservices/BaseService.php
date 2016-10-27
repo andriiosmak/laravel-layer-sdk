@@ -52,9 +52,9 @@ abstract class BaseService
     }
 
     /**
-     * Set Guzzle client
+     * Set config
      *
-     * @param \GuzzleHttp\Client $client
+     * @param array $config
      *
      * @return void
      */
@@ -83,6 +83,16 @@ abstract class BaseService
     public function setRouter(BaseRouter $router)
     {
         $this->router = $router;
+    }
+
+    /**
+     * Get router
+     *
+     * @return \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter
+     */
+    public function getRouter()
+    {
+        return $this->router;
     }
 
     /**

@@ -22,7 +22,7 @@ class ConversationService extends BaseService
             $data['distinct'] = true;
         }
 
-        $response = $this->getRequestService()->makePostRequest($this->router->getURL(), $data);
+        $response = $this->getRequestService()->makePostRequest($this->getRouter()->getURL(), $data);
 
         if ($this->getCreateItemId($response, 'HTTP_OK', 'conversations')) {
             $content = $this->getCreateItemId($response, 'HTTP_OK', 'conversations');
@@ -43,7 +43,8 @@ class ConversationService extends BaseService
      */
     public function update(array $data, string $conversationId): bool
     {
-        $response = $this->getRequestService()->makePatchRequest($this->router->getConversationURL($conversationId), $data);
+        $response = $this->getRequestService()
+            ->makePatchRequest($this->getRouter()->getConversationURL($conversationId), $data);
 
         return $this->getRequestService()->getResponse($response, 'HTTP_NO_CONTENT');
     }
@@ -57,7 +58,7 @@ class ConversationService extends BaseService
      */
     public function get(string $conversationId)
     {
-        $response = $this->getRequestService()->makeGetRequest($this->router->getConversationURL($conversationId));
+        $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getConversationURL($conversationId));
 
         return $this->getRequestService()->getResponse($response, 'HTTP_OK', true);
     }
@@ -71,7 +72,7 @@ class ConversationService extends BaseService
      */
     public function all(string $userId)
     {
-        $response = $this->getRequestService()->makeGetRequest($this->router->getConversationsURL($userId));
+        $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getConversationsURL($userId));
 
         return $this->getRequestService()->getResponse($response, 'HTTP_OK', true);
     }
@@ -85,7 +86,8 @@ class ConversationService extends BaseService
      */
     public function delete(string $conversationId): bool
     {
-        $response = $this->getRequestService()->makeDeleteRequest($this->router->getConversationURL($conversationId));
+        $response = $this->getRequestService()
+            ->makeDeleteRequest($this->getRouter()->getConversationURL($conversationId));
 
         return $this->getRequestService()->getResponse($response, 'HTTP_NO_CONTENT');
     }
