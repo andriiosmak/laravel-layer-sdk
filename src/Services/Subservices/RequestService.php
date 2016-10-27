@@ -5,10 +5,8 @@ namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 use GuzzleHttp\Psr7\Response;
 use Aosmak\Laravel\Layer\Sdk\Traits\ConfigTrait;
 use Aosmak\Laravel\Layer\Sdk\Traits\ClientTrait;
-use Aosmak\Laravel\Layer\Sdk\Traits\ResponseContentTrait;
-use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter;
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
-use Aosmak\Laravel\Layer\Sdk\Routers\Router;
+use Aosmak\Laravel\Layer\Sdk\Traits\ResponseContentTrait;
 
 /**
  * Class BaseService
