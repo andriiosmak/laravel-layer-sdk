@@ -18,9 +18,10 @@ class MessageService extends BaseService
      */
     public function create(array $data, string $conversationId)
     {
-        $response = $this->makePostRequest($this->router->getConversationURL($conversationId), $data);
+        $response = $this->getRequestService()
+            ->makePostRequest($this->getRouter()->getConversationURL($conversationId), $data);
 
-        return $this->getCreateItemId($response, 'HTTP_CREATED', 'messages');
+        return $this->getRequestService()->getCreateItemId($response, 'HTTP_CREATED', 'messages');
     }
 
     /**
@@ -33,9 +34,10 @@ class MessageService extends BaseService
      */
     public function allLikeUser(string $conversationId, string $userId)
     {
-        $response = $this->makeGetRequest($this->router->getConversationUserURL($conversationId, $userId));
+        $response = $this->getRequestService()
+            ->makeGetRequest($this->getRouter()->getConversationUserURL($conversationId, $userId));
 
-        return $this->getResponse($response, 'HTTP_OK', true);
+        return $this->getRequestService()->getResponse($response, 'HTTP_OK', true);
     }
 
     /**
@@ -47,9 +49,10 @@ class MessageService extends BaseService
      */
     public function allLikeSystem(string $conversationId)
     {
-        $response = $this->makeGetRequest($this->router->getConversationURL($conversationId));
+        $response = $this->getRequestService()
+            ->makeGetRequest($this->getRouter()->getConversationURL($conversationId));
 
-        return $this->getResponse($response, 'HTTP_OK', true);
+        return $this->getRequestService()->getResponse($response, 'HTTP_OK', true);
     }
 
     /**
@@ -62,9 +65,10 @@ class MessageService extends BaseService
      */
     public function getLikeUser(string $messageId, string $userId)
     {
-        $response = $this->makeGetRequest($this->router->getMessageUserURL($messageId, $userId));
+        $response = $this->getRequestService()
+            ->makeGetRequest($this->getRouter()->getMessageUserURL($messageId, $userId));
 
-        return $this->getResponse($response, 'HTTP_OK', true);
+        return $this->getRequestService()->getResponse($response, 'HTTP_OK', true);
     }
 
     /**
@@ -77,9 +81,10 @@ class MessageService extends BaseService
      */
     public function getLikeSystem(string $messageId, string $conversationId)
     {
-        $response = $this->makeGetRequest($this->router->getMessageSytemURL($messageId, $conversationId));
+        $response = $this->getRequestService()
+            ->makeGetRequest($this->getRouter()->getMessageSytemURL($messageId, $conversationId));
 
-        return $this->getResponse($response, 'HTTP_OK', true);
+        return $this->getRequestService()->getResponse($response, 'HTTP_OK', true);
     }
 
     /**
@@ -92,9 +97,10 @@ class MessageService extends BaseService
      */
     public function delete(string $messageId, string $conversationId): bool
     {
-        $response = $this->makeDeleteRequest($this->router->getMessageSytemURL($messageId, $conversationId));
+        $response = $this->getRequestService()
+            ->makeDeleteRequest($this->getRouter()->getMessageSytemURL($messageId, $conversationId));
 
-        return $this->getResponse($response, 'HTTP_NO_CONTENT');
+        return $this->getRequestService()->getResponse($response, 'HTTP_NO_CONTENT');
     }
 
     /**
@@ -106,9 +112,9 @@ class MessageService extends BaseService
      */
     public function createAnnouncement(array $data)
     {
-        $response = $this->makePostRequest($this->router->getAnnouncementURL(), $data);
+        $response = $this->getRequestService()->makePostRequest($this->getRouter()->getAnnouncementURL(), $data);
 
-        return $this->getCreateItemId($response, 'HTTP_ACCEPTED', 'announcements');
+        return $this->getRequestService()->getCreateItemId($response, 'HTTP_ACCEPTED', 'announcements');
     }
 
     /**
@@ -120,8 +126,8 @@ class MessageService extends BaseService
      */
     public function createNotification(array $data)
     {
-        $response = $this->makePostRequest($this->router->getNotificationURL(), $data);
+        $response = $this->getRequestService()->makePostRequest($this->getRouter()->getNotificationURL(), $data);
 
-        return $this->getCreateItemId($response, 'HTTP_ACCEPTED', 'notifications');
+        return $this->getRequestService()->getCreateItemId($response, 'HTTP_ACCEPTED', 'notifications');
     }
 }

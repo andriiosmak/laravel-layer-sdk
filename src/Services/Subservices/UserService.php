@@ -18,9 +18,9 @@ class UserService extends BaseService
      */
     public function create(array $data, string $userId): bool
     {
-        $response = $this->makePostRequest($this->router->getURL($userId), $data);
+        $response = $this->getRequestService()->makePostRequest($this->getRouter()->getURL($userId), $data);
 
-        return $this->getResponse($response, 'HTTP_CREATED');
+        return $this->getRequestService()->getResponse($response, 'HTTP_CREATED');
     }
 
     /**
@@ -33,9 +33,9 @@ class UserService extends BaseService
      */
     public function update(array $data, string $userId): bool
     {
-        $response = $this->makePatchRequest($this->router->getURL($userId), $data);
+        $response = $this->getRequestService()->makePatchRequest($this->getRouter()->getURL($userId), $data);
 
-        return $this->getResponse($response, 'HTTP_NO_CONTENT');
+        return $this->getRequestService()->getResponse($response, 'HTTP_NO_CONTENT');
     }
 
     /**
@@ -48,9 +48,9 @@ class UserService extends BaseService
      */
     public function replace(array $data, string $userId): bool
     {
-        $response = $this->makePutRequest($this->router->getURL($userId), $data);
+        $response = $this->getRequestService()->makePutRequest($this->getRouter()->getURL($userId), $data);
 
-        return $this->getResponse($response, 'HTTP_NO_CONTENT');
+        return $this->getRequestService()->getResponse($response, 'HTTP_NO_CONTENT');
     }
 
     /**
@@ -62,9 +62,9 @@ class UserService extends BaseService
      */
     public function get(string $userId)
     {
-        $response = $this->makeGetRequest($this->router->getURL($userId));
+        $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getURL($userId));
 
-        return $this->getResponse($response, 'HTTP_OK', true);
+        return $this->getRequestService()->getResponse($response, 'HTTP_OK', true);
     }
 
     /**
@@ -76,8 +76,8 @@ class UserService extends BaseService
      */
     public function delete(string $userId): bool
     {
-        $response = $this->makeDeleteRequest($this->router->getURL($userId));
+        $response = $this->getRequestService()->makeDeleteRequest($this->getRouter()->getURL($userId));
 
-        return $this->getResponse($response, 'HTTP_NO_CONTENT');
+        return $this->getRequestService()->getResponse($response, 'HTTP_NO_CONTENT');
     }
 }
