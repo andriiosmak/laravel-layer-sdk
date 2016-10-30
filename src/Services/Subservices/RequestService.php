@@ -9,7 +9,7 @@ use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
 use Aosmak\Laravel\Layer\Sdk\Traits\ResponseContentTrait;
 
 /**
- * Class BaseService
+ * Class RequestService
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
  */
 class RequestService
@@ -154,15 +154,14 @@ class RequestService
      * Get response
      *
      * @param \GuzzleHttp\Psr7\Response $result Guzzle response
-     * @param string $successStatus success status
+     * @param int $successStatus success status
      * @param boolean $returnContent should method return content or not
      *
      * @return mixed
      */
-    public function getResponse(Response $result, string $successStatus, bool $returnContent = false)
+    public function getResponse(Response $result, int $successStatus, bool $returnContent = false)
     {
-        $statusCode = $this->responseStatus->getStatusCode($successStatus);
-        if ($result->getStatusCode() === $statusCode) {
+        if ($result->getStatusCode() === $successStatus) {
             if ($returnContent) {
                 return $this->getResponseContent();
             }

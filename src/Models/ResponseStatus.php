@@ -69,16 +69,4 @@ class ResponseStatus
     const HTTP_LOOP_DETECTED = 508;
     const HTTP_NOT_EXTENDED = 510;
     const HTTP_NETWORK_AUTHENTICATION_REQUIRED = 511;
-
-    /**
-     * Get status code
-     *
-     * @param string $status status code
-     *
-     * @return int
-     */
-    public function getStatusCode(string $status): int
-    {
-        return constant('self::'. $status);
-    }
 }
