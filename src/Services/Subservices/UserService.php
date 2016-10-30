@@ -20,7 +20,7 @@ class UserService extends BaseService
     {
         $response = $this->getRequestService()->makePostRequest($this->getRouter()->getURL($userId), $data);
 
-        return $this->getRequestService()->getResponse($response, 'HTTP_CREATED');
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_CREATED);
     }
 
     /**
@@ -35,7 +35,7 @@ class UserService extends BaseService
     {
         $response = $this->getRequestService()->makePatchRequest($this->getRouter()->getURL($userId), $data);
 
-        return $this->getRequestService()->getResponse($response, 'HTTP_NO_CONTENT');
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
     }
 
     /**
@@ -50,7 +50,7 @@ class UserService extends BaseService
     {
         $response = $this->getRequestService()->makePutRequest($this->getRouter()->getURL($userId), $data);
 
-        return $this->getRequestService()->getResponse($response, 'HTTP_NO_CONTENT');
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
     }
 
     /**
@@ -64,7 +64,7 @@ class UserService extends BaseService
     {
         $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getURL($userId));
 
-        return $this->getRequestService()->getResponse($response, 'HTTP_OK', true);
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK, true);
     }
 
     /**
@@ -78,6 +78,6 @@ class UserService extends BaseService
     {
         $response = $this->getRequestService()->makeDeleteRequest($this->getRouter()->getURL($userId));
 
-        return $this->getRequestService()->getResponse($response, 'HTTP_NO_CONTENT');
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
     }
 }

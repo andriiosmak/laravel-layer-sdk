@@ -24,10 +24,10 @@ class ConversationService extends BaseService
 
         $response = $this->getRequestService()->makePostRequest($this->getRouter()->getURL(), $data);
 
-        if ($this->getCreateItemId($response, 'HTTP_OK', 'conversations')) {
-            $content = $this->getCreateItemId($response, 'HTTP_OK', 'conversations');
+        if ($this->getCreateItemId($response, $this->getResponseStatus()::HTTP_OK, 'conversations')) {
+            $content = $this->getCreateItemId($response, $this->getResponseStatus()::HTTP_OK, 'conversations');
         } else {
-            $content = $this->getCreateItemId($response, 'HTTP_CREATED', 'conversations');
+            $content = $this->getCreateItemId($response, $this->getResponseStatus()::HTTP_CREATED, 'conversations');
         }
 
         return !empty($content)? $content : false;
@@ -46,7 +46,7 @@ class ConversationService extends BaseService
         $response = $this->getRequestService()
             ->makePatchRequest($this->getRouter()->getConversationURL($conversationId), $data);
 
-        return $this->getRequestService()->getResponse($response, 'HTTP_NO_CONTENT');
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
     }
 
     /**
@@ -60,7 +60,7 @@ class ConversationService extends BaseService
     {
         $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getConversationURL($conversationId));
 
-        return $this->getRequestService()->getResponse($response, 'HTTP_OK', true);
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK, true);
     }
 
     /**
@@ -74,7 +74,7 @@ class ConversationService extends BaseService
     {
         $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getConversationsURL($userId));
 
-        return $this->getRequestService()->getResponse($response, 'HTTP_OK', true);
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK, true);
     }
 
     /**
@@ -89,6 +89,6 @@ class ConversationService extends BaseService
         $response = $this->getRequestService()
             ->makeDeleteRequest($this->getRouter()->getConversationURL($conversationId));
 
-        return $this->getRequestService()->getResponse($response, 'HTTP_NO_CONTENT');
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
     }
 }
