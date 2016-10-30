@@ -21,7 +21,8 @@ class MessageService extends BaseService
         $response = $this->getRequestService()
             ->makePostRequest($this->getRouter()->getConversationURL($conversationId), $data);
 
-        return $this->getRequestService()->getCreateItemId($response, 'HTTP_CREATED', 'messages');
+        return $this->getRequestService()
+            ->getCreateItemId($response, $this->getResponseStatus()::HTTP_CREATED, 'messages');
     }
 
     /**
@@ -37,7 +38,7 @@ class MessageService extends BaseService
         $response = $this->getRequestService()
             ->makeGetRequest($this->getRouter()->getConversationUserURL($conversationId, $userId));
 
-        return $this->getRequestService()->getResponse($response, 'HTTP_OK', true);
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK, true);
     }
 
     /**
@@ -52,7 +53,7 @@ class MessageService extends BaseService
         $response = $this->getRequestService()
             ->makeGetRequest($this->getRouter()->getConversationURL($conversationId));
 
-        return $this->getRequestService()->getResponse($response, 'HTTP_OK', true);
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK, true);
     }
 
     /**
@@ -68,7 +69,7 @@ class MessageService extends BaseService
         $response = $this->getRequestService()
             ->makeGetRequest($this->getRouter()->getMessageUserURL($messageId, $userId));
 
-        return $this->getRequestService()->getResponse($response, 'HTTP_OK', true);
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK, true);
     }
 
     /**
@@ -84,7 +85,7 @@ class MessageService extends BaseService
         $response = $this->getRequestService()
             ->makeGetRequest($this->getRouter()->getMessageSytemURL($messageId, $conversationId));
 
-        return $this->getRequestService()->getResponse($response, 'HTTP_OK', true);
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK, true);
     }
 
     /**
@@ -100,7 +101,7 @@ class MessageService extends BaseService
         $response = $this->getRequestService()
             ->makeDeleteRequest($this->getRouter()->getMessageSytemURL($messageId, $conversationId));
 
-        return $this->getRequestService()->getResponse($response, 'HTTP_NO_CONTENT');
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
     }
 
     /**
@@ -114,7 +115,8 @@ class MessageService extends BaseService
     {
         $response = $this->getRequestService()->makePostRequest($this->getRouter()->getAnnouncementURL(), $data);
 
-        return $this->getRequestService()->getCreateItemId($response, 'HTTP_ACCEPTED', 'announcements');
+        return $this->getRequestService()
+            ->getCreateItemId($response, $this->getResponseStatus()::HTTP_ACCEPTED, 'announcements');
     }
 
     /**
@@ -128,6 +130,7 @@ class MessageService extends BaseService
     {
         $response = $this->getRequestService()->makePostRequest($this->getRouter()->getNotificationURL(), $data);
 
-        return $this->getRequestService()->getCreateItemId($response, 'HTTP_ACCEPTED', 'notifications');
+        return $this->getRequestService()
+            ->getCreateItemId($response, $this->getResponseStatus()::HTTP_ACCEPTED, 'notifications');
     }
 }
