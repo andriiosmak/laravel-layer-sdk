@@ -27,6 +27,12 @@ class UserServiceTest extends BaseClass
             self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
             self::getResponse(ResponseStatus::HTTP_NO_CONTENT),
             self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
+            self::getResponse(ResponseStatus::HTTP_NO_CONTENT),
+            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
+            self::getResponse(
+                ResponseStatus::HTTP_OK, 
+                Psr7\stream_for('{"external_unread_count":"15"}')
+            ),
         ]);
         self::setUpService($mock);
     }
@@ -100,5 +106,26 @@ class UserServiceTest extends BaseClass
     {
         $this->assertTrue($this->getUserService()->delete('userId'));
         $this->assertFalse($this->getUserService()->delete('wrongUserId'));
+    }
+
+    /**
+     * Test badge creation
+     */
+    public function testCreateBadge()
+    {
+        $data = [
+            "external_unread_count" => 15,
+        ];
+
+        $this->assertTrue($this->getUserService()->createBadge($data, 'testUserOne'));
+        $this->assertFalse($this->getUserService()->createBadge([], time()));
+    }
+
+    /**
+     * Test obtaining information about user badges
+     */
+    public function testGetBadge()
+    {
+        $this->assertArrayHasKey('external_unread_count', $this->getUserService()->getBadges('testUserOne'));
     }
 }

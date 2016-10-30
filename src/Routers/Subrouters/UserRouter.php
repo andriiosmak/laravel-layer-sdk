@@ -19,4 +19,16 @@ class UserRouter extends BaseRouter
     {
         return $this->genereteURL('users/:user_id/identity', [':user_id' => $userId]);
     }
+
+    /**
+     * Get badge request URL
+     *
+     * @param string $userId user ID
+     *
+     * @return string
+     */
+    public function getBadgeURL(string $userId): string
+    {
+        return $this->genereteURL('users/:user_id/badge', [':user_id' => $userId]);
+    }
 }
