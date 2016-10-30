@@ -164,6 +164,26 @@ $result = $layer->getUserService()->delete('userId');
 echo $result; //boolean
 ```
 
+Create a badge for a user
+
+``` php
+$data = [
+    "external_unread_count" => 15,
+];
+
+$result = $layer->getUserService()->createBadge($data, 'userId');
+
+echo $result; //boolean
+```
+
+Get user`s badges
+
+``` php
+$result = $layer->getUserService()->getBadges('userId');
+
+echo $result; //array
+```
+
 Additional information you can find [here][link-layer-documentation-user].
 
 ###Conversations

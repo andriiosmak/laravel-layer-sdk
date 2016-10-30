@@ -22,11 +22,18 @@ abstract class BaseService
     protected $router;
 
     /**
-     * Response status
+     * Request service
      *
      * @var \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService
      */
     private $requestService;
+
+    /**
+     * Response status
+     *
+     * @var \Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus
+     */
+    private $responseStatus;
 
     /**
      * Constructor

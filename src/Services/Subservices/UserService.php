@@ -80,4 +80,33 @@ class UserService extends BaseService
 
         return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
     }
+
+    /**
+     * Create a badge
+     *
+     * @param array $data badge data
+     * @param string $userId user ID
+     *
+     * @return bool
+     */
+    public function createBadge(array $data, string $userId): bool
+    {
+        $response = $this->getRequestService()->makePutRequest($this->getRouter()->getBadgeURL($userId), $data);
+
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Get user`s badges
+     *
+     * @param string $userId user ID
+     *
+     * @return mixed
+     */
+    public function getBadges(string $userId)
+    {
+        $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getBadgeURL($userId));
+
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK, true);
+    }
 }
