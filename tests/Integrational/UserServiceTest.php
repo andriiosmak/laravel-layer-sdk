@@ -33,6 +33,11 @@ class UserServiceTest extends BaseClass
                 ResponseStatus::HTTP_OK, 
                 Psr7\stream_for('{"external_unread_count":"15"}')
             ),
+            self::getResponse(ResponseStatus::HTTP_ACCEPTED),
+            self::getResponse(
+                ResponseStatus::HTTP_OK, 
+                Psr7\stream_for('{"test":"test"}')
+            ),
         ]);
         self::setUpService($mock);
     }
@@ -127,5 +132,30 @@ class UserServiceTest extends BaseClass
     public function testGetBadge()
     {
         $this->assertArrayHasKey('external_unread_count', $this->getUserService()->getBadges('testUserOne'));
+    }
+
+
+    /**
+     * Test block list update
+     */
+    public function testBlockListUpdate()
+    {
+        $data = [
+            0 => [
+                'operation' => 'add',
+                'property'  => 'blocks',
+                'id'        => 'layer:///identities/blockMe1',
+            ]
+        ];
+
+        $this->assertTrue($this->getUserService()->updateBlockList($data, 'testUserOne'));
+    }
+
+    /**
+     * Test block list
+     */
+    public function testGetBlockList()
+    {
+        $this->assertInternalType('array', $this->getUserService()->getBlockList('testUserOne'));
     }
 }
