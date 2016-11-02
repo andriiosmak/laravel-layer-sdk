@@ -31,4 +31,28 @@ class UserRouter extends BaseRouter
     {
         return $this->genereteURL('users/:user_id/badge', [':user_id' => $userId]);
     }
+
+    /**
+     * Get block list update URL
+     *
+     * @param string $ownerUserId owner user ID
+     *
+     * @return string
+     */
+    public function getBlockListUpdateURL(string $ownerUserId): string
+    {
+        return $this->genereteURL('users/:owner_user_id', [':owner_user_id' => $ownerUserId]);
+    }
+
+    /**
+     * Get block list URL
+     *
+     * @param string $ownerUserId owner user ID
+     *
+     * @return string
+     */
+    public function getBlockListURL(string $ownerUserId): string
+    {
+        return $this->genereteURL('users/:owner_user_id/blocks', [':owner_user_id' => $ownerUserId]);
+    }
 }

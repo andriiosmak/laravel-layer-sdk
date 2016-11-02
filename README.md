@@ -184,6 +184,32 @@ $result = $layer->getUserService()->getBadges('userId');
 echo $result; //array
 ```
 
+Update block list
+
+``` php
+
+$data = [
+    0 => [
+        'operation' => 'add',
+        'property'  => 'blocks',
+        'id'        => 'layer:///identities/blockMe1',
+    ]
+];
+
+$result = $layer->getUserService()->updateBlockList($data, 'userId');
+
+echo $result; //boolean
+```
+
+Get block list
+
+``` php
+
+$result = $layer->getUserService()->getBlockList('userId');
+
+echo $result; //array
+```
+
 Additional information you can find [here][link-layer-documentation-user].
 
 ###Conversations
