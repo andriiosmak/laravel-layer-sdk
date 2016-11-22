@@ -22,27 +22,6 @@ class Router
     private $container;
 
     /**
-     * Conversation Router
-     *
-     * @var \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\ConversationRouter
-     */
-    private $conversationRouter;
-
-    /**
-     * Message Router
-     *
-     * @var \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\MessageRouter
-     */
-    private $messageRouter;
-
-    /**
-     * User Router
-     *
-     * @var \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\UserRouter
-     */
-    private $userRouter;
-
-    /**
      * Application ID
      *
      * @var string application ID
