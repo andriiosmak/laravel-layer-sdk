@@ -16,7 +16,7 @@ abstract class BaseRouter
     protected $appId;
 
     /**
-     * Set application ID
+     * Set an application ID
      *
      * @param string $appId application ID
      *
@@ -26,9 +26,9 @@ abstract class BaseRouter
     {
         $this->appId = $appId;
     }
-    
+
     /**
-     * Generate request URL
+     * Generate a request URL
      *
      * @param integer $id user ID
      * @param array $data user data

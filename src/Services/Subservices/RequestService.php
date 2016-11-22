@@ -36,7 +36,7 @@ class RequestService
     }
 
     /**
-     * Get create item ID
+     * Get an item ID
      *
      * @return \GuzzleHttp\Psr7\Response $response
      * @return string $statusId
@@ -56,7 +56,7 @@ class RequestService
 
 
     /**
-     * Get layer response content
+     * Get a response content
      *
      * @param \Guzzle\Psr7\Response $response Guzzle response
      *
@@ -73,7 +73,7 @@ class RequestService
     }
 
     /**
-     * Make POST request
+     * Make a POST request
      *
      * @param string $url request url
      * @param array $data request data
@@ -87,7 +87,7 @@ class RequestService
     }
 
     /**
-     * Make PUT request
+     * Make a PUT request
      *
      * @param string $url request url
      * @param array $data request data
@@ -101,7 +101,7 @@ class RequestService
     }
 
     /**
-     * Make PATCH request
+     * Make a PATCH request
      *
      * @param string $url request url
      * @param array $data request data
@@ -123,7 +123,7 @@ class RequestService
     }
 
     /**
-     * Make GET request
+     * Make a GET request
      *
      * @param string $url request url
      * @param array $data request data
@@ -137,7 +137,7 @@ class RequestService
     }
 
     /**
-     * Make DELETE request
+     * Make a DELETE request
      *
      * @param string $url request url
      * @param array $data request data
@@ -151,7 +151,7 @@ class RequestService
     }
 
     /**
-     * Get response
+     * Get a response
      *
      * @param \GuzzleHttp\Psr7\Response $result Guzzle response
      * @param int $successStatus success status
@@ -173,7 +173,7 @@ class RequestService
     }
 
     /**
-     * Make HTTP request
+     * Make a HTTP request
      *
      * @param string $method HTTP method
      * @param string $url request url

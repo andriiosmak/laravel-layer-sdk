@@ -9,7 +9,7 @@ namespace Aosmak\Laravel\Layer\Sdk\Routers\Subrouters;
 class UserRouter extends BaseRouter
 {
     /**
-     * Get request URL
+     * Get a request URL
      *
      * @param string $userId user ID
      *
@@ -21,7 +21,7 @@ class UserRouter extends BaseRouter
     }
 
     /**
-     * Get badge request URL
+     * Get a badge request URL
      *
      * @param string $userId user ID
      *
@@ -33,7 +33,7 @@ class UserRouter extends BaseRouter
     }
 
     /**
-     * Get block list update URL
+     * Get a block list update URL
      *
      * @param string $ownerUserId owner user ID
      *
@@ -45,7 +45,7 @@ class UserRouter extends BaseRouter
     }
 
     /**
-     * Get block list URL
+     * Get a block list URL
      *
      * @param string $ownerUserId owner user ID
      *
