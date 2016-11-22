@@ -42,7 +42,7 @@ class Router
     protected $appId;
 
     /**
-     * Set application ID
+     * Set an application ID
      *
      * @param string $appId application ID
      *

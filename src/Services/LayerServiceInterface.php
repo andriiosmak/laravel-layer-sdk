@@ -9,17 +9,17 @@ namespace Aosmak\Laravel\Layer\Sdk\Services;
 interface LayerServiceInterface
 {
     /**
-     * Get conversation service
+     * Get a conversation service
      */
     public function getConversationService();
 
     /**
-     * Get message service
+     * Get a message service
      */
     public function getMessageService();
 
     /**
-     * Get user service
+     * Get a user service
      */
     public function getUserService();
 }

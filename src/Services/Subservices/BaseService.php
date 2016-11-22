@@ -50,7 +50,7 @@ abstract class BaseService
     }
 
     /**
-     * Get response status model
+     * Get a response status model
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus
      */
@@ -60,7 +60,7 @@ abstract class BaseService
     }
 
     /**
-     * Set Guzzle client
+     * Set a Guzzle client
      *
      * @param \GuzzleHttp\Client $client
      *
@@ -72,7 +72,7 @@ abstract class BaseService
     }
 
     /**
-     * Set config
+     * Set a configuration array
      *
      * @param array $config
      *
@@ -84,7 +84,7 @@ abstract class BaseService
     }
 
     /**
-     * Get request service
+     * Get a request service
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService
      */
@@ -94,7 +94,7 @@ abstract class BaseService
     }
 
     /**
-     * Set router
+     * Set a router
      *
      * @param \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter $router
      *
@@ -106,7 +106,7 @@ abstract class BaseService
     }
 
     /**
-     * Get router
+     * Get a router
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter
      */
@@ -116,7 +116,7 @@ abstract class BaseService
     }
 
     /**
-     * Generate request URL
+     * Generate a request URL
      *
      * @param integer $id user ID
      * @param array $data user data
@@ -129,7 +129,7 @@ abstract class BaseService
     }
 
     /**
-     * Get create item ID
+     * Get an item ID
      *
      * @return \GuzzleHttp\Psr7\Response $response
      * @return string $statusId

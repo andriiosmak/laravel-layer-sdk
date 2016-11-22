@@ -64,14 +64,14 @@ class LayerService implements LayerServiceInterface
         Router $router,
         ResponseStatus $responseStatus
     ) {
-        $this->container           = $container;
-        $this->client              = $client;
-        $this->router              = $router;
-        $this->responseStatus      = $responseStatus;
+        $this->container      = $container;
+        $this->client         = $client;
+        $this->router         = $router;
+        $this->responseStatus = $responseStatus;
     }
 
     /**
-     * Get router
+     * Get a router
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Routers\Router $router
      */
@@ -94,7 +94,7 @@ class LayerService implements LayerServiceInterface
     }
 
     /**
-     * Get message service
+     * Get a message service
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService
      */
@@ -104,7 +104,7 @@ class LayerService implements LayerServiceInterface
     }
 
     /**
-     * Get user service
+     * Get a user service
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService
      */
