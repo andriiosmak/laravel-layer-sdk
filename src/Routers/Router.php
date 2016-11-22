@@ -2,6 +2,7 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Routers;
 
+use Illuminate\Container\Container;
 use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter;
 use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\ConversationRouter;
 use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\MessageRouter;
@@ -13,6 +14,13 @@ use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\UserRouter;
  */
 class Router
 {
+    /**
+     * Container
+     *
+     * @var \Illuminate\Container\Container
+     */
+    private $container;
+
     /**
      * Conversation Router
      *
@@ -40,6 +48,18 @@ class Router
      * @var string application ID
      */
     protected $appId;
+
+    /**
+     * Constructor
+     *
+     * @param \Illuminate\Container\Container $container
+     *
+     * @return void
+     */
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
 
     /**
      * Set an application ID
