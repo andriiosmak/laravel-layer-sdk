@@ -109,4 +109,34 @@ class UserService extends BaseService
 
         return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK, true);
     }
+
+    /**
+     * Update block list
+     *
+     * @param array $data user data
+     * @param string $userId user ID
+     *
+     * @return bool
+     */
+    public function updateBlockList(array $data, string $userId): bool
+    {
+        $response = $this->getRequestService()
+            ->makePatchRequest($this->getRouter()->getBlockListUpdateURL($userId), $data);
+
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_ACCEPTED);
+    }
+
+    /**
+     * Get block list
+     *
+     * @param string $userId user ID
+     *
+     * @return mixed
+     */
+    public function getBlockList(string $userId)
+    {
+        $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getBlockListURL($userId));
+
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK, true);
+    }
 }

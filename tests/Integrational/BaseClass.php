@@ -47,7 +47,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get conversation service
+     * Get a conversation service
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Conversation\ConversationService
      */
@@ -57,7 +57,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get message service
+     * Get a message service
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Message\MessageService
      */
@@ -67,7 +67,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get user service
+     * Get a user service
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\User\UserService
      */

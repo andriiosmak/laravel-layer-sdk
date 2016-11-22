@@ -4,7 +4,7 @@ namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
 /**
  * Class ConversationService
- * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices
  */
 class ConversationService extends BaseService
 {
@@ -34,7 +34,7 @@ class ConversationService extends BaseService
     }
 
     /**
-     * Update conversation details
+     * Update a conversation
      *
      * @param array $data conversation data
      * @param string $conversationId conversation ID

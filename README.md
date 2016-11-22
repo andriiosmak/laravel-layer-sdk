@@ -184,6 +184,32 @@ $result = $layer->getUserService()->getBadges('userId');
 echo $result; //array
 ```
 
+Update block list
+
+``` php
+
+$data = [
+    0 => [
+        'operation' => 'add',
+        'property'  => 'blocks',
+        'id'        => 'layer:///identities/blockMe1',
+    ]
+];
+
+$result = $layer->getUserService()->updateBlockList($data, 'userId');
+
+echo $result; //boolean
+```
+
+Get block list
+
+``` php
+
+$result = $layer->getUserService()->getBlockList('userId');
+
+echo $result; //array
+```
+
 Additional information you can find [here][link-layer-documentation-user].
 
 ###Conversations
@@ -352,7 +378,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [ico-version]: https://img.shields.io/packagist/v/aosmak/laravel-layer-sdk.svg
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg
-[ico-travis]: https://img.shields.io/travis/andriiosmak/laravel-layer-sdk/release/v0.8.8.svg
+[ico-travis]: https://img.shields.io/travis/andriiosmak/laravel-layer-sdk/release/v0.8.9.svg
 [ico-downloads]: https://img.shields.io/packagist/dt/aosmak/laravel-layer-sdk.svg
 [ico-stable]: https://poser.pugx.org/aosmak/laravel-layer-sdk/v/stable.svg
 [ico-unstable]: https://poser.pugx.org/aosmak/laravel-layer-sdk/v/unstable.svg

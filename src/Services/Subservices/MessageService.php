@@ -57,7 +57,7 @@ class MessageService extends BaseService
     }
 
     /**
-     * Get message (user perspective)
+     * Get a message (user perspective)
      *
      * @param string $messageId message ID
      * @param string $userId user ID
@@ -73,7 +73,7 @@ class MessageService extends BaseService
     }
 
     /**
-     * Get message (system perspective)
+     * Get a message (system perspective)
      *
      * @param string $messageId message ID
      * @param string $conversationId conversation ID

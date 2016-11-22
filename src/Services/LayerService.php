@@ -64,26 +64,14 @@ class LayerService implements LayerServiceInterface
         Router $router,
         ResponseStatus $responseStatus
     ) {
-        $this->container           = $container;
-        $this->client              = $client;
-        $this->router              = $router;
-        $this->responseStatus      = $responseStatus;
+        $this->container      = $container;
+        $this->client         = $client;
+        $this->router         = $router;
+        $this->responseStatus = $responseStatus;
     }
 
     /**
-     * Set router
-     *
-     * @param \Aosmak\Laravel\Layer\Sdk\Routers\Router $router
-     *
-     * @return void
-     */
-    public function setRouter(Router $router)
-    {
-        $this->router = $router;
-    }
-
-    /**
-     * Get router
+     * Get a router
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Routers\Router $router
      */
@@ -95,7 +83,7 @@ class LayerService implements LayerServiceInterface
     }
 
     /**
-     * Get conversation service
+     * Get a conversation service
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService
      */
@@ -105,7 +93,7 @@ class LayerService implements LayerServiceInterface
     }
 
     /**
-     * Get message service
+     * Get a message service
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService
      */
@@ -115,7 +103,7 @@ class LayerService implements LayerServiceInterface
     }
 
     /**
-     * Get user service
+     * Get a user service
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService
      */
@@ -125,7 +113,7 @@ class LayerService implements LayerServiceInterface
     }
 
     /**
-     * Get service
+     * Get a service
      *
      * @param string $serviceName service name
      * @param Aosmak\Laravel\Layer\Sdk\Services\Subrouters\BaseRouter $router
@@ -134,10 +122,16 @@ class LayerService implements LayerServiceInterface
      */
     private function getService($serviceName, $router): BaseService
     {
-        $service = $this->container->make('Aosmak\Laravel\Layer\Sdk\Services\Subservices\\'. $serviceName);
-        $service->setConfig($this->config);
-        $service->setClient($this->client);
-        $service->setRouter($router);
+        $propName = lcfirst($serviceName);
+        if (empty($this->$propName)) {
+            $service = $this->container->make('Aosmak\Laravel\Layer\Sdk\Services\Subservices\\'. $serviceName);
+            $service->setConfig($this->config);
+            $service->setClient($this->client);
+            $service->setRouter($router);
+            $this->$propName = $service;
+        } else {
+            $service = $this->$propName;
+        }
 
         return $service;
     }
