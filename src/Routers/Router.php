@@ -42,25 +42,6 @@ class Router
     protected $appId;
 
     /**
-     * Constructor
-     *
-     * @param \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\ConversationRouter $conversationRouter
-     * @param \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\MessageRouter $messageRouter
-     * @param \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\UserRouter $userRouter
-     *
-     * @return void
-     */
-    public function __construct(
-        ConversationRouter $conversationRouter,
-        MessageRouter $messageRouter,
-        UserRouter $userRouter
-    ) {
-        $this->conversationRouter = $conversationRouter;
-        $this->messageRouter      = $messageRouter;
-        $this->userRouter         = $userRouter;
-    }
-
-    /**
      * Set application ID
      *
      * @param string $appId application ID
@@ -73,45 +54,45 @@ class Router
     }
 
     /**
-     * Get Conversation Router
+     * Return a router
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\ConversationRouter $conversationRouter
+     * @param string $name method name
+     * @param string $value method value
+     *
+     * @return Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter
      */
-    public function getConversationRouter(): ConversationRouter
+    public function __call($name, $value): BaseRouter
     {
-        return $this->getRouter($this->conversationRouter);
+        $methods = [
+            'getConversationRouter',
+            'getMessageRouter',
+            'getUserRouter',
+        ];
+        if (in_array($name, $methods)) {
+            return $this->getRouter(str_replace('get', '', $name));
+        }
+
+        throw new \Exception('Unable to find a router.');
     }
 
     /**
-     * Get Message Router
+     * Get a router
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\MessageRouter $messageRouter
-     */
-    public function getMessageRouter(): MessageRouter
-    {
-        return $this->getRouter($this->messageRouter);
-    }
-
-    /**
-     * Get User Router
-     *
-     * @return \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\UserRouter $userRouter
-     */
-    public function getUserRouter(): UserRouter
-    {
-        return $this->getRouter($this->userRouter);
-    }
-
-    /**
-     * Get router
-     *
-     * @param Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter $router
+     * @param string $routerName router name
      *
      * @return Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter $router
      */
-    private function getRouter($router): BaseRouter
+    private function getRouter($routerName): BaseRouter
     {
-        $router->setAppId($this->appId);
+        $propName = lcfirst($routerName);
+        if (empty($this->$propName)) {
+            $router = $this->container->make('Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\\'. $routerName);
+            $router->setAppId($this->appId);
+            $this->$propName = $router;
+        } else {
+            $router = $this->$propName;
+        }
+
         return $router;
     }
 }
