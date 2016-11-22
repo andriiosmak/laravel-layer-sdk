@@ -9,7 +9,7 @@ namespace Aosmak\Laravel\Layer\Sdk\Routers\Subrouters;
 class ConversationRouter extends BaseRouter
 {
     /**
-     * Get conversation request URL
+     * Get a conversation request URL
      *
      * @param string $conversationId conversation ID
      *
@@ -21,7 +21,7 @@ class ConversationRouter extends BaseRouter
     }
 
     /**
-     * Get conversations request URL
+     * Get a conversations request URL
      *
      * @param string $conversationId conversation ID
      *
@@ -33,7 +33,7 @@ class ConversationRouter extends BaseRouter
     }
 
     /**
-     * Get request URL
+     * Get a request URL
      *
      * @return string
      */

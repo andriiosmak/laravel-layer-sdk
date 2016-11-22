@@ -9,7 +9,7 @@ namespace Aosmak\Laravel\Layer\Sdk\Routers\Subrouters;
 class MessageRouter extends BaseRouter
 {
     /**
-     * Get message URL (user perspective)
+     * Get a message URL (user perspective)
      *
      * @param string $messageId message ID
      * @param string $userId user ID
@@ -25,7 +25,7 @@ class MessageRouter extends BaseRouter
     }
 
     /**
-     * Get message URL (system perspective)
+     * Get a message URL (system perspective)
      *
      * @param string $messageId message ID
      * @param string $conversationId user ID
@@ -41,7 +41,7 @@ class MessageRouter extends BaseRouter
     }
 
     /**
-     * Get conversation URL
+     * Get a conversation URL
      *
      * @param string $conversationId conversation ID
      *
@@ -53,7 +53,7 @@ class MessageRouter extends BaseRouter
     }
 
     /**
-     * Get conversation user URL
+     * Get a conversation user URL
      *
      * @param string $conversationId conversation ID
      * @param string $userId user ID
@@ -69,7 +69,7 @@ class MessageRouter extends BaseRouter
     }
 
     /**
-     * Get announcement request URL
+     * Get an announcement request URL
      *
      * @return string
      */
@@ -79,7 +79,7 @@ class MessageRouter extends BaseRouter
     }
 
     /**
-     * Get notification request URL
+     * Get a notification request URL
      *
      * @return string
      */

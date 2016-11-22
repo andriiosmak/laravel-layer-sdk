@@ -61,7 +61,7 @@ class Router
     }
 
     /**
-     * Set application ID
+     * Set an application ID
      *
      * @param string $appId application ID
      *
@@ -73,7 +73,7 @@ class Router
     }
 
     /**
-     * Get Conversation Router
+     * Get a Conversation Router
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\ConversationRouter $conversationRouter
      */
@@ -83,7 +83,7 @@ class Router
     }
 
     /**
-     * Get Message Router
+     * Get a Message Router
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\MessageRouter $messageRouter
      */
@@ -93,7 +93,7 @@ class Router
     }
 
     /**
-     * Get User Router
+     * Get a User Router
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\UserRouter $userRouter
      */
@@ -103,7 +103,7 @@ class Router
     }
 
     /**
-     * Get router
+     * Get a router
      *
      * @param Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter $router
      *
