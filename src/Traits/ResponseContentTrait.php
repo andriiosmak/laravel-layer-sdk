@@ -24,7 +24,7 @@ trait ResponseContentTrait
      *
      * @return void
      */
-    public function setResponseContent(Response $response)
+    public function setResponseContent(Response $response): void
     {
         $this->responseContent = $this->obtainResponseContent($response);
     }

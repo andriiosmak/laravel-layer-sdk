@@ -30,7 +30,7 @@ class RequestService
      *
      * @return void
      */
-    public function __construct(ResponseStatus $responseStatus)
+    public function __construct(ResponseStatus $responseStatus): void
     {
         $this->responseStatus = $responseStatus;
     }

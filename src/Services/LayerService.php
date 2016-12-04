@@ -63,7 +63,7 @@ class LayerService implements LayerServiceInterface
         Client $client,
         Router $router,
         ResponseStatus $responseStatus
-    ) {
+    ): void {
         $this->container      = $container;
         $this->client         = $client;
         $this->router         = $router;
