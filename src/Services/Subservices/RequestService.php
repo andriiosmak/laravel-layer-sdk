@@ -3,11 +3,9 @@
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
 use GuzzleHttp\Psr7\Response;
-use Aosmak\Laravel\Layer\Sdk\Traits\{
-    ConfigTrait,
-    ClientTrait,
-    ResponseContentTrait
-};
+use Aosmak\Laravel\Layer\Sdk\Traits\ConfigTrait;
+use Aosmak\Laravel\Layer\Sdk\Traits\ClientTrait;
+use Aosmak\Laravel\Layer\Sdk\Traits\ResponseContentTrait;
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
 
 /**
