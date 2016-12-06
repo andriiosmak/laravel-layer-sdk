@@ -22,7 +22,7 @@ abstract class BaseRouter
      *
      * @return void
      */
-    public function setAppId(string $appId): void
+    public function setAppId(string $appId)
     {
         $this->appId = $appId;
     }

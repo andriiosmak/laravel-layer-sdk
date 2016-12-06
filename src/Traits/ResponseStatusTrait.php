@@ -24,7 +24,7 @@ trait ResponseStatusTrait
      *
      * @return void
      */
-    public function setResponseStatus(ResponseStatus $responseStatus): void
+    public function setResponseStatus(ResponseStatus $responseStatus)
     {
         $this->responseStatus = $responseStatus;
     }

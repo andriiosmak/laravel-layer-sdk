@@ -24,7 +24,7 @@ trait ClientTrait
      *
      * @return void
      */
-    public function setClient(Client $client): void
+    public function setClient(Client $client)
     {
         $this->client = $client;
     }
