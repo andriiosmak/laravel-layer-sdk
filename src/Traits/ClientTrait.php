@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Aosmak\Laravel\Layer\Sdk\Traits;
 
 use GuzzleHttp\Client;
