@@ -22,7 +22,7 @@ trait ConfigTrait
      *
      * @return void
      */
-    public function setConfig(array $config)
+    public function setConfig(array $config): void
     {
         $this->config = $config;
     }
