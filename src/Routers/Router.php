@@ -47,7 +47,7 @@ class Router
      *
      * @return void
      */
-    public function setAppId(string $appId)
+    public function setAppId(string $appId): void
     {
         $this->appId = $appId;
     }

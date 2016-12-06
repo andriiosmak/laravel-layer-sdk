@@ -66,7 +66,7 @@ abstract class BaseService
      *
      * @return void
      */
-    public function setClient(Client $client)
+    public function setClient(Client $client): void
     {
         $this->requestService->setClient($client);
     }
@@ -78,9 +78,21 @@ abstract class BaseService
      *
      * @return void
      */
-    public function setConfig(array $config)
+    public function setConfig(array $config): void
     {
         $this->requestService->setConfig($config);
+    }
+
+    /**
+     * Set a router
+     *
+     * @param \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter $router
+     *
+     * @return void
+     */
+    public function setRouter(BaseRouter $router): void
+    {
+        $this->router = $router;
     }
 
     /**
@@ -91,18 +103,6 @@ abstract class BaseService
     public function getRequestService()
     {
         return $this->requestService;
-    }
-
-    /**
-     * Set a router
-     *
-     * @param \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter $router
-     *
-     * @return void
-     */
-    public function setRouter(BaseRouter $router)
-    {
-        $this->router = $router;
     }
 
     /**
