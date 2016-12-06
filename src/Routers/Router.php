@@ -35,7 +35,7 @@ class Router
      *
      * @return void
      */
-    public function __construct(Container $container): void
+    public function __construct(Container $container)
     {
         $this->container = $container;
     }
@@ -47,7 +47,7 @@ class Router
      *
      * @return void
      */
-    public function setAppId(string $appId): void
+    public function setAppId(string $appId)
     {
         $this->appId = $appId;
     }
