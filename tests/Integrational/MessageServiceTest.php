@@ -79,7 +79,7 @@ class MessageServiceTest extends BaseClass
     public function testGetListSystemMessage()
     {
         $this->assertInternalType('array', $this->getMessageService()->allLikeSystem('test'));
-        $this->assertFalse($this->getMessageService()->allLikeSystem('wrongId'));
+        $this->assertNull($this->getMessageService()->allLikeSystem('wrongId'));
     }
 
     /**
@@ -88,8 +88,8 @@ class MessageServiceTest extends BaseClass
     public function testgGetListsUserMessage()
     {
         $this->assertInternalType('array', $this->getMessageService()->allLikeUser('convId', 'tu1'));
-        $this->assertFalse($this->getMessageService()->allLikeUser('wrongConvId', 'tu1'));
-        $this->assertFalse($this->getMessageService()->allLikeUser('convId', 'wrongId'));
+        $this->assertNull($this->getMessageService()->allLikeUser('wrongConvId', 'tu1'));
+        $this->assertNull($this->getMessageService()->allLikeUser('convId', 'wrongId'));
     }
 
     /**
@@ -98,8 +98,8 @@ class MessageServiceTest extends BaseClass
     public function testGetLikeSystemMessage()
     {
         $this->assertArrayHasKey('id', $this->getMessageService()->getLikeSystem('messageId', 'convId'));
-        $this->assertFalse($this->getMessageService()->getLikeSystem('messageId', 'wrongConvId'));
-        $this->assertFalse($this->getMessageService()->getLikeSystem('wrongMessageId', 'convId'));
+        $this->assertNull($this->getMessageService()->getLikeSystem('messageId', 'wrongConvId'));
+        $this->assertNull($this->getMessageService()->getLikeSystem('wrongMessageId', 'convId'));
     }
 
     /**
@@ -108,8 +108,8 @@ class MessageServiceTest extends BaseClass
     public function testGetLikeUserMessage()
     {
         $this->assertArrayHasKey('id', $this->getMessageService()->getLikeUser('messagwId', 'userId'));
-        $this->assertFalse($this->getMessageService()->getLikeUser('messagwId', 'wrongUserId'));
-        $this->assertFalse($this->getMessageService()->getLikeUser('wrongMessagwId', 'userId'));
+        $this->assertNull($this->getMessageService()->getLikeUser('messagwId', 'wrongUserId'));
+        $this->assertNull($this->getMessageService()->getLikeUser('wrongMessagwId', 'userId'));
     }
 
     /**

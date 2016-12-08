@@ -159,13 +159,13 @@ class RequestService
      *
      * @return mixed
      */
-    public function getResponse(Response $result, int $successStatus, bool $returnContent = true)
+    public function getResponse(Response $result, int $successStatus, bool $returnContent = true): ?array
     {
         if ($result->getStatusCode() === $successStatus) {
             return $this->getResponseContent();
         }
 
-        return false;
+        return null;
     }
 
     /**

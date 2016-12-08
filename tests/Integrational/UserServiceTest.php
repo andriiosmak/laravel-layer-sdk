@@ -101,7 +101,7 @@ class UserServiceTest extends BaseClass
     public function testGetUser()
     {
         $this->assertArrayHasKey('first_name', $this->getUserService()->get('userId'));
-        $this->assertFalse($this->getUserService()->get('wrongUserId'));
+        $this->assertNull($this->getUserService()->get('wrongUserId'));
     }
 
     /**
