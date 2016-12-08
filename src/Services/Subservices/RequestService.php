@@ -44,14 +44,14 @@ class RequestService
      *
      * @return mixed conversation ID
      */
-    public function getCreateItemId(Response $response, string $statusId, string $path)
+    public function getCreateItemId(Response $response, string $statusId, string $path): ?string
     {
         $responseObject = $this->getResponse($response, $statusId, true);
         if ($responseObject && isset($responseObject['id'])) {
             return explode('layer:///' . $path . '/', $responseObject['id'], 2)[1];
         }
 
-        return false;
+        return null;
     }
 
 

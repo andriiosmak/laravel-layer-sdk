@@ -103,7 +103,7 @@ class UserService extends BaseService
      *
      * @return mixed
      */
-    public function getBadges(string $userId)
+    public function getBadges(string $userId): ?array
     {
         $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getBadgeURL($userId));
 
@@ -133,7 +133,7 @@ class UserService extends BaseService
      *
      * @return mixed
      */
-    public function getBlockList(string $userId)
+    public function getBlockList(string $userId): ?array
     {
         $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getBlockListURL($userId));
 

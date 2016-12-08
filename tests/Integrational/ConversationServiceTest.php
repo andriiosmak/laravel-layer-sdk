@@ -49,7 +49,7 @@ class ConversationServiceTest extends BaseClass
         ]);
 
         $this->assertInternalType('string', $id);
-        $this->assertFalse($this->getConversationService()->create([]));
+        $this->assertNull($this->getConversationService()->create([]));
     }
 
     /**

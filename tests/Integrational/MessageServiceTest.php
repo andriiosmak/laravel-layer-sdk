@@ -70,7 +70,7 @@ class MessageServiceTest extends BaseClass
         ];
 
         $this->assertInternalType('string', $this->getMessageService()->create($data, 'test'));
-        $this->assertFalse($this->getMessageService()->create([], 'test'));
+        $this->assertNull($this->getMessageService()->create([], 'test'));
     }
 
     /**
@@ -143,7 +143,7 @@ class MessageServiceTest extends BaseClass
         ];
 
         $this->assertInternalType('string', $this->getMessageService()->createAnnouncement($data));
-        $this->assertFalse($this->getMessageService()->createAnnouncement([]));
+        $this->assertNull($this->getMessageService()->createAnnouncement([]));
     }
 
     /**
@@ -163,6 +163,6 @@ class MessageServiceTest extends BaseClass
         ];
 
         $this->assertInternalType('string', $this->getMessageService()->createNotification($data));
-        $this->assertFalse($this->getMessageService()->createNotification([]));
+        $this->assertNull($this->getMessageService()->createNotification([]));
     }
 }

@@ -15,7 +15,7 @@ class ConversationService extends BaseService
      *
      * @return mixed
      */
-    public function create(array $data)
+    public function create(array $data): ?string
     {
         //set default value
         if (!isset($data['distinct'])) {
@@ -30,7 +30,7 @@ class ConversationService extends BaseService
             $content = $this->getCreateItemId($response, $this->getResponseStatus()::HTTP_CREATED, 'conversations');
         }
 
-        return !empty($content)? $content : false;
+        return !empty($content)? $content : null;
     }
 
     /**
