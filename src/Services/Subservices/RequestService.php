@@ -46,7 +46,7 @@ class RequestService
      */
     public function getCreateItemId(Response $response, string $statusId, string $path): ?string
     {
-        $responseObject = $this->getResponse($response, $statusId, true);
+        $responseObject = $this->getResponse($response, $statusId);
         if ($responseObject && isset($responseObject['id'])) {
             return explode('layer:///' . $path . '/', $responseObject['id'], 2)[1];
         }
@@ -155,11 +155,10 @@ class RequestService
      *
      * @param \GuzzleHttp\Psr7\Response $result Guzzle response
      * @param int $successStatus success status
-     * @param boolean $returnContent should method return content or not
      *
      * @return mixed
      */
-    public function getResponse(Response $result, int $successStatus, bool $returnContent = true): ?array
+    public function getResponse(Response $result, int $successStatus): ?array
     {
         if ($result->getStatusCode() === $successStatus) {
             return $this->getResponseContent();

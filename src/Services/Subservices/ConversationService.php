@@ -60,7 +60,7 @@ class ConversationService extends BaseService
     {
         $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getConversationURL($conversationId));
 
-        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK, true);
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK);
     }
 
     /**
@@ -74,7 +74,7 @@ class ConversationService extends BaseService
     {
         $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getConversationsURL($userId));
 
-        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK, true);
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK);
     }
 
     /**

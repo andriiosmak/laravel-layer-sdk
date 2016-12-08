@@ -64,7 +64,7 @@ class UserService extends BaseService
     {
         $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getURL($userId));
 
-        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK, true);
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK);
     }
 
     /**
@@ -107,7 +107,7 @@ class UserService extends BaseService
     {
         $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getBadgeURL($userId));
 
-        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK, true);
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK);
     }
 
     /**
@@ -137,6 +137,6 @@ class UserService extends BaseService
     {
         $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getBlockListURL($userId));
 
-        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK, true);
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK);
     }
 }
