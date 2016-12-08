@@ -56,7 +56,7 @@ class ConversationService extends BaseService
      *
      * @return mixed
      */
-    public function get(string $conversationId)
+    public function get(string $conversationId): ?array
     {
         $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getConversationURL($conversationId));
 
@@ -70,7 +70,7 @@ class ConversationService extends BaseService
      *
      * @return mixed
      */
-    public function all(string $userId)
+    public function all(string $userId): ?array
     {
         $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getConversationsURL($userId));
 

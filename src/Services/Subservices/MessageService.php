@@ -16,7 +16,7 @@ class MessageService extends BaseService
      *
      * @return mixed
      */
-    public function create(array $data, string $conversationId)
+    public function create(array $data, string $conversationId): ?string
     {
         $response = $this->getRequestService()
             ->makePostRequest($this->getRouter()->getConversationURL($conversationId), $data);
@@ -33,7 +33,7 @@ class MessageService extends BaseService
      *
      * @return mixed
      */
-    public function allLikeUser(string $conversationId, string $userId)
+    public function allLikeUser(string $conversationId, string $userId): ?array
     {
         $response = $this->getRequestService()
             ->makeGetRequest($this->getRouter()->getConversationUserURL($conversationId, $userId));
@@ -48,7 +48,7 @@ class MessageService extends BaseService
      *
      * @return mixed
      */
-    public function allLikeSystem(string $conversationId)
+    public function allLikeSystem(string $conversationId): ?array
     {
         $response = $this->getRequestService()
             ->makeGetRequest($this->getRouter()->getConversationURL($conversationId));
@@ -64,7 +64,7 @@ class MessageService extends BaseService
      *
      * @return mixed
      */
-    public function getLikeUser(string $messageId, string $userId)
+    public function getLikeUser(string $messageId, string $userId): ?array
     {
         $response = $this->getRequestService()
             ->makeGetRequest($this->getRouter()->getMessageUserURL($messageId, $userId));
@@ -80,7 +80,7 @@ class MessageService extends BaseService
      *
      * @return mixed
      */
-    public function getLikeSystem(string $messageId, string $conversationId)
+    public function getLikeSystem(string $messageId, string $conversationId): ?array
     {
         $response = $this->getRequestService()
             ->makeGetRequest($this->getRouter()->getMessageSytemURL($messageId, $conversationId));
@@ -111,7 +111,7 @@ class MessageService extends BaseService
      *
      * @return mixed
      */
-    public function createAnnouncement(array $data)
+    public function createAnnouncement(array $data): ?string
     {
         $response = $this->getRequestService()->makePostRequest($this->getRouter()->getAnnouncementURL(), $data);
 
@@ -126,7 +126,7 @@ class MessageService extends BaseService
      *
      * @return mixed
      */
-    public function createNotification(array $data)
+    public function createNotification(array $data): ?string
     {
         $response = $this->getRequestService()->makePostRequest($this->getRouter()->getNotificationURL(), $data);
 

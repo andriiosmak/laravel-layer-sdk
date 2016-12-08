@@ -60,7 +60,7 @@ class UserService extends BaseService
      *
      * @return mixed
      */
-    public function get(string $userId)
+    public function get(string $userId): ?array
     {
         $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getURL($userId));
 
