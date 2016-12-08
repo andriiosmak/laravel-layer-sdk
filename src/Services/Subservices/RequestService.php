@@ -159,17 +159,26 @@ class RequestService
      *
      * @return mixed
      */
-    public function getResponse(Response $result, int $successStatus, bool $returnContent = false)
+    public function getResponse(Response $result, int $successStatus, bool $returnContent = true)
     {
         if ($result->getStatusCode() === $successStatus) {
-            if ($returnContent) {
-                return $this->getResponseContent();
-            }
-
-            return true;
+            return $this->getResponseContent();
         }
 
         return false;
+    }
+
+    /**
+     * Check a response
+     *
+     * @param \GuzzleHttp\Psr7\Response $result Guzzle response
+     * @param int $successStatus success status
+     *
+     * @return bool
+     */
+    public function checkResponse(Response $result, int $successStatus): bool
+    {
+        return ($result->getStatusCode() === $successStatus)? true : false;
     }
 
     /**

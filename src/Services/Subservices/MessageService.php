@@ -101,7 +101,7 @@ class MessageService extends BaseService
         $response = $this->getRequestService()
             ->makeDeleteRequest($this->getRouter()->getMessageSytemURL($messageId, $conversationId));
 
-        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
+        return $this->getRequestService()->checkResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
     }
 
     /**
