@@ -54,7 +54,7 @@ abstract class BaseService
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus
      */
-    public function getResponseStatus()
+    public function getResponseStatus(): ResponseStatus
     {
         return $this->responseStatus;
     }
@@ -100,7 +100,7 @@ abstract class BaseService
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService
      */
-    public function getRequestService()
+    public function getRequestService(): RequestService
     {
         return $this->requestService;
     }
@@ -110,7 +110,7 @@ abstract class BaseService
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter
      */
-    public function getRouter()
+    public function getRouter(): BaseRouter
     {
         return $this->router;
     }
@@ -137,13 +137,13 @@ abstract class BaseService
      *
      * @return mixed conversation ID
      */
-    public function getCreateItemId(Response $response, string $statusId, string $path)
+    public function getCreateItemId(Response $response, string $statusId, string $path): ?string
     {
-        $responseObject = $this->requestService->getResponse($response, $statusId, true);
+        $responseObject = $this->requestService->getResponse($response, $statusId);
         if ($responseObject && isset($responseObject['id'])) {
             return explode('layer:///' . $path . '/', $responseObject['id'], 2)[1];
         }
 
-        return false;
+        return null;
     }
 }

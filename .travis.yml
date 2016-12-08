@@ -8,7 +8,6 @@ before_script:
 
 script:
   - vendor/bin/phpcs --extensions=php --standard=PSR2 src
-  - vendor/bin/phpmd src text codesize,unusedcode,naming
   - vendor/bin/phpcpd src
   - vendor/bin/phpunit tests
 
