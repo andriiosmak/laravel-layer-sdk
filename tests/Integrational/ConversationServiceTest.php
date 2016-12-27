@@ -49,7 +49,7 @@ class ConversationServiceTest extends BaseClass
         ]);
 
         $this->assertInternalType('string', $id);
-        $this->assertFalse($this->getConversationService()->create([]));
+        $this->assertNull($this->getConversationService()->create([]));
     }
 
     /**
@@ -74,7 +74,7 @@ class ConversationServiceTest extends BaseClass
     public function testGetConversation()
     {
         $this->assertArrayHasKey('url', $this->getConversationService()->get('convId'));
-        $this->assertFalse($this->getConversationService()->get('wrongConvId'));
+        $this->assertNull($this->getConversationService()->get('wrongConvId'));
     }
 
     /**

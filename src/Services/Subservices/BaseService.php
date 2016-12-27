@@ -54,7 +54,7 @@ abstract class BaseService
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus
      */
-    public function getResponseStatus()
+    public function getResponseStatus(): ResponseStatus
     {
         return $this->responseStatus;
     }
@@ -66,7 +66,7 @@ abstract class BaseService
      *
      * @return void
      */
-    public function setClient(Client $client)
+    public function setClient(Client $client): void
     {
         $this->requestService->setClient($client);
     }
@@ -78,19 +78,9 @@ abstract class BaseService
      *
      * @return void
      */
-    public function setConfig(array $config)
+    public function setConfig(array $config): void
     {
         $this->requestService->setConfig($config);
-    }
-
-    /**
-     * Get a request service
-     *
-     * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService
-     */
-    public function getRequestService()
-    {
-        return $this->requestService;
     }
 
     /**
@@ -100,9 +90,19 @@ abstract class BaseService
      *
      * @return void
      */
-    public function setRouter(BaseRouter $router)
+    public function setRouter(BaseRouter $router): void
     {
         $this->router = $router;
+    }
+
+    /**
+     * Get a request service
+     *
+     * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService
+     */
+    public function getRequestService(): RequestService
+    {
+        return $this->requestService;
     }
 
     /**
@@ -110,7 +110,7 @@ abstract class BaseService
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter
      */
-    public function getRouter()
+    public function getRouter(): BaseRouter
     {
         return $this->router;
     }
@@ -137,13 +137,13 @@ abstract class BaseService
      *
      * @return mixed conversation ID
      */
-    public function getCreateItemId(Response $response, string $statusId, string $path)
+    public function getCreateItemId(Response $response, string $statusId, string $path): ?string
     {
-        $responseObject = $this->requestService->getResponse($response, $statusId, true);
+        $responseObject = $this->requestService->getResponse($response, $statusId);
         if ($responseObject && isset($responseObject['id'])) {
             return explode('layer:///' . $path . '/', $responseObject['id'], 2)[1];
         }
 
-        return false;
+        return null;
     }
 }

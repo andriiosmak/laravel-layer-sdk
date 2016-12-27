@@ -1,14 +1,13 @@
 language: php
 
 php:
-  - 7.0.9
+  - 7.1
 
 before_script:
   - composer update
 
-script: 
+script:
   - vendor/bin/phpcs --extensions=php --standard=PSR2 src
-  - vendor/bin/phpmd src text codesize,unusedcode,naming
   - vendor/bin/phpcpd src
   - vendor/bin/phpunit tests
 
