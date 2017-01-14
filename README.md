@@ -1,6 +1,6 @@
 # Layer SDK for Laravel 5
 
-![Build Status][ico-travis]
+[![Build Status](https://travis-ci.org/andriiosmak/laravel-layer-sdk.svg)](https://travis-ci.org/andriiosmak/laravel-layer-sdk)
 ![Downloads][ico-downloads]
 ![Stable][ico-stable]
 ![Unstable][ico-unstable]
@@ -378,7 +378,6 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [ico-version]: https://img.shields.io/packagist/v/aosmak/laravel-layer-sdk.svg
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg
-[ico-travis]: https://img.shields.io/travis/andriiosmak/laravel-layer-sdk/develop.svg
 [ico-downloads]: https://img.shields.io/packagist/dt/aosmak/laravel-layer-sdk.svg
 [ico-stable]: https://poser.pugx.org/aosmak/laravel-layer-sdk/v/stable.svg
 [ico-unstable]: https://poser.pugx.org/aosmak/laravel-layer-sdk/v/unstable.svg
