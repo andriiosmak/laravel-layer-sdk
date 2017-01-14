@@ -6,10 +6,16 @@ use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7;
 
+/**
+ * Class UserServiceTest
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Unit
+ */
 class UserServiceTest extends BaseClass
 {
     /**
      * Set Up Client
+     *
+     * @return void
      */
     public static function setUpBeforeClass()
     {
@@ -21,7 +27,7 @@ class UserServiceTest extends BaseClass
             self::getResponse(ResponseStatus::HTTP_NO_CONTENT),
             self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
             self::getResponse(
-                ResponseStatus::HTTP_OK, 
+                ResponseStatus::HTTP_OK,
                 Psr7\stream_for('{"first_name":"Andy"}')
             ),
             self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
@@ -30,12 +36,12 @@ class UserServiceTest extends BaseClass
             self::getResponse(ResponseStatus::HTTP_NO_CONTENT),
             self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
             self::getResponse(
-                ResponseStatus::HTTP_OK, 
+                ResponseStatus::HTTP_OK,
                 Psr7\stream_for('{"external_unread_count":"15"}')
             ),
             self::getResponse(ResponseStatus::HTTP_ACCEPTED),
             self::getResponse(
-                ResponseStatus::HTTP_OK, 
+                ResponseStatus::HTTP_OK,
                 Psr7\stream_for('{"test":"test"}')
             ),
         ]);
@@ -44,6 +50,8 @@ class UserServiceTest extends BaseClass
 
     /**
      * Test user creation
+     *
+     * @return void
      */
     public function testCreateUser()
     {
@@ -60,6 +68,8 @@ class UserServiceTest extends BaseClass
 
     /**
      * Test user replacement
+     *
+     * @return void
      */
     public function testReplaceUser()
     {
@@ -78,6 +88,8 @@ class UserServiceTest extends BaseClass
 
     /**
      * Test user update
+     *
+     * @return void
      */
     public function testUpdateUser()
     {
@@ -97,6 +109,8 @@ class UserServiceTest extends BaseClass
 
     /**
      * Test obtaining information about a user
+     *
+     * @return void
      */
     public function testGetUser()
     {
@@ -106,6 +120,8 @@ class UserServiceTest extends BaseClass
 
     /**
      * Test user deletion
+     *
+     * @return void
      */
     public function testDeleteUser()
     {
@@ -128,6 +144,8 @@ class UserServiceTest extends BaseClass
 
     /**
      * Test obtaining information about user badges
+     *
+     * @return void
      */
     public function testGetBadge()
     {
@@ -137,6 +155,8 @@ class UserServiceTest extends BaseClass
 
     /**
      * Test block list update
+     *
+     * @return void
      */
     public function testBlockListUpdate()
     {
@@ -153,6 +173,8 @@ class UserServiceTest extends BaseClass
 
     /**
      * Test block list
+     *
+     * @return void
      */
     public function testGetBlockList()
     {

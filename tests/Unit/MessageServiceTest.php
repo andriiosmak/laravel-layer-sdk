@@ -6,10 +6,16 @@ use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7;
 
+/**
+ * Class MessageServiceTest
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Unit
+ */
 class MessageServiceTest extends BaseClass
 {
     /**
      * Set Up Client
+     *
+     * @return void
      */
     public static function setUpBeforeClass()
     {
@@ -54,6 +60,8 @@ class MessageServiceTest extends BaseClass
 
     /**
      * Test message creation
+     *
+     * @return void
      */
     public function testCreateMessage()
     {
@@ -75,6 +83,8 @@ class MessageServiceTest extends BaseClass
 
     /**
      * Test getListSystem method
+     *
+     * @return void
      */
     public function testGetListSystemMessage()
     {
@@ -84,6 +94,8 @@ class MessageServiceTest extends BaseClass
 
     /**
      * Test getListsUser method
+     *
+     * @return void
      */
     public function testgGetListsUserMessage()
     {
@@ -94,6 +106,8 @@ class MessageServiceTest extends BaseClass
 
     /**
      * Test getLikeSystem method
+     *
+     * @return void
      */
     public function testGetLikeSystemMessage()
     {
@@ -104,6 +118,8 @@ class MessageServiceTest extends BaseClass
 
     /**
      * Test getLikeUser method
+     *
+     * @return void
      */
     public function testGetLikeUserMessage()
     {
@@ -114,6 +130,8 @@ class MessageServiceTest extends BaseClass
 
     /**
      * Test message deletion
+     *
+     * @return void
      */
     public function testDeleteMessage()
     {
@@ -123,6 +141,8 @@ class MessageServiceTest extends BaseClass
 
     /**
      * Test announcement creation
+     *
+     * @return void
      */
     public function testCreateAnnouncement()
     {
@@ -148,6 +168,8 @@ class MessageServiceTest extends BaseClass
 
     /**
      * Test notification creation
+     *
+     * @return void
      */
     public function testCreateNotification()
     {

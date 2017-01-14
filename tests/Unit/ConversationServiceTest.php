@@ -6,10 +6,16 @@ use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7;
 
+/**
+ * Class ConversationServiceTest
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Unit
+ */
 class ConversationServiceTest extends BaseClass
 {
     /**
      * Set Up Client
+     *
+     * @return void
      */
     public static function setUpBeforeClass()
     {
@@ -38,6 +44,8 @@ class ConversationServiceTest extends BaseClass
 
     /**
      * Test conversation creation
+     *
+     * @return void
      */
     public function testCreateConversation()
     {
@@ -54,6 +62,8 @@ class ConversationServiceTest extends BaseClass
 
     /**
      * Test conversation update
+     *
+     * @return void
      */
     public function testUpdateUser()
     {
@@ -70,6 +80,8 @@ class ConversationServiceTest extends BaseClass
 
     /**
      * Test obtaining information about a conversation
+     *
+     * @return void
      */
     public function testGetConversation()
     {
@@ -79,6 +91,8 @@ class ConversationServiceTest extends BaseClass
 
     /**
      * Test obtaining information about conversations
+     *
+     * @return void
      */
     public function testGetConversations()
     {
@@ -88,6 +102,8 @@ class ConversationServiceTest extends BaseClass
 
     /**
      * Test conversation deletion
+     *
+     * @return void
      */
     public function testDeleteConversation()
     {

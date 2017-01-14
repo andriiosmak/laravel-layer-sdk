@@ -12,6 +12,10 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Container\Container;
 
+/**
+ * Class BaseClass
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Unit
+ */
 abstract class BaseClass extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -26,6 +30,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      *
      * @param GuzzleHttp\Handler\MockHandler $mock
      *
+     * @return \Aosmak\Laravel\Layer\Sdk\Services\LayerService
      */
     protected static function setUpService(MockHandler $mock)
     {
