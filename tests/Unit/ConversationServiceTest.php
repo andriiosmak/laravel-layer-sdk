@@ -17,20 +17,20 @@ class ConversationServiceTest extends BaseClass
      *
      * @return void
      */
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass() : void
     {
         $mock = new MockHandler([
             self::getResponse(
-                ResponseStatus::HTTP_OK, 
+                ResponseStatus::HTTP_OK,
                 Psr7\stream_for('{"id":"layer:///conversations/5055b704-f980-43c1-88c0-3705bad5beca"}')
             ),
             self::getResponse(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY),
             self::getResponse(
-                ResponseStatus::HTTP_NO_CONTENT, 
+                ResponseStatus::HTTP_NO_CONTENT,
                 Psr7\stream_for('{"id":"layer:///conversations/5055b704-f980-43c1-88c0-3705bad5beca"}')
             ),
             self::getResponse(
-                ResponseStatus::HTTP_OK, 
+                ResponseStatus::HTTP_OK,
                 Psr7\stream_for('{"url":"layer:///conversations/5055b704-f980-43c1-88c0-3705bad5beca"}')
             ),
             self::getResponse(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY),
@@ -47,7 +47,7 @@ class ConversationServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testCreateConversation()
+    public function testCreateConversation() : void
     {
         $id = $this->getConversationService()->create([
             'participants' => [
@@ -65,7 +65,7 @@ class ConversationServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testUpdateUser()
+    public function testUpdateUser() : void
     {
         $result = $this->getConversationService()->update([
             [
@@ -83,7 +83,7 @@ class ConversationServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testGetConversation()
+    public function testGetConversation() : void
     {
         $this->assertArrayHasKey('url', $this->getConversationService()->get('convId'));
         $this->assertNull($this->getConversationService()->get('wrongConvId'));
@@ -94,7 +94,7 @@ class ConversationServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testGetConversations()
+    public function testGetConversations() : void
     {
         $this->assertInternalType('array', $this->getConversationService()->all('userId'));
         $this->assertEmpty($this->getConversationService()->all('wrongUserId'));
@@ -105,7 +105,7 @@ class ConversationServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testDeleteConversation()
+    public function testDeleteConversation() : void
     {
         $this->assertTrue($this->getConversationService()->delete('convId'));
         $this->assertFalse($this->getConversationService()->delete('wrongConvId'));

@@ -15,7 +15,7 @@ class UserServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testCreateUser()
+    public function testCreateUser() : void
     {
         //delete if exists
         $this->getUserService()->delete('testUserOne');
@@ -45,7 +45,7 @@ class UserServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testReplaceUser()
+    public function testReplaceUser() : void
     {
         $data = [
             "first_name"   => 'testNameUpdated',
@@ -72,7 +72,7 @@ class UserServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testUpdateUser()
+    public function testUpdateUser() : void
     {
         $data = [
             [
@@ -94,7 +94,7 @@ class UserServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testGetUser()
+    public function testGetUser() : void
     {
         $user = $this->getUserService()->get('testUserOne');
         $this->assertEquals(
@@ -126,7 +126,7 @@ class UserServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testDeleteUser()
+    public function testDeleteUser() : void
     {
         $this->assertTrue($this->getUserService()->delete('testUserOne'));
         $this->assertEquals(
@@ -145,7 +145,7 @@ class UserServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testCreateBadge()
+    public function testCreateBadge() : void
     {
         $data = [
             "external_unread_count" => 15,
@@ -168,7 +168,7 @@ class UserServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testGetBadge()
+    public function testGetBadge() : void
     {
         $badge = $this->getUserService()->getBadges('testUserOne');
         $this->assertEquals(
@@ -186,7 +186,7 @@ class UserServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testBlockListUpdate()
+    public function testBlockListUpdate() : void
     {
         $data = [
             0 => [
@@ -208,7 +208,7 @@ class UserServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testGetBlockList()
+    public function testGetBlockList() : void
     {
         $list = $this->getUserService()->getBlockList('testUserOne');
         $this->assertEquals(

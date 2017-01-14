@@ -32,7 +32,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Services\LayerService
      */
-    protected static function setUpService(MockHandler $mock)
+    protected static function setUpService(MockHandler $mock) : void
     {
         $handler   = HandlerStack::create($mock);
         $container = new Container;
