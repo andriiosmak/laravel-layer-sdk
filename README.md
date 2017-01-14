@@ -378,7 +378,6 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [ico-version]: https://img.shields.io/packagist/v/aosmak/laravel-layer-sdk.svg
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg
-[ico-travis]: https://travis-ci.org/andriiosmak/laravel-layer-sdk.svg
 [ico-downloads]: https://img.shields.io/packagist/dt/aosmak/laravel-layer-sdk.svg
 [ico-stable]: https://poser.pugx.org/aosmak/laravel-layer-sdk/v/stable.svg
 [ico-unstable]: https://poser.pugx.org/aosmak/laravel-layer-sdk/v/unstable.svg
