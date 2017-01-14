@@ -2,6 +2,8 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Integrational;
 
+use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
+
 class UserServiceTest extends BaseClass
 {
     /**
@@ -20,9 +22,16 @@ class UserServiceTest extends BaseClass
         ];
 
         $result  = $this->getUserService()->create($data, 'testUserOne');
-
         $this->assertTrue($result);
+        $this->assertEquals(
+            ResponseStatus::HTTP_CREATED,
+            $this->getUserService()->getStatusCode()
+        ); //201
         $this->assertFalse($this->getUserService()->create([], 'testUserOne'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
+            $this->getUserService()->getStatusCode()
+        ); //422
     }
 
     /**
@@ -38,8 +47,16 @@ class UserServiceTest extends BaseClass
         ];
 
         $result = $this->getUserService()->replace($data, 'testUserOne');
-        $this->assertFalse($this->getUserService()->replace([], 'testUserOne'));
         $this->assertTrue($result);
+        $this->assertEquals(
+            ResponseStatus::HTTP_NO_CONTENT,
+            $this->getUserService()->getStatusCode()
+        ); //204
+        $this->assertFalse($this->getUserService()->replace([], 'testUserOne'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
+            $this->getUserService()->getStatusCode()
+        ); //422
     }
 
     /**
@@ -56,7 +73,10 @@ class UserServiceTest extends BaseClass
         ];
 
         $this->assertTrue($this->getUserService()->update($data, 'testUserOne'));
-        //$this->assertNull($this->getUserService()->update($data, time()));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NO_CONTENT,
+            $this->getUserService()->getStatusCode()
+        ); //204
     }
 
     /**
@@ -64,8 +84,29 @@ class UserServiceTest extends BaseClass
      */
     public function testGetUser()
     {
-        $this->assertArrayHasKey('first_name', $this->getUserService()->get('testUserOne'));
+        $user = $this->getUserService()->get('testUserOne');
+        $this->assertEquals(
+            ResponseStatus::HTTP_OK,
+            $this->getUserService()->getStatusCode()
+        ); //200
+        $this->assertInternalType('array', $user);
+        $this->assertArrayHasKey('first_name', $user);
+        $this->assertArrayHasKey('is_bot', $user);
+        $this->assertArrayHasKey('phone_number', $user);
+        $this->assertArrayHasKey('email_address', $user);
+        $this->assertArrayHasKey('display_name', $user);
+        $this->assertArrayHasKey('public_key', $user);
+        $this->assertArrayHasKey('user_id', $user);
+        $this->assertArrayHasKey('last_name', $user);
+        $this->assertArrayHasKey('metadata', $user);
+        $this->assertArrayHasKey('avatar_url', $user);
+
+        //get user with wrong id
         $this->assertNull($this->getUserService()->get(time()));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NOT_FOUND,
+            $this->getUserService()->getStatusCode()
+        ); //404
     }
 
     /**
@@ -74,7 +115,15 @@ class UserServiceTest extends BaseClass
     public function testDeleteUser()
     {
         $this->assertTrue($this->getUserService()->delete('testUserOne'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NO_CONTENT,
+            $this->getUserService()->getStatusCode()
+        ); //204
         $this->assertFalse($this->getUserService()->delete(time()));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NOT_FOUND,
+            $this->getUserService()->getStatusCode()
+        ); //404
     }
 
     /**
@@ -87,7 +136,15 @@ class UserServiceTest extends BaseClass
         ];
 
         $this->assertTrue($this->getUserService()->createBadge($data, 'testUserOne'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NO_CONTENT,
+            $this->getUserService()->getStatusCode()
+        ); //204
         $this->assertFalse($this->getUserService()->createBadge([], time()));
+        $this->assertEquals(
+            ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
+            $this->getUserService()->getStatusCode()
+        ); //422
     }
 
     /**
@@ -95,7 +152,15 @@ class UserServiceTest extends BaseClass
      */
     public function testGetBadge()
     {
-        $this->assertArrayHasKey('external_unread_count', $this->getUserService()->getBadges('testUserOne'));
+        $badge = $this->getUserService()->getBadges('testUserOne');
+        $this->assertEquals(
+            ResponseStatus::HTTP_OK,
+            $this->getUserService()->getStatusCode()
+        ); //200
+        $this->assertArrayHasKey('external_unread_count', $badge);
+        $this->assertArrayHasKey('unread_message_count', $badge);
+        $this->assertArrayHasKey('unread_conversation_count', $badge);
+        $this->assertArrayHasKey('external_unread_count', $badge);
     }
 
     /**
@@ -112,6 +177,10 @@ class UserServiceTest extends BaseClass
         ];
 
         $this->assertTrue($this->getUserService()->updateBlockList($data, 'testUserOne'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_ACCEPTED,
+            $this->getUserService()->getStatusCode()
+        ); //202
     }
 
     /**
@@ -119,6 +188,12 @@ class UserServiceTest extends BaseClass
      */
     public function testGetBlockList()
     {
-        $this->assertInternalType('array', $this->getUserService()->getBlockList('testUserOne'));
+        $list = $this->getUserService()->getBlockList('testUserOne');
+        $this->assertEquals(
+            ResponseStatus::HTTP_OK,
+            $this->getUserService()->getStatusCode()
+        ); //200
+        $this->assertInternalType('array', $list);
+        $this->assertArrayHasKey('user_id', $list[0]);
     }
 }
