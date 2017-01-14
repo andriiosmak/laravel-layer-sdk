@@ -17,11 +17,11 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass() : void
     {
         $mock = new MockHandler([
             self::getResponse(
-                ResponseStatus::HTTP_CREATED, 
+                ResponseStatus::HTTP_CREATED,
                 Psr7\stream_for('{"id":"layer:///messages/712e7754-22c1-402b-8e09-7254d1b95e43"}')
             ),
             self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
@@ -31,13 +31,13 @@ class MessageServiceTest extends BaseClass
             self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
             self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
             self::getResponse(
-                ResponseStatus::HTTP_OK, 
+                ResponseStatus::HTTP_OK,
                 Psr7\stream_for('{"id":"layer:///messages/712e7754-22c1-402b-8e09-7254d1b95e43"}')
             ),
             self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
             self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
              self::getResponse(
-                ResponseStatus::HTTP_OK, 
+                ResponseStatus::HTTP_OK,
                 Psr7\stream_for('{"id":"layer:///messages/712e7754-22c1-402b-8e09-7254d1b95e43"}')
             ),
             self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
@@ -45,12 +45,12 @@ class MessageServiceTest extends BaseClass
             self::getResponse(ResponseStatus::HTTP_NO_CONTENT),
             self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
             self::getResponse(
-                ResponseStatus::HTTP_ACCEPTED, 
+                ResponseStatus::HTTP_ACCEPTED,
                 Psr7\stream_for('{"id":"layer:///announcements/fbdd0bc4-e75d-46e5-b615-cca97e62601e"}')
             ),
             self::getResponse(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY),
             self::getResponse(
-                ResponseStatus::HTTP_ACCEPTED, 
+                ResponseStatus::HTTP_ACCEPTED,
                 Psr7\stream_for('{"id":"layer:///notifications/fbdd0bc4-e75d-46e5-b615-cca97e62601e"}')
             ),
             self::getResponse(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY),
@@ -63,7 +63,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testCreateMessage()
+    public function testCreateMessage() : void
     {
         $data = [
             'sender' => [
@@ -86,7 +86,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testGetListSystemMessage()
+    public function testGetListSystemMessage() : void
     {
         $this->assertInternalType('array', $this->getMessageService()->allLikeSystem('test'));
         $this->assertNull($this->getMessageService()->allLikeSystem('wrongId'));
@@ -97,7 +97,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testgGetListsUserMessage()
+    public function testgGetListsUserMessage() : void
     {
         $this->assertInternalType('array', $this->getMessageService()->allLikeUser('convId', 'tu1'));
         $this->assertNull($this->getMessageService()->allLikeUser('wrongConvId', 'tu1'));
@@ -109,7 +109,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testGetLikeSystemMessage()
+    public function testGetLikeSystemMessage() : void
     {
         $this->assertArrayHasKey('id', $this->getMessageService()->getLikeSystem('messageId', 'convId'));
         $this->assertNull($this->getMessageService()->getLikeSystem('messageId', 'wrongConvId'));
@@ -121,7 +121,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testGetLikeUserMessage()
+    public function testGetLikeUserMessage() : void
     {
         $this->assertArrayHasKey('id', $this->getMessageService()->getLikeUser('messagwId', 'userId'));
         $this->assertNull($this->getMessageService()->getLikeUser('messagwId', 'wrongUserId'));
@@ -133,7 +133,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testDeleteMessage()
+    public function testDeleteMessage() : void
     {
         $this->assertTrue($this->getMessageService()->delete('messageId', 'ConvId'));
         $this->assertFalse($this->getMessageService()->delete('wrongMessageId', 'wrongConvId'));
@@ -144,7 +144,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testCreateAnnouncement()
+    public function testCreateAnnouncement() : void
     {
         $data = [
             'recipients' => [
@@ -171,7 +171,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testCreateNotification()
+    public function testCreateNotification() : void
     {
         $data = [
             'recipients' => [

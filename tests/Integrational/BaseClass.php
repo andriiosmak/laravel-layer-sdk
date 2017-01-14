@@ -4,6 +4,9 @@ namespace Aosmak\Laravel\Layer\Sdk\Integrational;
 
 use Aosmak\Laravel\Layer\Sdk\Services\LayerService;
 use Illuminate\Container\Container;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService;
 
 /**
  * Class BaseClass
@@ -23,7 +26,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function setUp()
+    public function setUp() : void
     {
         if (file_exists(dirname(__FILE__) . '/config.php')) {
             $config = require(dirname(__FILE__) . '/config.php');
@@ -43,21 +46,11 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get a user service
-     *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\User\UserService
-     */
-    public function getUserService()
-    {
-        return $this->service->getUserService();
-    }
-
-    /**
      * Get a conversation service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Conversation\ConversationService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService
      */
-    public function getConversationService()
+    public function getConversationService() : ConversationService
     {
         return $this->service->getConversationService();
     }
@@ -65,10 +58,20 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     /**
      * Get a message service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Message\MessageService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService
      */
-    public function getMessageService()
+    public function getMessageService() : MessageService
     {
         return $this->service->getMessageService();
+    }
+
+    /**
+     * Get a user service
+     *
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService
+     */
+    public function getUserService() : UserService
+    {
+        return $this->service->getUserService();
     }
 }

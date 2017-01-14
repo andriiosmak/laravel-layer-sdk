@@ -29,7 +29,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testCreateMessage()
+    public function testCreateMessage() : void
     {
         $data = [
             'sender' => [
@@ -69,7 +69,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testGetListSystemMessage()
+    public function testGetListSystemMessage() : void
     {
         $response = $this->getMessageService()->allLikeSystem(self::$conversationId);
         $this->assertInternalType('array', $response);
@@ -100,7 +100,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testgGetListsUserMessage()
+    public function testgGetListsUserMessage() : void
     {
         $response = $this->getMessageService()->allLikeUser(self::$conversationId, 'tu1');
         $this->assertInternalType('array', $response);
@@ -136,7 +136,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testGetLikeSystemMessage()
+    public function testGetLikeSystemMessage() : void
     {
         $response = $this->getMessageService()->getLikeSystem(self::$messageId, self::$conversationId);
         $this->assertEquals(
@@ -171,7 +171,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testgetLikeUserMessage()
+    public function testgetLikeUserMessage() : void
     {
         $response = $this->getMessageService()->getLikeUser(self::$messageId, "tu1");
         $this->assertEquals(
@@ -206,7 +206,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testDeleteMessage()
+    public function testDeleteMessage() : void
     {
         $this->assertTrue($this->getMessageService()->delete(self::$messageId, self::$conversationId));
         $this->assertEquals(
@@ -225,7 +225,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testCreateAnnouncement()
+    public function testCreateAnnouncement() : void
     {
         $data = [
             'recipients' => [
@@ -260,7 +260,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testCreateNotification()
+    public function testCreateNotification() : void
     {
         $data = [
             'recipients' => [
