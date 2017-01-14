@@ -11,7 +11,7 @@
          stopOnFailure="false">
     <testsuites>
         <testsuite name=":vendor Test Suite">
-            <directory>tests/Unit</directory>
+            <directory>tests/Functional</directory>
             <directory>tests/Integrational</directory>
         </testsuite>
     </testsuites>
