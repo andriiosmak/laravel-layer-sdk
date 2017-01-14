@@ -74,7 +74,7 @@ class Router
      *
      * @param string $routerName router name
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter $router
+     * @return mixed Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter|null
      */
     private function getSubRouter($routerName): ?BaseRouter
     {
@@ -92,9 +92,9 @@ class Router
      * @param string $propName property name
      * @param string $routerPath full path
      *
-     * @return mixed
+     * @return mixed Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter|null
      */
-    private function resolveSubRouter($propName, $routerPath)
+    private function resolveSubRouter($propName, $routerPath): ?BaseRouter
     {
         if (class_exists($routerPath)) {
             $router = $this->container->make($routerPath);
