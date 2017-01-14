@@ -1,6 +1,6 @@
 <?php
 
-namespace Aosmak\Laravel\Layer\Sdk\Unit;
+namespace Aosmak\Laravel\Layer\Sdk\Functional;
 
 use Aosmak\Laravel\Layer\Sdk\Services\LayerService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
@@ -14,7 +14,7 @@ use Illuminate\Container\Container;
 
 /**
  * Class BaseClass
- * @package namespace Aosmak\Laravel\Layer\Sdk\Unit
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Functional
  */
 abstract class BaseClass extends \PHPUnit_Framework_TestCase
 {

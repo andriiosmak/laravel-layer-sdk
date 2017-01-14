@@ -1,6 +1,6 @@
 <?php
 
-namespace Aosmak\Laravel\Layer\Sdk\Unit;
+namespace Aosmak\Laravel\Layer\Sdk\Functional;
 
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
 use GuzzleHttp\Handler\MockHandler;
@@ -8,7 +8,7 @@ use GuzzleHttp\Psr7;
 
 /**
  * Class ConversationServiceTest
- * @package namespace Aosmak\Laravel\Layer\Sdk\Unit
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Functional
  */
 class ConversationServiceTest extends BaseClass
 {
