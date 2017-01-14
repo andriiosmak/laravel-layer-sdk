@@ -5,7 +5,7 @@
 ![Stable][ico-stable]
 ![Unstable][ico-unstable]
 [![Software License][ico-license]](LICENSE.md)
-<a href="https://travis-ci.org/aosmak/laravel-layer-sdk"><img src="https://travis-ci.org/aosmak/laravel-layer-sdk.svg" alt="Build Status"></a>
+<a href="https://travis-ci.org/andriiosmak/laravel-layer-sdk"><img src="https://travis-ci.org/andriiosmak/laravel-layer-sdk.svg" alt="Build Status"></a>
 
 Powerful package that helps Laravel 5 projects to access Layer Services ([layer.com][link-layer]).
 
