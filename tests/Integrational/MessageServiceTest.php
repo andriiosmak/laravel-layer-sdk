@@ -1,57 +1,9 @@
 <?php
 
-namespace Aosmak\Laravel\Layer\Sdk\Integrational;
-
-use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\Psr7;
+namespace Aosmak\Laravel\Layer\Sdk\Old;
 
 class MessageServiceTest extends BaseClass
 {
-    /**
-     * Set Up Client
-     */
-    public static function setUpBeforeClass()
-    {
-        $mock = new MockHandler([
-            self::getResponse(
-                ResponseStatus::HTTP_CREATED, 
-                Psr7\stream_for('{"id":"layer:///messages/712e7754-22c1-402b-8e09-7254d1b95e43"}')
-            ),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(ResponseStatus::HTTP_OK),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(ResponseStatus::HTTP_OK),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(
-                ResponseStatus::HTTP_OK, 
-                Psr7\stream_for('{"id":"layer:///messages/712e7754-22c1-402b-8e09-7254d1b95e43"}')
-            ),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-             self::getResponse(
-                ResponseStatus::HTTP_OK, 
-                Psr7\stream_for('{"id":"layer:///messages/712e7754-22c1-402b-8e09-7254d1b95e43"}')
-            ),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(ResponseStatus::HTTP_NO_CONTENT),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(
-                ResponseStatus::HTTP_ACCEPTED, 
-                Psr7\stream_for('{"id":"layer:///announcements/fbdd0bc4-e75d-46e5-b615-cca97e62601e"}')
-            ),
-            self::getResponse(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY),
-            self::getResponse(
-                ResponseStatus::HTTP_ACCEPTED, 
-                Psr7\stream_for('{"id":"layer:///notifications/fbdd0bc4-e75d-46e5-b615-cca97e62601e"}')
-            ),
-            self::getResponse(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY),
-        ]);
-        self::setUpService($mock);
-    }
-
     /**
      * Test message creation
      */
@@ -69,8 +21,19 @@ class MessageServiceTest extends BaseClass
             ],
         ];
 
-        $this->assertInternalType('string', $this->getMessageService()->create($data, 'test'));
-        $this->assertNull($this->getMessageService()->create([], 'test'));
+        $convId = $this->getConversationService()->create([
+            'participants' => [
+                "tu1",
+                "tu2",
+            ],
+        ]);
+
+        $id = $this->getMessageService()->create($data, $convId);
+
+        $this->assertInternalType('string', $id);
+        $this->assertNull($this->getMessageService()->create([], $convId));
+
+        return $id;
     }
 
     /**
@@ -78,7 +41,14 @@ class MessageServiceTest extends BaseClass
      */
     public function testGetListSystemMessage()
     {
-        $this->assertInternalType('array', $this->getMessageService()->allLikeSystem('test'));
+        $convId = $this->getConversationService()->create([
+            'participants' => [
+                "tu1",
+                "tu2",
+            ],
+        ]);
+
+        $this->assertInternalType('array', $this->getMessageService()->allLikeSystem($convId));
         $this->assertNull($this->getMessageService()->allLikeSystem('wrongId'));
     }
 
@@ -87,29 +57,47 @@ class MessageServiceTest extends BaseClass
      */
     public function testgGetListsUserMessage()
     {
-        $this->assertInternalType('array', $this->getMessageService()->allLikeUser('convId', 'tu1'));
-        $this->assertNull($this->getMessageService()->allLikeUser('wrongConvId', 'tu1'));
-        $this->assertNull($this->getMessageService()->allLikeUser('convId', 'wrongId'));
+        $convId = $this->getConversationService()->create([
+            'participants' => [
+                "tu1",
+                "tu2",
+            ],
+        ]);
+
+        $this->assertInternalType('array', $this->getMessageService()->allLikeUser($convId, 'tu1'));
+        $this->assertNull($this->getMessageService()->allLikeUser('wrongId', 'tu1'));
+        $this->assertNull($this->getMessageService()->allLikeUser($convId, 'wrongId'));
     }
 
     /**
      * Test getLikeSystem method
      */
-    public function testGetLikeSystemMessage()
+    public function testgetLikeSystemMessage()
     {
-        $this->assertArrayHasKey('id', $this->getMessageService()->getLikeSystem('messageId', 'convId'));
-        $this->assertNull($this->getMessageService()->getLikeSystem('messageId', 'wrongConvId'));
-        $this->assertNull($this->getMessageService()->getLikeSystem('wrongMessageId', 'convId'));
+        $convId = $this->getConversationService()->create([
+            'participants' => [
+                "tu1",
+                "tu2",
+            ],
+        ]);
+        $id = $this->testCreateMessage();
+
+        $this->assertArrayHasKey('id', $this->getMessageService()->getLikeSystem($id, $convId));
+        $this->assertNull($this->getMessageService()->getLikeSystem($id, 'wrongId'));
+        $this->assertNull($this->getMessageService()->getLikeSystem('wrongId', $convId));
     }
 
     /**
      * Test getLikeUser method
      */
-    public function testGetLikeUserMessage()
+    public function testgetLikeUserMessage()
     {
-        $this->assertArrayHasKey('id', $this->getMessageService()->getLikeUser('messagwId', 'userId'));
-        $this->assertNull($this->getMessageService()->getLikeUser('messagwId', 'wrongUserId'));
-        $this->assertNull($this->getMessageService()->getLikeUser('wrongMessagwId', 'userId'));
+        $userId = "tu1";
+        $id     = $this->testCreateMessage();
+
+        $this->assertArrayHasKey('id', $this->getMessageService()->getLikeUser($id, $userId));
+        $this->assertNull($this->getMessageService()->getLikeUser($id, 'wrongId'));
+        $this->assertNull($this->getMessageService()->getLikeUser('wrongId', $userId));
     }
 
     /**
@@ -117,8 +105,16 @@ class MessageServiceTest extends BaseClass
      */
     public function testDeleteMessage()
     {
-        $this->assertTrue($this->getMessageService()->delete('messageId', 'ConvId'));
-        $this->assertFalse($this->getMessageService()->delete('wrongMessageId', 'wrongConvId'));
+        $convId = $this->getConversationService()->create([
+            'participants' => [
+                "tu1",
+                "tu2",
+            ],
+        ]);
+        $id = $this->testCreateMessage();
+
+        $this->assertTrue($this->getMessageService()->delete($id, $convId));
+        $this->assertFalse($this->getMessageService()->delete('wrongId', 'wrongId'));
     }
 
     /**
@@ -128,8 +124,8 @@ class MessageServiceTest extends BaseClass
     {
         $data = [
             'recipients' => [
-                "userId1",
-                "userId2",
+                "tu1",
+                "tu2",
             ],
             'sender' => [
                 'name' => 'The System',
@@ -162,7 +158,7 @@ class MessageServiceTest extends BaseClass
             ],
         ];
 
-        $this->assertInternalType('string', $this->getMessageService()->createNotification($data));
+        $this->assertNull($this->getMessageService()->createNotification($data));
         $this->assertNull($this->getMessageService()->createNotification([]));
     }
 }

@@ -1,41 +1,9 @@
 <?php
 
-namespace Aosmak\Laravel\Layer\Sdk\Integrational;
-
-use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\Psr7;
+namespace Aosmak\Laravel\Layer\Sdk\Old;
 
 class ConversationServiceTest extends BaseClass
 {
-    /**
-     * Set Up Client
-     */
-    public static function setUpBeforeClass()
-    {
-        $mock = new MockHandler([
-            self::getResponse(
-                ResponseStatus::HTTP_OK, 
-                Psr7\stream_for('{"id":"layer:///conversations/5055b704-f980-43c1-88c0-3705bad5beca"}')
-            ),
-            self::getResponse(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY),
-            self::getResponse(
-                ResponseStatus::HTTP_NO_CONTENT, 
-                Psr7\stream_for('{"id":"layer:///conversations/5055b704-f980-43c1-88c0-3705bad5beca"}')
-            ),
-            self::getResponse(
-                ResponseStatus::HTTP_OK, 
-                Psr7\stream_for('{"url":"layer:///conversations/5055b704-f980-43c1-88c0-3705bad5beca"}')
-            ),
-            self::getResponse(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY),
-            self::getResponse(ResponseStatus::HTTP_OK),
-            self::getResponse(ResponseStatus::HTTP_OK),
-            self::getResponse(ResponseStatus::HTTP_NO_CONTENT),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-        ]);
-        self::setUpService($mock);
-    }
-
     /**
      * Test conversation creation
      */
@@ -43,13 +11,16 @@ class ConversationServiceTest extends BaseClass
     {
         $id = $this->getConversationService()->create([
             'participants' => [
-                "userId1",
-                "userId2",
+                "tu1",
+                "tu2",
             ],
+            //'distinct' => true,
         ]);
 
         $this->assertInternalType('string', $id);
         $this->assertNull($this->getConversationService()->create([]));
+
+        return $id;
     }
 
     /**
@@ -57,13 +28,14 @@ class ConversationServiceTest extends BaseClass
      */
     public function testUpdateUser()
     {
+        $id = $this->testCreateConversation();
         $result = $this->getConversationService()->update([
             [
                 'operation' => 'set',
                 'property'  => 'participants',
                 'value'     =>  ["tu2", "tu1"],
             ],
-        ], 'convId');
+        ], $id);
 
         $this->assertTrue($result);
     }
@@ -73,8 +45,9 @@ class ConversationServiceTest extends BaseClass
      */
     public function testGetConversation()
     {
-        $this->assertArrayHasKey('url', $this->getConversationService()->get('convId'));
-        $this->assertNull($this->getConversationService()->get('wrongConvId'));
+        $id = $this->testCreateConversation();
+        $this->assertArrayHasKey('url', $this->getConversationService()->get($id));
+        $this->assertNull($this->getConversationService()->get('wrongId'));
     }
 
     /**
@@ -82,8 +55,8 @@ class ConversationServiceTest extends BaseClass
      */
     public function testGetConversations()
     {
-        $this->assertInternalType('array', $this->getConversationService()->all('userId'));
-        $this->assertEmpty($this->getConversationService()->all('wrongUserId'));
+        $this->assertInternalType('array', $this->getConversationService()->all('tu1'));
+        $this->assertEmpty($this->getConversationService()->all('wrongId'));
     }
 
     /**
@@ -91,7 +64,8 @@ class ConversationServiceTest extends BaseClass
      */
     public function testDeleteConversation()
     {
-        $this->assertTrue($this->getConversationService()->delete('convId'));
-        $this->assertFalse($this->getConversationService()->delete('wrongConvId'));
+        $id = $this->testCreateConversation();
+        $this->assertTrue($this->getConversationService()->delete($id));
+        $this->assertFalse($this->getConversationService()->delete('wrongId'));
     }
 }
