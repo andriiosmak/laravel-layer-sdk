@@ -3,50 +3,23 @@
 namespace Aosmak\Laravel\Layer\Sdk\Integrational;
 
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\Psr7;
 
+/**
+ * Class UserServiceTest
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Integrational
+ */
 class UserServiceTest extends BaseClass
 {
     /**
-     * Set Up Client
-     */
-    public static function setUpBeforeClass()
-    {
-        $mock = new MockHandler([
-            self::getResponse(ResponseStatus::HTTP_CREATED),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(ResponseStatus::HTTP_NO_CONTENT),
-            self::getResponse(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY),
-            self::getResponse(ResponseStatus::HTTP_NO_CONTENT),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(
-                ResponseStatus::HTTP_OK, 
-                Psr7\stream_for('{"first_name":"Andy"}')
-            ),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(ResponseStatus::HTTP_NO_CONTENT),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(ResponseStatus::HTTP_NO_CONTENT),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(
-                ResponseStatus::HTTP_OK, 
-                Psr7\stream_for('{"external_unread_count":"15"}')
-            ),
-            self::getResponse(ResponseStatus::HTTP_ACCEPTED),
-            self::getResponse(
-                ResponseStatus::HTTP_OK, 
-                Psr7\stream_for('{"test":"test"}')
-            ),
-        ]);
-        self::setUpService($mock);
-    }
-
-    /**
      * Test user creation
+     *
+     * @return void
      */
-    public function testCreateUser()
+    public function testCreateUser() : void
     {
+        //delete if exists
+        $this->getUserService()->delete('testUserOne');
+
         $data = [
             "first_name"   => 'testName',
             "last_name"    => 'testSurname',
@@ -54,14 +27,25 @@ class UserServiceTest extends BaseClass
             "phone_number" => 'testPhoneNumber',
         ];
 
-        $this->assertTrue($this->getUserService()->create($data, 'userId'));
-        $this->assertFalse($this->getUserService()->create([], 'userId'));
+        $result  = $this->getUserService()->create($data, 'testUserOne');
+        $this->assertTrue($result);
+        $this->assertEquals(
+            ResponseStatus::HTTP_CREATED,
+            $this->getUserService()->getStatusCode()
+        ); //201
+        $this->assertFalse($this->getUserService()->create([], 'testUserOne'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
+            $this->getUserService()->getStatusCode()
+        ); //422
     }
 
     /**
      * Test user replacement
+     *
+     * @return void
      */
-    public function testReplaceUser()
+    public function testReplaceUser() : void
     {
         $data = [
             "first_name"   => 'testNameUpdated',
@@ -70,16 +54,25 @@ class UserServiceTest extends BaseClass
             "phone_number" => 'testPhoneNumberUpdated',
         ];
 
-        $result = $this->getUserService()->replace($data, 'userId');
-        $this->assertFalse($this->getUserService()->replace([], 'userId'));
-
+        $result = $this->getUserService()->replace($data, 'testUserOne');
         $this->assertTrue($result);
+        $this->assertEquals(
+            ResponseStatus::HTTP_NO_CONTENT,
+            $this->getUserService()->getStatusCode()
+        ); //204
+        $this->assertFalse($this->getUserService()->replace([], 'testUserOne'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
+            $this->getUserService()->getStatusCode()
+        ); //422
     }
 
     /**
      * Test user update
+     *
+     * @return void
      */
-    public function testUpdateUser()
+    public function testUpdateUser() : void
     {
         $data = [
             [
@@ -89,56 +82,111 @@ class UserServiceTest extends BaseClass
             ],
         ];
 
-        $result = $this->getUserService()->update($data, 'userId');
-
-        $this->assertTrue($result);
-        $this->assertFalse($this->getUserService()->update($data, 'wrongUserId'));
+        $this->assertTrue($this->getUserService()->update($data, 'testUserOne'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NO_CONTENT,
+            $this->getUserService()->getStatusCode()
+        ); //204
     }
 
     /**
      * Test obtaining information about a user
+     *
+     * @return void
      */
-    public function testGetUser()
+    public function testGetUser() : void
     {
-        $this->assertArrayHasKey('first_name', $this->getUserService()->get('userId'));
-        $this->assertNull($this->getUserService()->get('wrongUserId'));
+        $user = $this->getUserService()->get('testUserOne');
+        $this->assertEquals(
+            ResponseStatus::HTTP_OK,
+            $this->getUserService()->getStatusCode()
+        ); //200
+        $this->assertInternalType('array', $user);
+        $this->assertArrayHasKey('first_name', $user);
+        $this->assertArrayHasKey('is_bot', $user);
+        $this->assertArrayHasKey('phone_number', $user);
+        $this->assertArrayHasKey('email_address', $user);
+        $this->assertArrayHasKey('display_name', $user);
+        $this->assertArrayHasKey('public_key', $user);
+        $this->assertArrayHasKey('user_id', $user);
+        $this->assertArrayHasKey('last_name', $user);
+        $this->assertArrayHasKey('metadata', $user);
+        $this->assertArrayHasKey('avatar_url', $user);
+
+        //get user with wrong id
+        $this->assertNull($this->getUserService()->get(time()));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NOT_FOUND,
+            $this->getUserService()->getStatusCode()
+        ); //404
     }
 
     /**
      * Test user deletion
+     *
+     * @return void
      */
-    public function testDeleteUser()
+    public function testDeleteUser() : void
     {
-        $this->assertTrue($this->getUserService()->delete('userId'));
-        $this->assertFalse($this->getUserService()->delete('wrongUserId'));
+        $this->assertTrue($this->getUserService()->delete('testUserOne'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NO_CONTENT,
+            $this->getUserService()->getStatusCode()
+        ); //204
+        $this->assertFalse($this->getUserService()->delete(time()));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NOT_FOUND,
+            $this->getUserService()->getStatusCode()
+        ); //404
     }
 
     /**
      * Test badge creation
+     *
+     * @return void
      */
-    public function testCreateBadge()
+    public function testCreateBadge() : void
     {
         $data = [
             "external_unread_count" => 15,
         ];
 
         $this->assertTrue($this->getUserService()->createBadge($data, 'testUserOne'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NO_CONTENT,
+            $this->getUserService()->getStatusCode()
+        ); //204
         $this->assertFalse($this->getUserService()->createBadge([], time()));
+        $this->assertEquals(
+            ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
+            $this->getUserService()->getStatusCode()
+        ); //422
     }
 
     /**
      * Test obtaining information about user badges
+     *
+     * @return void
      */
-    public function testGetBadge()
+    public function testGetBadge() : void
     {
-        $this->assertArrayHasKey('external_unread_count', $this->getUserService()->getBadges('testUserOne'));
+        $badge = $this->getUserService()->getBadges('testUserOne');
+        $this->assertEquals(
+            ResponseStatus::HTTP_OK,
+            $this->getUserService()->getStatusCode()
+        ); //200
+        $this->assertArrayHasKey('external_unread_count', $badge);
+        $this->assertArrayHasKey('unread_message_count', $badge);
+        $this->assertArrayHasKey('unread_conversation_count', $badge);
+        $this->assertArrayHasKey('external_unread_count', $badge);
     }
-
 
     /**
      * Test block list update
+     *
+     * @return void
      */
-    public function testBlockListUpdate()
+    public function testBlockListUpdate() : void
     {
         $data = [
             0 => [
@@ -149,13 +197,25 @@ class UserServiceTest extends BaseClass
         ];
 
         $this->assertTrue($this->getUserService()->updateBlockList($data, 'testUserOne'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_ACCEPTED,
+            $this->getUserService()->getStatusCode()
+        ); //202
     }
 
     /**
      * Test block list
+     *
+     * @return void
      */
-    public function testGetBlockList()
+    public function testGetBlockList() : void
     {
-        $this->assertInternalType('array', $this->getUserService()->getBlockList('testUserOne'));
+        $list = $this->getUserService()->getBlockList('testUserOne');
+        $this->assertEquals(
+            ResponseStatus::HTTP_OK,
+            $this->getUserService()->getStatusCode()
+        ); //200
+        $this->assertInternalType('array', $list);
+        $this->assertArrayHasKey('user_id', $list[0]);
     }
 }
