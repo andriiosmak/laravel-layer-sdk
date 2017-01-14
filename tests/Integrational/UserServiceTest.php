@@ -4,10 +4,16 @@ namespace Aosmak\Laravel\Layer\Sdk\Integrational;
 
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
 
+/**
+ * Class UserServiceTest
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Integrational
+ */
 class UserServiceTest extends BaseClass
 {
     /**
      * Test user creation
+     *
+     * @return void
      */
     public function testCreateUser()
     {
@@ -36,6 +42,8 @@ class UserServiceTest extends BaseClass
 
     /**
      * Test user replacement
+     *
+     * @return void
      */
     public function testReplaceUser()
     {
@@ -61,6 +69,8 @@ class UserServiceTest extends BaseClass
 
     /**
      * Test user update
+     *
+     * @return void
      */
     public function testUpdateUser()
     {
@@ -81,6 +91,8 @@ class UserServiceTest extends BaseClass
 
     /**
      * Test obtaining information about a user
+     *
+     * @return void
      */
     public function testGetUser()
     {
@@ -111,6 +123,8 @@ class UserServiceTest extends BaseClass
 
     /**
      * Test user deletion
+     *
+     * @return void
      */
     public function testDeleteUser()
     {
@@ -128,6 +142,8 @@ class UserServiceTest extends BaseClass
 
     /**
      * Test badge creation
+     *
+     * @return void
      */
     public function testCreateBadge()
     {
@@ -149,6 +165,8 @@ class UserServiceTest extends BaseClass
 
     /**
      * Test obtaining information about user badges
+     *
+     * @return void
      */
     public function testGetBadge()
     {
@@ -165,6 +183,8 @@ class UserServiceTest extends BaseClass
 
     /**
      * Test block list update
+     *
+     * @return void
      */
     public function testBlockListUpdate()
     {
@@ -185,6 +205,8 @@ class UserServiceTest extends BaseClass
 
     /**
      * Test block list
+     *
+     * @return void
      */
     public function testGetBlockList()
     {

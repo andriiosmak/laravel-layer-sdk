@@ -2,6 +2,10 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Integrational;
 
+/**
+ * Class MessageServiceTest
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Integrational
+ */
 class MessageServiceTest extends BaseClass
 {
     /**
