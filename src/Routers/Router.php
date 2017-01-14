@@ -58,17 +58,12 @@ class Router
      * @param string $name method name
      * @param string $value method value
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter
+     * @return mixed
      */
-    public function __call($name, $value): BaseRouter
+    public function __call($name, $value)
     {
-        $methods = [
-            'getConversationRouter',
-            'getMessageRouter',
-            'getUserRouter',
-        ];
-        if (in_array($name, $methods)) {
-            return $this->getRouter(str_replace('get', '', $name));
+        if ($response = $this->getSubRouter(str_replace('get', '', $name))) {
+            return $response;
         }
 
         throw new \Exception('Unable to find a router.');
@@ -81,17 +76,33 @@ class Router
      *
      * @return Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter $router
      */
-    private function getRouter($routerName): BaseRouter
+    private function getSubRouter($routerName): ?BaseRouter
     {
         $propName = lcfirst($routerName);
         if (empty($this->$propName)) {
-            $router = $this->container->make('Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\\'. $routerName);
-            $router->setAppId($this->appId);
-            $this->$propName = $router;
-        } else {
-            $router = $this->$propName;
+            return $this->resolveSubRouter($propName, 'Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\\'. $routerName);
         }
 
-        return $router;
+        return $this->$propName;
+    }
+
+    /**
+     * Resolve a router
+     *
+     * @param string $propName property name
+     * @param string $routerPath full path
+     *
+     * @return mixed
+     */
+    private function resolveSubRouter($propName, $routerPath)
+    {
+        if (class_exists($routerPath)) {
+            $router = $this->container->make($routerPath);
+            $router->setAppId($this->appId);
+            $this->$propName = $router;
+            return $router;
+        } else {
+            return null;
+        }
     }
 }
