@@ -1,6 +1,5 @@
 # Layer SDK for Laravel 5
 
-![Build Status][ico-travis]
 [![Build Status](https://travis-ci.org/andriiosmak/laravel-layer-sdk.svg)](https://travis-ci.org/andriiosmak/laravel-layer-sdk)
 ![Downloads][ico-downloads]
 ![Stable][ico-stable]
