@@ -1,6 +1,6 @@
 <?php
 
-namespace Aosmak\Laravel\Layer\Sdk\Old;
+namespace Aosmak\Laravel\Layer\Sdk\Integrational;
 
 use Aosmak\Laravel\Layer\Sdk\Services\LayerService;
 use Illuminate\Container\Container;

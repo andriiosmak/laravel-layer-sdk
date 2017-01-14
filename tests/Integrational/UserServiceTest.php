@@ -1,6 +1,6 @@
 <?php
 
-namespace Aosmak\Laravel\Layer\Sdk\Old;
+namespace Aosmak\Laravel\Layer\Sdk\Integrational;
 
 class UserServiceTest extends BaseClass
 {
