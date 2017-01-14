@@ -23,7 +23,12 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     {
         $container = new Container;
         $service   = $container->make('Aosmak\Laravel\Layer\Sdk\Services\LayerService');
-        $service->setConfig(require(dirname(__FILE__) . '/Config/layer.php'));
+        $service->setConfig([
+            'LAYER_SDK_APP_ID'           => env('LAYER_SDK_APP_ID'),
+            'LAYER_SDK_AUTH'             => env('LAYER_SDK_AUTH'),
+            'LAYER_SDK_BASE_URL'         => env('LAYER_SDK_BASE_URL'),
+            'LAYER_SDK_SHOW_HTTP_ERRORS' => false,
+        ]);
         $this->service = $service;
     }
 
