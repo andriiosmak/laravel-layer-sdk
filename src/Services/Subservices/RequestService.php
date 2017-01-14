@@ -24,6 +24,13 @@ class RequestService
     private $responseStatus;
 
     /**
+     * Status code
+     *
+     * @var int
+     */
+    private $statusCode;
+
+    /**
      * Constructor
      *
      * @param \Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus $responseStatus
@@ -33,6 +40,16 @@ class RequestService
     public function __construct(ResponseStatus $responseStatus)
     {
         $this->responseStatus = $responseStatus;
+    }
+
+    /**
+     * Get status code
+     *
+     * @return int
+     */
+    public function getStatusCode()
+    {
+        return $this->statusCode;
     }
 
     /**
@@ -203,8 +220,9 @@ class RequestService
             'http_errors'    => $this->config['LAYER_SDK_SHOW_HTTP_ERRORS'],
         ];
 
-        $headers  = array_replace_recursive($defaultHeaders, $requestHeaders);
-        $response = $this->client->request($method, $this->config['LAYER_SDK_BASE_URL'] . $url, $headers);
+        $headers   = array_replace_recursive($defaultHeaders, $requestHeaders);
+        $response  = $this->client->request($method, $this->config['LAYER_SDK_BASE_URL'] . $url, $headers);
+        $this->statusCode = $response->getStatusCode();
         $this->setResponseContent($response);
 
         return $response;

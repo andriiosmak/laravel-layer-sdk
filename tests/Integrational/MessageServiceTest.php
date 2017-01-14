@@ -3,59 +3,33 @@
 namespace Aosmak\Laravel\Layer\Sdk\Integrational;
 
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\Psr7;
 
+/**
+ * Class MessageServiceTest
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Integrational
+ */
 class MessageServiceTest extends BaseClass
 {
     /**
-     * Set Up Client
+     * Conversation ID
+     *
+     * @var string
      */
-    public static function setUpBeforeClass()
-    {
-        $mock = new MockHandler([
-            self::getResponse(
-                ResponseStatus::HTTP_CREATED, 
-                Psr7\stream_for('{"id":"layer:///messages/712e7754-22c1-402b-8e09-7254d1b95e43"}')
-            ),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(ResponseStatus::HTTP_OK),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(ResponseStatus::HTTP_OK),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(
-                ResponseStatus::HTTP_OK, 
-                Psr7\stream_for('{"id":"layer:///messages/712e7754-22c1-402b-8e09-7254d1b95e43"}')
-            ),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-             self::getResponse(
-                ResponseStatus::HTTP_OK, 
-                Psr7\stream_for('{"id":"layer:///messages/712e7754-22c1-402b-8e09-7254d1b95e43"}')
-            ),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(ResponseStatus::HTTP_NO_CONTENT),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(
-                ResponseStatus::HTTP_ACCEPTED, 
-                Psr7\stream_for('{"id":"layer:///announcements/fbdd0bc4-e75d-46e5-b615-cca97e62601e"}')
-            ),
-            self::getResponse(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY),
-            self::getResponse(
-                ResponseStatus::HTTP_ACCEPTED, 
-                Psr7\stream_for('{"id":"layer:///notifications/fbdd0bc4-e75d-46e5-b615-cca97e62601e"}')
-            ),
-            self::getResponse(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY),
-        ]);
-        self::setUpService($mock);
-    }
+    public static $conversationId;
+
+    /**
+     * Message ID
+     *
+     * @var string
+     */
+    public static $messageId;
 
     /**
      * Test message creation
+     *
+     * @return void
      */
-    public function testCreateMessage()
+    public function testCreateMessage() : void
     {
         $data = [
             'sender' => [
@@ -69,67 +43,194 @@ class MessageServiceTest extends BaseClass
             ],
         ];
 
-        $this->assertInternalType('string', $this->getMessageService()->create($data, 'test'));
-        $this->assertNull($this->getMessageService()->create([], 'test'));
+        self::$conversationId = $this->getConversationService()->create([
+            'participants' => [
+                "tu1",
+                "tu2",
+            ],
+        ]);
+
+        self::$messageId = $this->getMessageService()->create($data, self::$conversationId);
+
+        $this->assertInternalType('string', self::$messageId);
+        $this->assertEquals(
+            ResponseStatus::HTTP_CREATED,
+            $this->getMessageService()->getStatusCode()
+        ); //201
+        $this->assertNull($this->getMessageService()->create([], self::$conversationId));
+        $this->assertEquals(
+            ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
+            $this->getMessageService()->getStatusCode()
+        ); //422
     }
 
     /**
      * Test getListSystem method
+     *
+     * @return void
      */
-    public function testGetListSystemMessage()
+    public function testGetListSystemMessage() : void
     {
-        $this->assertInternalType('array', $this->getMessageService()->allLikeSystem('test'));
+        $response = $this->getMessageService()->allLikeSystem(self::$conversationId);
+        $this->assertInternalType('array', $response);
+        $this->assertArrayHasKey('id', $response[0]);
+        $this->assertArrayHasKey('url', $response[0]);
+        $this->assertArrayHasKey('receipts_url', $response[0]);
+        $this->assertArrayHasKey('position', $response[0]);
+        $this->assertArrayHasKey('conversation', $response[0]);
+        $this->assertArrayHasKey('parts', $response[0]);
+        $this->assertArrayHasKey('sent_at', $response[0]);
+        $this->assertArrayHasKey('received_at', $response[0]);
+        $this->assertArrayHasKey('sender', $response[0]);
+        $this->assertArrayHasKey('is_unread', $response[0]);
+        $this->assertArrayHasKey('recipient_status', $response[0]);
+        $this->assertEquals(
+            ResponseStatus::HTTP_OK,
+            $this->getMessageService()->getStatusCode()
+        ); //200
         $this->assertNull($this->getMessageService()->allLikeSystem('wrongId'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NOT_FOUND,
+            $this->getMessageService()->getStatusCode()
+        ); //404
     }
 
     /**
      * Test getListsUser method
+     *
+     * @return void
      */
-    public function testgGetListsUserMessage()
+    public function testgGetListsUserMessage() : void
     {
-        $this->assertInternalType('array', $this->getMessageService()->allLikeUser('convId', 'tu1'));
-        $this->assertNull($this->getMessageService()->allLikeUser('wrongConvId', 'tu1'));
-        $this->assertNull($this->getMessageService()->allLikeUser('convId', 'wrongId'));
+        $response = $this->getMessageService()->allLikeUser(self::$conversationId, 'tu1');
+        $this->assertInternalType('array', $response);
+        $this->assertArrayHasKey('id', $response[0]);
+        $this->assertArrayHasKey('url', $response[0]);
+        $this->assertArrayHasKey('receipts_url', $response[0]);
+        $this->assertArrayHasKey('position', $response[0]);
+        $this->assertArrayHasKey('conversation', $response[0]);
+        $this->assertArrayHasKey('parts', $response[0]);
+        $this->assertArrayHasKey('sent_at', $response[0]);
+        $this->assertArrayHasKey('received_at', $response[0]);
+        $this->assertArrayHasKey('sender', $response[0]);
+        $this->assertArrayHasKey('is_unread', $response[0]);
+        $this->assertArrayHasKey('recipient_status', $response[0]);
+        $this->assertEquals(
+            ResponseStatus::HTTP_OK,
+            $this->getMessageService()->getStatusCode()
+        ); //200
+        $this->assertNull($this->getMessageService()->allLikeUser('wrongId', 'tu1'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_BAD_REQUEST,
+            $this->getMessageService()->getStatusCode()
+        ); //400
+        $this->assertNull($this->getMessageService()->allLikeUser(self::$conversationId, 'wrongId'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NOT_FOUND,
+            $this->getMessageService()->getStatusCode()
+        ); //404
     }
 
     /**
      * Test getLikeSystem method
+     *
+     * @return void
      */
-    public function testGetLikeSystemMessage()
+    public function testGetLikeSystemMessage() : void
     {
-        $this->assertArrayHasKey('id', $this->getMessageService()->getLikeSystem('messageId', 'convId'));
-        $this->assertNull($this->getMessageService()->getLikeSystem('messageId', 'wrongConvId'));
-        $this->assertNull($this->getMessageService()->getLikeSystem('wrongMessageId', 'convId'));
+        $response = $this->getMessageService()->getLikeSystem(self::$messageId, self::$conversationId);
+        $this->assertEquals(
+            ResponseStatus::HTTP_OK,
+            $this->getMessageService()->getStatusCode()
+        ); //200
+        $this->assertArrayHasKey('id', $response);
+        $this->assertArrayHasKey('url', $response);
+        $this->assertArrayHasKey('receipts_url', $response);
+        $this->assertArrayHasKey('position', $response);
+        $this->assertArrayHasKey('conversation', $response);
+        $this->assertArrayHasKey('parts', $response);
+        $this->assertArrayHasKey('sent_at', $response);
+        $this->assertArrayHasKey('received_at', $response);
+        $this->assertArrayHasKey('sender', $response);
+        $this->assertArrayHasKey('is_unread', $response);
+        $this->assertArrayHasKey('recipient_status', $response);
+        $this->assertNull($this->getMessageService()->getLikeSystem(self::$messageId, 'wrongId'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NOT_FOUND,
+            $this->getMessageService()->getStatusCode()
+        ); //404
+        $this->assertNull($this->getMessageService()->getLikeSystem('wrongId', self::$conversationId));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NOT_FOUND,
+            $this->getMessageService()->getStatusCode()
+        ); //404
     }
 
     /**
      * Test getLikeUser method
+     *
+     * @return void
      */
-    public function testGetLikeUserMessage()
+    public function testgetLikeUserMessage() : void
     {
-        $this->assertArrayHasKey('id', $this->getMessageService()->getLikeUser('messagwId', 'userId'));
-        $this->assertNull($this->getMessageService()->getLikeUser('messagwId', 'wrongUserId'));
-        $this->assertNull($this->getMessageService()->getLikeUser('wrongMessagwId', 'userId'));
+        $response = $this->getMessageService()->getLikeUser(self::$messageId, "tu1");
+        $this->assertEquals(
+            ResponseStatus::HTTP_OK,
+            $this->getMessageService()->getStatusCode()
+        ); //200
+        $this->assertArrayHasKey('id', $response);
+        $this->assertArrayHasKey('url', $response);
+        $this->assertArrayHasKey('receipts_url', $response);
+        $this->assertArrayHasKey('position', $response);
+        $this->assertArrayHasKey('conversation', $response);
+        $this->assertArrayHasKey('parts', $response);
+        $this->assertArrayHasKey('sent_at', $response);
+        $this->assertArrayHasKey('received_at', $response);
+        $this->assertArrayHasKey('sender', $response);
+        $this->assertArrayHasKey('is_unread', $response);
+        $this->assertArrayHasKey('recipient_status', $response);
+        $this->assertNull($this->getMessageService()->getLikeUser(self::$messageId, 'wrongId'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NOT_FOUND,
+            $this->getMessageService()->getStatusCode()
+        ); //404
+        $this->assertNull($this->getMessageService()->getLikeUser('wrongId', "tu1"));
+        $this->assertEquals(
+            ResponseStatus::HTTP_BAD_REQUEST,
+            $this->getMessageService()->getStatusCode()
+        ); //400
     }
 
     /**
      * Test message deletion
+     *
+     * @return void
      */
-    public function testDeleteMessage()
+    public function testDeleteMessage() : void
     {
-        $this->assertTrue($this->getMessageService()->delete('messageId', 'ConvId'));
-        $this->assertFalse($this->getMessageService()->delete('wrongMessageId', 'wrongConvId'));
+        $this->assertTrue($this->getMessageService()->delete(self::$messageId, self::$conversationId));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NO_CONTENT,
+            $this->getMessageService()->getStatusCode()
+        ); //204
+        $this->assertFalse($this->getMessageService()->delete('wrongId', 'wrongId'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NOT_FOUND,
+            $this->getMessageService()->getStatusCode()
+        ); //404
     }
 
     /**
      * Test announcement creation
+     *
+     * @return void
      */
-    public function testCreateAnnouncement()
+    public function testCreateAnnouncement() : void
     {
         $data = [
             'recipients' => [
-                "userId1",
-                "userId2",
+                "tu1",
+                "tu2",
             ],
             'sender' => [
                 'name' => 'The System',
@@ -143,13 +244,23 @@ class MessageServiceTest extends BaseClass
         ];
 
         $this->assertInternalType('string', $this->getMessageService()->createAnnouncement($data));
+        $this->assertEquals(
+            ResponseStatus::HTTP_ACCEPTED,
+            $this->getMessageService()->getStatusCode()
+        ); //202
         $this->assertNull($this->getMessageService()->createAnnouncement([]));
+        $this->assertEquals(
+            ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
+            $this->getMessageService()->getStatusCode()
+        ); //422
     }
 
     /**
      * Test notification creation
+     *
+     * @return void
      */
-    public function testCreateNotification()
+    public function testCreateNotification() : void
     {
         $data = [
             'recipients' => [
@@ -162,7 +273,15 @@ class MessageServiceTest extends BaseClass
             ],
         ];
 
-        $this->assertInternalType('string', $this->getMessageService()->createNotification($data));
+        $this->assertNull($this->getMessageService()->createNotification($data));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NOT_IMPLEMENTED,
+            $this->getMessageService()->getStatusCode()
+        ); //501
         $this->assertNull($this->getMessageService()->createNotification([]));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NOT_IMPLEMENTED,
+            $this->getMessageService()->getStatusCode()
+        ); //501
     }
 }

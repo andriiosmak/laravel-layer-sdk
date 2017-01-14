@@ -3,15 +3,15 @@
 namespace Aosmak\Laravel\Layer\Sdk\Integrational;
 
 use Aosmak\Laravel\Layer\Sdk\Services\LayerService;
+use Illuminate\Container\Container;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService;
-use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
-use Illuminate\Container\Container;
 
+/**
+ * Class BaseClass
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Integrational
+ */
 abstract class BaseClass extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -19,73 +19,59 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      *
      * @var Aosmak\Laravel\Layer\Sdk\Services\LayerService
      */
-    protected static $service;
+    public $service;
 
     /**
-     * Set Up Guzzle Service
+     * Set up Layer Service
      *
-     * @param GuzzleHttp\Handler\MockHandler $mock
-     *
+     * @return void
      */
-    protected static function setUpService(MockHandler $mock)
+    public function setUp() : void
     {
-        $handler   = HandlerStack::create($mock);
+        if (file_exists(dirname(__FILE__) . '/config.php')) {
+            $config = require(dirname(__FILE__) . '/config.php');
+        } else {
+            $config = [
+                'LAYER_SDK_APP_ID'           => getenv('LAYER_SDK_APP_ID'),
+                'LAYER_SDK_AUTH'             => getenv('LAYER_SDK_AUTH'),
+                'LAYER_SDK_BASE_URL'         => getenv('LAYER_SDK_BASE_URL'),
+                'LAYER_SDK_SHOW_HTTP_ERRORS' => false,
+            ];
+        }
+
         $container = new Container;
         $service   = $container->make('Aosmak\Laravel\Layer\Sdk\Services\LayerService');
-        $service->setConfig([
-            'LAYER_SDK_APP_ID'           => 'id',
-            'LAYER_SDK_AUTH'             => 'key',
-            'LAYER_SDK_BASE_URL'         => 'url',
-            'LAYER_SDK_SHOW_HTTP_ERRORS' => false
-        ]);
-        $reflection = new \ReflectionClass($service);
-        $reflection_property = $reflection->getProperty('client');
-        $reflection_property->setAccessible(true);
-        $reflection_property->setValue($service, new Client(['handler' => $handler]));
-
-        self::$service = $service;
+        $service->setConfig($config);
+        $this->service = $service;
     }
 
     /**
      * Get a conversation service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Conversation\ConversationService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService
      */
-    public function getConversationService(): ConversationService
+    public function getConversationService() : ConversationService
     {
-        return self::$service->getConversationService();
+        return $this->service->getConversationService();
     }
 
     /**
      * Get a message service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Message\MessageService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService
      */
-    public function getMessageService(): MessageService
+    public function getMessageService() : MessageService
     {
-        return self::$service->getMessageService();
+        return $this->service->getMessageService();
     }
 
     /**
      * Get a user service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\User\UserService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService
      */
-    public function getUserService(): UserService
+    public function getUserService() : UserService
     {
-        return self::$service->getUserService();
-    }
-
-    /**
-     * Set Up Guzzle Service
-     *
-     * @param GuzzleHttp\Handler\MockHandler $mock
-     * @param string $content response content
-     *
-     * @return GuzzleHttp\Psr7\Response
-     */
-    public static function getResponse(int $status, $content = false): Response
-    {
-        return new Response($status, ['Content-Type' => 'application/json'], $content);
+        return $this->service->getUserService();
     }
 }

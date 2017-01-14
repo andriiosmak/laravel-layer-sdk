@@ -3,59 +3,52 @@
 namespace Aosmak\Laravel\Layer\Sdk\Integrational;
 
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\Psr7;
 
+/**
+ * Class ConversationServiceTest
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Integrational
+ */
 class ConversationServiceTest extends BaseClass
 {
     /**
-     * Set Up Client
+     * Conversation ID
+     *
+     * @var string
      */
-    public static function setUpBeforeClass()
-    {
-        $mock = new MockHandler([
-            self::getResponse(
-                ResponseStatus::HTTP_OK, 
-                Psr7\stream_for('{"id":"layer:///conversations/5055b704-f980-43c1-88c0-3705bad5beca"}')
-            ),
-            self::getResponse(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY),
-            self::getResponse(
-                ResponseStatus::HTTP_NO_CONTENT, 
-                Psr7\stream_for('{"id":"layer:///conversations/5055b704-f980-43c1-88c0-3705bad5beca"}')
-            ),
-            self::getResponse(
-                ResponseStatus::HTTP_OK, 
-                Psr7\stream_for('{"url":"layer:///conversations/5055b704-f980-43c1-88c0-3705bad5beca"}')
-            ),
-            self::getResponse(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY),
-            self::getResponse(ResponseStatus::HTTP_OK),
-            self::getResponse(ResponseStatus::HTTP_OK),
-            self::getResponse(ResponseStatus::HTTP_NO_CONTENT),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-        ]);
-        self::setUpService($mock);
-    }
+    public static $conversationId;
 
     /**
      * Test conversation creation
+     *
+     * @return void
      */
-    public function testCreateConversation()
+    public function testCreateConversation() : void
     {
-        $id = $this->getConversationService()->create([
+        self::$conversationId = $this->getConversationService()->create([
             'participants' => [
-                "userId1",
-                "userId2",
+                "tu1",
+                "tu2",
             ],
         ]);
 
-        $this->assertInternalType('string', $id);
+        $this->assertEquals(
+            ResponseStatus::HTTP_OK,
+            $this->getConversationService()->getStatusCode()
+        ); //200
+        $this->assertInternalType('string', self::$conversationId);
         $this->assertNull($this->getConversationService()->create([]));
+        $this->assertEquals(
+            ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
+            $this->getConversationService()->getStatusCode()
+        ); //422
     }
 
     /**
      * Test conversation update
+     *
+     * @return void
      */
-    public function testUpdateUser()
+    public function testUpdateUser() : void
     {
         $result = $this->getConversationService()->update([
             [
@@ -63,35 +56,87 @@ class ConversationServiceTest extends BaseClass
                 'property'  => 'participants',
                 'value'     =>  ["tu2", "tu1"],
             ],
-        ], 'convId');
+        ], self::$conversationId);
 
         $this->assertTrue($result);
+        $this->assertEquals(
+            ResponseStatus::HTTP_NO_CONTENT,
+            $this->getConversationService()->getStatusCode()
+        ); //204
     }
 
     /**
      * Test obtaining information about a conversation
+     *
+     * @return void
      */
-    public function testGetConversation()
+    public function testGetConversation() : void
     {
-        $this->assertArrayHasKey('url', $this->getConversationService()->get('convId'));
-        $this->assertNull($this->getConversationService()->get('wrongConvId'));
+        $result = $this->getConversationService()->get(self::$conversationId);
+        $this->assertArrayHasKey('url', $result);
+        $this->assertArrayHasKey('participants', $result);
+        $this->assertArrayHasKey('id', $result);
+        $this->assertArrayHasKey('distinct', $result);
+        $this->assertArrayHasKey('metadata', $result);
+        $this->assertArrayHasKey('created_at', $result);
+        $this->assertArrayHasKey('messages_url', $result);
+        $this->assertEquals(
+            ResponseStatus::HTTP_OK,
+            $this->getConversationService()->getStatusCode()
+        ); //200
+
+        $this->assertNull($this->getConversationService()->get('wrongId'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NOT_FOUND,
+            $this->getConversationService()->getStatusCode()
+        ); //404
     }
 
     /**
      * Test obtaining information about conversations
+     *
+     * @return void
      */
-    public function testGetConversations()
+    public function testGetConversations() : void
     {
-        $this->assertInternalType('array', $this->getConversationService()->all('userId'));
-        $this->assertEmpty($this->getConversationService()->all('wrongUserId'));
+        $result = $this->getConversationService()->all('tu1');
+        $this->assertInternalType('array', $result);
+        $this->assertArrayHasKey('id', $result[0]);
+        $this->assertArrayHasKey('url', $result[0]);
+        $this->assertArrayHasKey('messages_url', $result[0]);
+        $this->assertArrayHasKey('created_at', $result[0]);
+        $this->assertArrayHasKey('last_message', $result[0]);
+        $this->assertArrayHasKey('participants', $result[0]);
+        $this->assertArrayHasKey('distinct', $result[0]);
+        $this->assertArrayHasKey('unread_message_count', $result[0]);
+        $this->assertArrayHasKey('metadata', $result[0]);
+        $this->assertEquals(
+            ResponseStatus::HTTP_OK,
+            $this->getConversationService()->getStatusCode()
+        ); //200
+        $this->assertEmpty($this->getConversationService()->all('wrongId'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_OK,
+            $this->getConversationService()->getStatusCode()
+        ); //404
     }
 
     /**
      * Test conversation deletion
+     *
+     * @return void
      */
-    public function testDeleteConversation()
+    public function testDeleteConversation() : void
     {
-        $this->assertTrue($this->getConversationService()->delete('convId'));
-        $this->assertFalse($this->getConversationService()->delete('wrongConvId'));
+        $this->assertTrue($this->getConversationService()->delete(self::$conversationId));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NO_CONTENT,
+            $this->getConversationService()->getStatusCode()
+        ); //204
+        $this->assertFalse($this->getConversationService()->delete('wrongId'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NOT_FOUND,
+            $this->getConversationService()->getStatusCode()
+        ); //404
     }
 }
