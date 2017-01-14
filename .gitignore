@@ -1,6 +1,7 @@
 .editorconfig
+layer.php
 build
 composer.lock
 docs
 vendor
-tests/Old/
+tests/Integrational/config.php

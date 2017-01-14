@@ -60,6 +60,16 @@ abstract class BaseService
     }
 
     /**
+     * Get status code
+     *
+     * @return int
+     */
+    public function getStatusCode()
+    {
+        return $this->requestService->getStatusCode();
+    }
+
+    /**
      * Set a Guzzle client
      *
      * @param \GuzzleHttp\Client $client
