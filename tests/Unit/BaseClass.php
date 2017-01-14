@@ -1,6 +1,6 @@
 <?php
 
-namespace Aosmak\Laravel\Layer\Sdk\Integrational;
+namespace Aosmak\Laravel\Layer\Sdk\Unit;
 
 use Aosmak\Laravel\Layer\Sdk\Services\LayerService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
