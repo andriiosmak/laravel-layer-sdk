@@ -14,6 +14,7 @@ Powerful package that helps Laravel 5 projects to access Layer Services ([layer.
     - [Users](#users)
     - [Conversations](#conversations)
     - [Messages](#messages)
+    - [Announcements](#announcements)
 - [Contributing](#contributing)
 - [Security](#security)
 - [Credits](#credits)
@@ -329,6 +330,9 @@ $result = $layer->getMessageService()->delete('messageId', 'conversationID');
 echo $result; //boolean
 ```
 
+
+### Announcements
+
 Create an announcement
 
 ``` php
@@ -348,7 +352,7 @@ $data = [
     ],
 ];
 
-$result = $layer->getMessageService()->createAnnouncement($data);
+$result = $layer->getAnnouncementService()->create($data);
 
 echo $result //string
 ```
