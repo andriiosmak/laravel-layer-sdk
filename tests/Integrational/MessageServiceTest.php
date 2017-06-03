@@ -126,9 +126,9 @@ class MessageServiceTest extends BaseClass
         ); //400
         $this->assertNull($this->getMessageService()->allLikeUser(self::$conversationId, 'wrongId'));
         $this->assertEquals(
-            ResponseStatus::HTTP_NOT_FOUND,
+            ResponseStatus::HTTP_FORBIDDEN,
             $this->getMessageService()->getStatusCode()
-        ); //404
+        ); //403
     }
 
     /**
@@ -191,9 +191,9 @@ class MessageServiceTest extends BaseClass
         $this->assertArrayHasKey('recipient_status', $response);
         $this->assertNull($this->getMessageService()->getLikeUser(self::$messageId, 'wrongId'));
         $this->assertEquals(
-            ResponseStatus::HTTP_NOT_FOUND,
+            ResponseStatus::HTTP_FORBIDDEN,
             $this->getMessageService()->getStatusCode()
-        ); //404
+        ); //403
         $this->assertNull($this->getMessageService()->getLikeUser('wrongId', "tu1"));
         $this->assertEquals(
             ResponseStatus::HTTP_BAD_REQUEST,
@@ -218,70 +218,5 @@ class MessageServiceTest extends BaseClass
             ResponseStatus::HTTP_NOT_FOUND,
             $this->getMessageService()->getStatusCode()
         ); //404
-    }
-
-    /**
-     * Test announcement creation
-     *
-     * @return void
-     */
-    public function testCreateAnnouncement() : void
-    {
-        $data = [
-            'recipients' => [
-                "tu1",
-                "tu2",
-            ],
-            'sender' => [
-                'name' => 'The System',
-            ],
-            'parts' => [
-                [
-                    'body'      => 'Hello, World!',
-                    'mime_type' => 'text/plain'
-                ],
-            ],
-        ];
-
-        $this->assertInternalType('string', $this->getMessageService()->createAnnouncement($data));
-        $this->assertEquals(
-            ResponseStatus::HTTP_ACCEPTED,
-            $this->getMessageService()->getStatusCode()
-        ); //202
-        $this->assertNull($this->getMessageService()->createAnnouncement([]));
-        $this->assertEquals(
-            ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
-            $this->getMessageService()->getStatusCode()
-        ); //422
-    }
-
-    /**
-     * Test notification creation
-     *
-     * @return void
-     */
-    public function testCreateNotification() : void
-    {
-        $data = [
-            'recipients' => [
-                "tu1",
-                "tu2",
-            ],
-            'notification' => [
-                'text'  => 'This is the alert text to include with the Push Notification.',
-                'sound' => 'chime.aiff',
-            ],
-        ];
-
-        $this->assertNull($this->getMessageService()->createNotification($data));
-        $this->assertEquals(
-            ResponseStatus::HTTP_NOT_IMPLEMENTED,
-            $this->getMessageService()->getStatusCode()
-        ); //501
-        $this->assertNull($this->getMessageService()->createNotification([]));
-        $this->assertEquals(
-            ResponseStatus::HTTP_NOT_IMPLEMENTED,
-            $this->getMessageService()->getStatusCode()
-        ); //501
     }
 }

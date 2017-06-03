@@ -14,6 +14,8 @@ Powerful package that helps Laravel 5 projects to access Layer Services ([layer.
     - [Users](#users)
     - [Conversations](#conversations)
     - [Messages](#messages)
+    - [Announcements](#announcements)
+    - [Notifications](#notifications)
 - [Contributing](#contributing)
 - [Security](#security)
 - [Credits](#credits)
@@ -76,7 +78,7 @@ Don`t have an account? Click [here][link-signup-layer] to sign up.
 
 ## Usage
 
-###Users
+### Users
 
 Usage in controller
 
@@ -212,7 +214,7 @@ echo $result; //array
 
 Additional information you can find [here][link-layer-documentation-user].
 
-###Conversations
+### Conversations
 
 Create a conversation
 
@@ -267,7 +269,7 @@ echo $result; //boolean
 
 Additional information you can find [here][link-layer-documentation-conversation].
 
-###Messages
+### Messages
 
 Create a message
 
@@ -329,6 +331,9 @@ $result = $layer->getMessageService()->delete('messageId', 'conversationID');
 echo $result; //boolean
 ```
 
+
+### Announcements
+
 Create an announcement
 
 ``` php
@@ -348,7 +353,29 @@ $data = [
     ],
 ];
 
-$result = $layer->getMessageService()->createAnnouncement($data);
+$result = $layer->getAnnouncementService()->create($data);
+
+echo $result //string
+```
+
+### Notifications
+
+Create a notification
+
+``` php
+$data = [
+    'recipients' => [
+        "userId1",
+        "userId2",
+    ],
+    'notification' => [
+        'title' => 'New notification',
+        'text'  => 'This is the alert text to include with the Push Notification.',
+        'sound' => 'chime.aiff',
+    ],
+];
+
+$result = $layer->getNotificationService()->create($data);
 
 echo $result //string
 ```

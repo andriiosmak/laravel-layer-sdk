@@ -6,6 +6,8 @@ use Aosmak\Laravel\Layer\Sdk\Services\LayerService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\AnnouncementService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\NotificationService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -54,7 +56,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     /**
      * Get a conversation service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Conversation\ConversationService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService
      */
     public function getConversationService(): ConversationService
     {
@@ -64,7 +66,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     /**
      * Get a message service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Message\MessageService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService
      */
     public function getMessageService(): MessageService
     {
@@ -74,11 +76,31 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     /**
      * Get a user service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\User\UserService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService
      */
     public function getUserService(): UserService
     {
         return self::$service->getUserService();
+    }
+
+    /**
+     * Get an announcement service
+     *
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\AnnouncementService
+     */
+    public function getAnnouncementService(): AnnouncementService
+    {
+        return self::$service->getAnnouncementService();
+    }
+
+    /**
+     * Get a notification service
+     *
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\NotificationService
+     */
+    public function getNotificationService(): NotificationService
+    {
+        return self::$service->getNotificationService();
     }
 
     /**

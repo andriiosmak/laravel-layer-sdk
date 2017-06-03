@@ -2,11 +2,13 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Integrational;
 
-use Aosmak\Laravel\Layer\Sdk\Services\LayerService;
 use Illuminate\Container\Container;
+use Aosmak\Laravel\Layer\Sdk\Services\LayerService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\AnnouncementService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\NotificationService;
 
 /**
  * Class BaseClass
@@ -73,5 +75,25 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     public function getUserService() : UserService
     {
         return $this->service->getUserService();
+    }
+
+    /**
+     * Get an announcement service
+     *
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\AnnouncementService
+     */
+    public function getAnnouncementService() : AnnouncementService
+    {
+        return $this->service->getAnnouncementService();
+    }
+
+    /**
+     * Get a notification service
+     *
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\NotificationService
+     */
+    public function getNotificationService() : NotificationService
+    {
+        return $this->service->getNotificationService();
     }
 }
