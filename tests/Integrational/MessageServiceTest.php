@@ -233,7 +233,7 @@ class MessageServiceTest extends BaseClass
                 "tu2",
             ],
             'notification' => [
-                'title' => 'New Alert',
+                'title' => 'New notification',
                 'text'  => 'This is the alert text to include with the Push Notification.',
                 'sound' => 'chime.aiff',
             ],
