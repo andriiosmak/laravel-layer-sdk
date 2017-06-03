@@ -233,6 +233,7 @@ class MessageServiceTest extends BaseClass
                 "tu2",
             ],
             'notification' => [
+                'title' => 'New Alert',
                 'text'  => 'This is the alert text to include with the Push Notification.',
                 'sound' => 'chime.aiff',
             ],
@@ -240,13 +241,13 @@ class MessageServiceTest extends BaseClass
 
         $this->assertNull($this->getMessageService()->createNotification($data));
         $this->assertEquals(
-            ResponseStatus::HTTP_NOT_IMPLEMENTED,
+            ResponseStatus::HTTP_ACCEPTED,
             $this->getMessageService()->getStatusCode()
-        ); //501
+        ); //202
         $this->assertNull($this->getMessageService()->createNotification([]));
         $this->assertEquals(
-            ResponseStatus::HTTP_NOT_IMPLEMENTED,
+            ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
             $this->getMessageService()->getStatusCode()
-        ); //501
+        ); //422
     }
 }
