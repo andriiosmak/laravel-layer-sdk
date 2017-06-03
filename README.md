@@ -15,6 +15,7 @@ Powerful package that helps Laravel 5 projects to access Layer Services ([layer.
     - [Conversations](#conversations)
     - [Messages](#messages)
     - [Announcements](#announcements)
+    - [Notifications](#notifications)
 - [Contributing](#contributing)
 - [Security](#security)
 - [Credits](#credits)
@@ -353,6 +354,28 @@ $data = [
 ];
 
 $result = $layer->getAnnouncementService()->create($data);
+
+echo $result //string
+```
+
+### Notifications
+
+Create a notification
+
+``` php
+$data = [
+    'recipients' => [
+        "userId1",
+        "userId2",
+    ],
+    'notification' => [
+        'title' => 'New notification',
+        'text'  => 'This is the alert text to include with the Push Notification.',
+        'sound' => 'chime.aiff',
+    ],
+];
+
+$result = $layer->getNotificationService()->create($data);
 
 echo $result //string
 ```

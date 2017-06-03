@@ -8,6 +8,7 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\AnnouncementService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\NotificationService;
 
 /**
  * Class BaseClass
@@ -84,5 +85,15 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     public function getAnnouncementService() : AnnouncementService
     {
         return $this->service->getAnnouncementService();
+    }
+
+    /**
+     * Get a notification service
+     *
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\NotificationService
+     */
+    public function getNotificationService() : NotificationService
+    {
+        return $this->service->getNotificationService();
     }
 }
