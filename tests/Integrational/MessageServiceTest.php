@@ -221,41 +221,6 @@ class MessageServiceTest extends BaseClass
     }
 
     /**
-     * Test announcement creation
-     *
-     * @return void
-     */
-    public function testCreateAnnouncement() : void
-    {
-        $data = [
-            'recipients' => [
-                "tu1",
-                "tu2",
-            ],
-            'sender' => [
-                'name' => 'The System',
-            ],
-            'parts' => [
-                [
-                    'body'      => 'Hello, World!',
-                    'mime_type' => 'text/plain'
-                ],
-            ],
-        ];
-
-        $this->assertInternalType('string', $this->getMessageService()->createAnnouncement($data));
-        $this->assertEquals(
-            ResponseStatus::HTTP_ACCEPTED,
-            $this->getMessageService()->getStatusCode()
-        ); //202
-        $this->assertNull($this->getMessageService()->createAnnouncement([]));
-        $this->assertEquals(
-            ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
-            $this->getMessageService()->getStatusCode()
-        ); //422
-    }
-
-    /**
      * Test notification creation
      *
      * @return void

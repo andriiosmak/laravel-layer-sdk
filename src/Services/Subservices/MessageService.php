@@ -105,21 +105,6 @@ class MessageService extends BaseService
     }
 
     /**
-     * Create an announcement
-     *
-     * @param array $data announcement data
-     *
-     * @return mixed
-     */
-    public function createAnnouncement(array $data): ?string
-    {
-        $response = $this->getRequestService()->makePostRequest($this->getRouter()->getAnnouncementURL(), $data);
-
-        return $this->getRequestService()
-            ->getCreateItemId($response, $this->getResponseStatus()::HTTP_ACCEPTED, 'announcements');
-    }
-
-    /**
      * Create a notification
      *
      * @param array $data notification data

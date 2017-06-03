@@ -8,6 +8,7 @@ use Aosmak\Laravel\Layer\Sdk\Routers\Router;
 use Aosmak\Laravel\Layer\Sdk\Traits\ConfigTrait;
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\BaseService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\AnnouncementService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService;
@@ -110,6 +111,16 @@ class LayerService implements LayerServiceInterface
     public function getUserService(): UserService
     {
         return $this->getService('UserService', $this->getRouter()->getUserRouter());
+    }
+
+    /**
+     * Get an announcement service
+     *
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\AnnouncementService
+     */
+    public function getAnnouncementService(): AnnouncementService
+    {
+        return $this->getService('AnnouncementService', $this->getRouter()->getAnnouncementRouter());
     }
 
     /**
