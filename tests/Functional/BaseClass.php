@@ -6,6 +6,7 @@ use Aosmak\Laravel\Layer\Sdk\Services\LayerService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\AnnouncementService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -79,6 +80,16 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     public function getUserService(): UserService
     {
         return self::$service->getUserService();
+    }
+
+    /**
+     * Get an announcement service
+     *
+     * @return Aosmak\Laravel\Layer\Sdk\Services\User\AnnouncementService
+     */
+    public function getAnnouncementService(): AnnouncementService
+    {
+        return self::$service->getAnnouncementService();
     }
 
     /**
