@@ -67,14 +67,4 @@ class MessageRouter extends BaseRouter
             ':conversation_id' => $conversationId,
         ]);
     }
-
-    /**
-     * Get a notification request URL
-     *
-     * @return string
-     */
-    public function getNotificationURL(): string
-    {
-        return $this->genereteURL('notifications', []);
-    }
 }

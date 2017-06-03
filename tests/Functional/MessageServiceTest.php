@@ -133,26 +133,4 @@ class MessageServiceTest extends BaseClass
         $this->assertTrue($this->getMessageService()->delete('messageId', 'ConvId'));
         $this->assertFalse($this->getMessageService()->delete('wrongMessageId', 'wrongConvId'));
     }
-
-    /**
-     * Test notification creation
-     *
-     * @return void
-     */
-    public function testCreateNotification() : void
-    {
-        $data = [
-            'recipients' => [
-                "tu1",
-                "tu2",
-            ],
-            'notification' => [
-                'text'  => 'This is the alert text to include with the Push Notification.',
-                'sound' => 'chime.aiff',
-            ],
-        ];
-
-        $this->assertInternalType('string', $this->getMessageService()->createNotification($data));
-        $this->assertNull($this->getMessageService()->createNotification([]));
-    }
 }

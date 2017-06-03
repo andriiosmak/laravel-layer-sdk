@@ -12,6 +12,7 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\AnnouncementService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\NotificationService;
 
 /**
  * Class LayerService
@@ -121,6 +122,16 @@ class LayerService implements LayerServiceInterface
     public function getAnnouncementService(): AnnouncementService
     {
         return $this->getService('AnnouncementService', $this->getRouter()->getAnnouncementRouter());
+    }
+
+    /**
+     * Get a notification service
+     *
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\NotificationService
+     */
+    public function getNotificationService(): NotificationService
+    {
+        return $this->getService('NotificationService', $this->getRouter()->getNotificationRouter());
     }
 
     /**
