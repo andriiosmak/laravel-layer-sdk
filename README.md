@@ -76,7 +76,7 @@ Don`t have an account? Click [here][link-signup-layer] to sign up.
 
 ## Usage
 
-###Users
+### Users
 
 Usage in controller
 
@@ -212,7 +212,7 @@ echo $result; //array
 
 Additional information you can find [here][link-layer-documentation-user].
 
-###Conversations
+### Conversations
 
 Create a conversation
 
@@ -267,7 +267,7 @@ echo $result; //boolean
 
 Additional information you can find [here][link-layer-documentation-conversation].
 
-###Messages
+### Messages
 
 Create a message
 

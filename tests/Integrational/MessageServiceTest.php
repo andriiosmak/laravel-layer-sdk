@@ -126,9 +126,9 @@ class MessageServiceTest extends BaseClass
         ); //400
         $this->assertNull($this->getMessageService()->allLikeUser(self::$conversationId, 'wrongId'));
         $this->assertEquals(
-            ResponseStatus::HTTP_NOT_FOUND,
+            ResponseStatus::HTTP_FORBIDDEN,
             $this->getMessageService()->getStatusCode()
-        ); //404
+        ); //403
     }
 
     /**
@@ -191,9 +191,9 @@ class MessageServiceTest extends BaseClass
         $this->assertArrayHasKey('recipient_status', $response);
         $this->assertNull($this->getMessageService()->getLikeUser(self::$messageId, 'wrongId'));
         $this->assertEquals(
-            ResponseStatus::HTTP_NOT_FOUND,
+            ResponseStatus::HTTP_FORBIDDEN,
             $this->getMessageService()->getStatusCode()
-        ); //404
+        ); //403
         $this->assertNull($this->getMessageService()->getLikeUser('wrongId', "tu1"));
         $this->assertEquals(
             ResponseStatus::HTTP_BAD_REQUEST,
