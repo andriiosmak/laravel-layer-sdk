@@ -35,6 +35,10 @@ class MessageServiceTest extends BaseClass
             self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
             self::getResponse(ResponseStatus::HTTP_NO_CONTENT),
             self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
+            self::getResponse(ResponseStatus::HTTP_NO_CONTENT),
+            self::getResponse(ResponseStatus::HTTP_BAD_REQUEST),
+            self::getResponse(ResponseStatus::HTTP_NO_CONTENT),
+            self::getResponse(ResponseStatus::HTTP_BAD_REQUEST),
         ]);
         self::setUpService($mock);
     }
@@ -94,5 +98,27 @@ class MessageServiceTest extends BaseClass
     {
         $this->assertTrue($this->getMessageService()->delete('messageId', 'ConvId'));
         $this->assertFalse($this->getMessageService()->delete('wrongMessageId', 'wrongConvId'));
+    }
+
+    /**
+     * Test send receipt
+     *
+     * @return void
+     */
+    public function testSendReceipt() : void
+    {
+        $this->assertTrue($this->getUserDataService()->sendReceipt('read', 'userId', 'messageId'));
+        $this->assertFalse($this->getUserDataService()->sendReceipt('read', 'userId', 'wrongMessageId'));
+    }
+
+    /**
+     * Test message deletion
+     *
+     * @return void
+     */
+    public function testUserDataDeleteMessage() : void
+    {
+        $this->assertTrue($this->getUserDataService()->deleteMessage('userId', 'messageId'));
+        $this->assertFalse($this->getUserDataService()->deleteMessage('wrongUserId', 'wrongMessageId'));
     }
 }

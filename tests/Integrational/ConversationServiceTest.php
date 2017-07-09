@@ -118,7 +118,7 @@ class ConversationServiceTest extends BaseClass
         $this->assertEquals(
             ResponseStatus::HTTP_OK,
             $this->getConversationService()->getStatusCode()
-        ); //404
+        ); //200
     }
 
     /**
