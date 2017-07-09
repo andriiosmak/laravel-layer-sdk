@@ -64,9 +64,19 @@ abstract class BaseService
      *
      * @return int
      */
-    public function getStatusCode()
+    public function getStatusCode() : int
     {
         return $this->requestService->getStatusCode();
+    }
+
+    /**
+     * Get raw response
+     *
+     * @return int
+     */
+    public function getRawResponse()
+    {
+        return $this->requestService->getRawResponse();
     }
 
     /**
@@ -150,6 +160,7 @@ abstract class BaseService
     public function getCreateItemId(Response $response, string $statusId, string $path): ?string
     {
         $responseObject = $this->requestService->getResponse($response, $statusId);
+
         if ($responseObject && isset($responseObject['id'])) {
             return explode('layer:///' . $path . '/', $responseObject['id'], 2)[1];
         }

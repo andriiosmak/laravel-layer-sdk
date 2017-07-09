@@ -11,6 +11,7 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\BaseService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\AnnouncementService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserDataService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\NotificationService;
 
@@ -112,6 +113,16 @@ class LayerService implements LayerServiceInterface
     public function getUserService(): UserService
     {
         return $this->getService('UserService', $this->getRouter()->getUserRouter());
+    }
+
+    /**
+     * Get a user data service
+     *
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserDataService
+     */
+    public function getUserDataService(): UserDataService
+    {
+        return $this->getService('UserDataService', $this->getRouter()->getUserDataRouter());
     }
 
     /**

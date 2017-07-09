@@ -11,6 +11,20 @@ use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
 class UserServiceTest extends BaseClass
 {
     /**
+     * Conversation ID
+     *
+     * @var string
+     */
+    public static $conversationId;
+
+    /**
+     * Message ID
+     *
+     * @var string
+     */
+    public static $messageId;
+
+    /**
      * Test user creation
      *
      * @return void
@@ -90,6 +104,44 @@ class UserServiceTest extends BaseClass
     }
 
     /**
+     * Test message creation
+     *
+     * @return void
+     */
+    public function testSendMessage() : void
+    {
+        $data = [
+            'parts' => [
+                [
+                    'body'      => 'Hello, World!',
+                    'mime_type' => 'text/plain'
+                ],
+            ],
+        ];
+
+        $conversationId = $this->getConversationService()->create([
+            'participants' => [
+                "tu1",
+                "tu2",
+            ],
+        ]);
+
+        $messageId = $this->getUserDataService()
+            ->sendMessage($data, "tu1", $conversationId);
+
+        $this->assertInternalType('string', $messageId);
+        $this->assertEquals(
+            ResponseStatus::HTTP_CREATED,
+            $this->getUserDataService()->getStatusCode()
+        ); //201
+        $this->assertNull($this->getUserDataService()->sendMessage([], "tu1", $conversationId));
+        $this->assertEquals(
+            ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
+            $this->getUserDataService()->getStatusCode()
+        ); //422
+    }
+
+    /**
      * Test obtaining information about a user
      *
      * @return void
@@ -115,25 +167,6 @@ class UserServiceTest extends BaseClass
 
         //get user with wrong id
         $this->assertNull($this->getUserService()->get(time()));
-        $this->assertEquals(
-            ResponseStatus::HTTP_NOT_FOUND,
-            $this->getUserService()->getStatusCode()
-        ); //404
-    }
-
-    /**
-     * Test user deletion
-     *
-     * @return void
-     */
-    public function testDeleteUser() : void
-    {
-        $this->assertTrue($this->getUserService()->delete('testUserOne'));
-        $this->assertEquals(
-            ResponseStatus::HTTP_NO_CONTENT,
-            $this->getUserService()->getStatusCode()
-        ); //204
-        $this->assertFalse($this->getUserService()->delete(time()));
         $this->assertEquals(
             ResponseStatus::HTTP_NOT_FOUND,
             $this->getUserService()->getStatusCode()
@@ -217,5 +250,24 @@ class UserServiceTest extends BaseClass
         ); //200
         $this->assertInternalType('array', $list);
         $this->assertArrayHasKey('user_id', $list[0]);
+    }
+
+    /**
+     * Test user deletion
+     *
+     * @return void
+     */
+    public function testDeleteUser() : void
+    {
+        $this->assertTrue($this->getUserService()->delete('testUserOne'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NO_CONTENT,
+            $this->getUserService()->getStatusCode()
+        ); //204
+        $this->assertFalse($this->getUserService()->delete(time()));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NOT_FOUND,
+            $this->getUserService()->getStatusCode()
+        ); //404
     }
 }

@@ -44,6 +44,11 @@ class UserServiceTest extends BaseClass
                 ResponseStatus::HTTP_OK,
                 Psr7\stream_for('{"test":"test"}')
             ),
+            self::getResponse(
+                ResponseStatus::HTTP_CREATED,
+                Psr7\stream_for('{"id":"layer:///messages/712e7754-22c1-402b-8e09-7254d1b95e43"}')
+            ),
+            self::getResponse(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY),
         ]);
         self::setUpService($mock);
     }
@@ -179,5 +184,29 @@ class UserServiceTest extends BaseClass
     public function testGetBlockList() : void
     {
         $this->assertInternalType('array', $this->getUserService()->getBlockList('testUserOne'));
+    }
+
+    /**
+     * Test message creation
+     *
+     * @return void
+     */
+    public function testSendMessage() : void
+    {
+        $data = [
+            'sender' => [
+                "user_id" => "tu1",
+            ],
+            'parts' => [
+                [
+                    'body'      => 'Hello, World!',
+                    'mime_type' => 'text/plain'
+                ],
+            ],
+        ];
+
+        $this->assertInternalType('string', $this->getUserDataService()
+            ->sendMessage($data, 'userId', 'conversationId'));
+        $this->assertNull($this->getUserDataService()->sendMessage([], 'wrongUserId', 'wrongConversationId'));
     }
 }

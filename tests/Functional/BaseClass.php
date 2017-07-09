@@ -8,6 +8,7 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\AnnouncementService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\NotificationService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserDataService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -101,6 +102,16 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     public function getNotificationService(): NotificationService
     {
         return self::$service->getNotificationService();
+    }
+
+    /**
+     * Get a user data service
+     *
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserDataService
+     */
+    public function getUserDataService() : UserDataService
+    {
+        return self::$service->getUserDataService();
     }
 
     /**

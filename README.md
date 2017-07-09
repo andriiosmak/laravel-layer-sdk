@@ -12,6 +12,7 @@ Powerful package that helps Laravel 5 projects to access Layer Services ([layer.
 - [Installation](#installation)
 - [Usage](#usage)
     - [Users](#users)
+    - [Accessing user data](#accessing_user_data)
     - [Conversations](#conversations)
     - [Messages](#messages)
     - [Announcements](#announcements)
@@ -99,7 +100,11 @@ class Controller
     	$userService = $layer->getUserService();
     	$result      = $userService->get('userId');
 
-    	var_dump($result);
+        //get response status code
+        echo $userService->getStatusCode(); //integer
+
+        //get raw response
+        echo $userService->getRawResponse(); //mixed
     }
 }
 ```
@@ -186,6 +191,16 @@ $result = $layer->getUserService()->getBadges('userId');
 echo $result; //array
 ```
 
+### Accessing_user_data
+
+Get all conversations by a user ID
+
+``` php
+$result = $layer->getUserDataService()->getConversations('userID');
+
+echo $result; //array
+
+```
 Update block list
 
 ``` php
@@ -210,6 +225,40 @@ Get block list
 $result = $layer->getUserService()->getBlockList('userId');
 
 echo $result; //array
+```
+
+Send a message
+
+``` php
+$data = [
+    'parts' => [
+        [
+            'body'      => 'Hello, World!',
+            'mime_type' => 'text/plain'
+        ],
+    ],
+];
+
+$messageId = $layer->getUserDataService()
+    ->sendMessage($data, "user_id", "conversation_id");
+
+echo $messageId; //string
+```
+
+Send a receipt
+
+``` php
+
+$result = $layer->getUserDataService()->sendReceipt('read', 'user_id', 'message_id');
+echo $result; //boolean
+```
+
+Delete a message
+
+``` php
+
+$result = $layer->getUserDataService()->deleteMessage('user_id', 'message_id');
+echo $result; //boolean
 ```
 
 Additional information you can find [here][link-layer-documentation-user].
@@ -291,34 +340,18 @@ $result = $layer->getMessageService()->create($data, 'conversationID');
 echo $result; //boolean
 ```
 
-Get messages (system)
+Get all messages by a conversation ID
 
 ``` php
-$result = $layer->getMessageService()->allLikeSystem('conversationID');
+$result = $layer->getMessageService()->all('conversationID');
 
 echo $result; //array
 ```
 
-Get messages (user)
+Get a message
 
 ``` php
-$result = $layer->getMessageService()->allLikeUser('conversationID', 'userId');
-
-echo $result; //array
-```
-
-Get a message (system)
-
-``` php
-$result = $layer->getMessageService()->getLikeSystem('messageId', 'conversationID');
-
-echo $result; //array
-```
-
-Get a message (user)
-
-``` php
-$result = $layer->getMessageService()->getLikeUser('messageId', 'userId');
+$result = $layer->getMessageService()->get('messageId', 'conversationID');
 
 echo $result; //array
 ```

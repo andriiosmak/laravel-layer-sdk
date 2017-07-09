@@ -38,6 +38,8 @@ class ConversationServiceTest extends BaseClass
             self::getResponse(ResponseStatus::HTTP_OK),
             self::getResponse(ResponseStatus::HTTP_NO_CONTENT),
             self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
+            self::getResponse(ResponseStatus::HTTP_OK),
+            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
         ]);
         self::setUpService($mock);
     }
@@ -109,5 +111,16 @@ class ConversationServiceTest extends BaseClass
     {
         $this->assertTrue($this->getConversationService()->delete('convId'));
         $this->assertFalse($this->getConversationService()->delete('wrongConvId'));
+    }
+
+    /**
+     * Test get user conversations
+     *
+     * @return void
+     */
+    public function testGetUserConversations() : void
+    {
+        $this->assertInternalType('array', $this->getUserDataService()->getConversations('userId'));
+        $this->assertNull($this->getUserDataService()->getConversations('wrongUserId'));
     }
 }
