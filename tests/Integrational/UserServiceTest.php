@@ -122,25 +122,6 @@ class UserServiceTest extends BaseClass
     }
 
     /**
-     * Test user deletion
-     *
-     * @return void
-     */
-    public function testDeleteUser() : void
-    {
-        $this->assertTrue($this->getUserService()->delete('testUserOne'));
-        $this->assertEquals(
-            ResponseStatus::HTTP_NO_CONTENT,
-            $this->getUserService()->getStatusCode()
-        ); //204
-        $this->assertFalse($this->getUserService()->delete(time()));
-        $this->assertEquals(
-            ResponseStatus::HTTP_NOT_FOUND,
-            $this->getUserService()->getStatusCode()
-        ); //404
-    }
-
-    /**
      * Test badge creation
      *
      * @return void
@@ -217,5 +198,24 @@ class UserServiceTest extends BaseClass
         ); //200
         $this->assertInternalType('array', $list);
         $this->assertArrayHasKey('user_id', $list[0]);
+    }
+
+    /**
+     * Test user deletion
+     *
+     * @return void
+     */
+    public function testDeleteUser() : void
+    {
+        $this->assertTrue($this->getUserService()->delete('testUserOne'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NO_CONTENT,
+            $this->getUserService()->getStatusCode()
+        ); //204
+        $this->assertFalse($this->getUserService()->delete(time()));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NOT_FOUND,
+            $this->getUserService()->getStatusCode()
+        ); //404
     }
 }
