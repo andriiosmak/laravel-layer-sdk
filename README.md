@@ -12,11 +12,11 @@ Powerful package that helps Laravel 5 projects to access Layer Services ([layer.
 - [Installation](#installation)
 - [Usage](#usage)
     - [Users](#users)
+    - [Accessing user data](#accessing_user_data)
     - [Conversations](#conversations)
     - [Messages](#messages)
     - [Announcements](#announcements)
     - [Notifications](#notifications)
-    - [Accessing user data](#accessing_user_data)
 - [Contributing](#contributing)
 - [Security](#security)
 - [Credits](#credits)
@@ -189,6 +189,50 @@ Get user`s badges
 $result = $layer->getUserService()->getBadges('userId');
 
 echo $result; //array
+```
+
+### Accessing_user_data
+
+Get all conversations by a user ID
+
+``` php
+$result = $layer->getUserDataService()->getConversations('userID');
+
+echo $result; //array
+```
+
+Send a message
+
+``` php
+$data = [
+    'parts' => [
+        [
+            'body'      => 'Hello, World!',
+            'mime_type' => 'text/plain'
+        ],
+    ],
+];
+
+$messageId = $layer->getUserDataService()
+    ->sendMessage($data, "user_id", "conversation_id");
+
+echo $messageId; //string
+```
+
+Send a receipt
+
+``` php
+
+$result = $layer->getUserDataService()->sendReceipt('read', 'user_id', 'message_id');
+echo $result; //boolean
+```
+
+Delete a message
+
+``` php
+
+$result = $layer->getUserDataService()->deleteMessage('user_id', 'message_id');
+echo $result; //boolean
 ```
 
 Update block list
@@ -367,50 +411,6 @@ $data = [
 $result = $layer->getNotificationService()->create($data);
 
 echo $result //string
-```
-
-### Accessing_user_data
-
-Get all conversations by a user ID
-
-``` php
-$result = $layer->getUserDataService()->getConversations('userID');
-
-echo $result; //array
-```
-
-Send a message
-
-``` php
-$data = [
-    'parts' => [
-        [
-            'body'      => 'Hello, World!',
-            'mime_type' => 'text/plain'
-        ],
-    ],
-];
-
-$messageId = $layer->getUserDataService()
-    ->sendMessage($data, "user_id", "conversation_id");
-
-echo $messageId; //string
-```
-
-Send a receipt
-
-``` php
-
-$result = $layer->getUserDataService()->sendReceipt('read', 'user_id', 'message_id');
-echo $result; //boolean
-```
-
-Delete a message
-
-``` php
-
-$result = $layer->getUserDataService()->deleteMessage('user_id', 'message_id');
-echo $result; //boolean
 ```
 
 ## Contributing
