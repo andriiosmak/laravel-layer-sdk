@@ -99,6 +99,12 @@ class Controller
     	$userService = $layer->getUserService();
     	$result      = $userService->get('userId');
 
+        //get response status code
+        echo $userService->getStatusCode(); //integer
+
+        //get raw response
+        echo $userService->getRawResponse(); //mixed
+
     	var_dump($result);
     }
 }
