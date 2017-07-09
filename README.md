@@ -16,6 +16,7 @@ Powerful package that helps Laravel 5 projects to access Layer Services ([layer.
     - [Messages](#messages)
     - [Announcements](#announcements)
     - [Notifications](#notifications)
+    - [Accessing user data](#ACCESSING USER DATA)
 - [Contributing](#contributing)
 - [Security](#security)
 - [Credits](#credits)
@@ -366,6 +367,50 @@ $data = [
 $result = $layer->getNotificationService()->create($data);
 
 echo $result //string
+```
+
+### ACCESSING USER DATA
+
+Get all conversations by a user ID
+
+``` php
+$result = $layer->getUserDataService()->getConversations('userID');
+
+echo $result; //array
+```
+
+Send a message
+
+``` php
+$data = [
+    'parts' => [
+        [
+            'body'      => 'Hello, World!',
+            'mime_type' => 'text/plain'
+        ],
+    ],
+];
+
+$messageId = $layer->getUserDataService()
+    ->sendMessage($data, "user_id", "conversation_id");
+
+echo $messageId; //string
+```
+
+Send a receipt
+
+``` php
+
+$result = $layer->getUserDataService()->sendReceipt('read', 'user_id', 'message_id');
+echo $result; //boolean
+```
+
+Delete a message
+
+``` php
+
+$result = $layer->getUserDataService()->deleteMessage('user_id', 'message_id');
+echo $result; //boolean
 ```
 
 ## Contributing
