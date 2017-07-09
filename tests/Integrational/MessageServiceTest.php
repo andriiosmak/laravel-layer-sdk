@@ -65,13 +65,13 @@ class MessageServiceTest extends BaseClass
     }
 
     /**
-     * Test getListSystem method
+     * Test all method
      *
      * @return void
      */
-    public function testGetListSystemMessage() : void
+    public function testGetAll() : void
     {
-        $response = $this->getMessageService()->allLikeSystem(self::$conversationId);
+        $response = $this->getMessageService()->all(self::$conversationId);
         $this->assertInternalType('array', $response);
         $this->assertArrayHasKey('id', $response[0]);
         $this->assertArrayHasKey('url', $response[0]);
@@ -88,7 +88,7 @@ class MessageServiceTest extends BaseClass
             ResponseStatus::HTTP_OK,
             $this->getMessageService()->getStatusCode()
         ); //200
-        $this->assertNull($this->getMessageService()->allLikeSystem('wrongId'));
+        $this->assertNull($this->getMessageService()->all('wrongId'));
         $this->assertEquals(
             ResponseStatus::HTTP_NOT_FOUND,
             $this->getMessageService()->getStatusCode()
@@ -96,13 +96,13 @@ class MessageServiceTest extends BaseClass
     }
 
     /**
-     * Test getLikeSystem method
+     * Test get method
      *
      * @return void
      */
-    public function testGetLikeSystemMessage() : void
+    public function testGetMessage() : void
     {
-        $response = $this->getMessageService()->getLikeSystem(self::$messageId, self::$conversationId);
+        $response = $this->getMessageService()->get(self::$messageId, self::$conversationId);
         $this->assertEquals(
             ResponseStatus::HTTP_OK,
             $this->getMessageService()->getStatusCode()
@@ -118,12 +118,12 @@ class MessageServiceTest extends BaseClass
         $this->assertArrayHasKey('sender', $response);
         $this->assertArrayHasKey('is_unread', $response);
         $this->assertArrayHasKey('recipient_status', $response);
-        $this->assertNull($this->getMessageService()->getLikeSystem(self::$messageId, 'wrongId'));
+        $this->assertNull($this->getMessageService()->get(self::$messageId, 'wrongId'));
         $this->assertEquals(
             ResponseStatus::HTTP_NOT_FOUND,
             $this->getMessageService()->getStatusCode()
         ); //404
-        $this->assertNull($this->getMessageService()->getLikeSystem('wrongId', self::$conversationId));
+        $this->assertNull($this->getMessageService()->get('wrongId', self::$conversationId));
         $this->assertEquals(
             ResponseStatus::HTTP_NOT_FOUND,
             $this->getMessageService()->getStatusCode()

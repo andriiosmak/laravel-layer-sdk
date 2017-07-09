@@ -63,26 +63,26 @@ class MessageServiceTest extends BaseClass
     }
 
     /**
-     * Test getListSystem method
+     * Test all method
      *
      * @return void
      */
-    public function testGetListSystemMessage() : void
+    public function testGetAll() : void
     {
-        $this->assertInternalType('array', $this->getMessageService()->allLikeSystem('test'));
-        $this->assertNull($this->getMessageService()->allLikeSystem('wrongId'));
+        $this->assertInternalType('array', $this->getMessageService()->all('test'));
+        $this->assertNull($this->getMessageService()->all('wrongId'));
     }
 
     /**
-     * Test getLikeSystem method
+     * Test get method
      *
      * @return void
      */
-    public function testGetLikeSystemMessage() : void
+    public function testGetMessage() : void
     {
-        $this->assertArrayHasKey('id', $this->getMessageService()->getLikeSystem('messageId', 'convId'));
-        $this->assertNull($this->getMessageService()->getLikeSystem('messageId', 'wrongConvId'));
-        $this->assertNull($this->getMessageService()->getLikeSystem('wrongMessageId', 'convId'));
+        $this->assertArrayHasKey('id', $this->getMessageService()->get('messageId', 'convId'));
+        $this->assertNull($this->getMessageService()->get('messageId', 'wrongConvId'));
+        $this->assertNull($this->getMessageService()->get('wrongMessageId', 'convId'));
     }
 
     /**

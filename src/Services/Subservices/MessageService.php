@@ -26,13 +26,13 @@ class MessageService extends BaseService
     }
 
     /**
-     * Get messages (system perspective)
+     * Get all messages by a conversation ID
      *
      * @param string $conversationId conversation ID
      *
      * @return mixed
      */
-    public function allLikeSystem(string $conversationId): ?array
+    public function all(string $conversationId): ?array
     {
         $response = $this->getRequestService()
             ->makeGetRequest($this->getRouter()->getConversationURL($conversationId));
@@ -41,14 +41,14 @@ class MessageService extends BaseService
     }
 
     /**
-     * Get a message (system perspective)
+     * Get a message by ID
      *
      * @param string $messageId message ID
      * @param string $conversationId conversation ID
      *
      * @return mixed
      */
-    public function getLikeSystem(string $messageId, string $conversationId): ?array
+    public function get(string $messageId, string $conversationId): ?array
     {
         $response = $this->getRequestService()
             ->makeGetRequest($this->getRouter()->getMessageSytemURL($messageId, $conversationId));
