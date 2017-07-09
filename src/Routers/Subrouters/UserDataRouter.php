@@ -21,14 +21,14 @@ class UserDataRouter extends BaseRouter
     }
 
     /**
-     * Get user messages URL
+     * Send message URL
      *
      * @param string $userId user ID
      * @param string $conversationId conversation ID
      *
      * @return string
      */
-    public function getMessagesURL(string $userId, string $conversationId): string
+    public function sendMessagesURL(string $userId, string $conversationId): string
     {
         return $this->genereteURL('users/:user_id/conversations/:conversation_id/messages', [
             ':user_id'         => $userId,
@@ -60,9 +60,9 @@ class UserDataRouter extends BaseRouter
      *
      * @return string
      */
-    public function getMessageURL(string $userId, string $messageId): string
+    public function deleteMessageURL(string $userId, string $messageId): string
     {
-        return $this->genereteURL('users/:user_id/messages/:message_id', [
+        return $this->genereteURL('users/:user_id/messages/:message_id?mode=all_participants', [
             ':user_id'    => $userId,
             ':message_id' => $messageId,
         ]);

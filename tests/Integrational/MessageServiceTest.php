@@ -148,4 +148,24 @@ class MessageServiceTest extends BaseClass
             $this->getMessageService()->getStatusCode()
         ); //404
     }
+
+    /**
+     * Test message deletion
+     *
+     * @return void
+     */
+    public function testUserDataDeleteMessage() : void
+    {
+        $this->testCreateMessage();
+        $this->assertInternalType('array', $this->getUserDataService()->deleteMessage('tu1', self::$messageId));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NO_CONTENT,
+            $this->getUserDataService()->getStatusCode()
+        ); //204
+        $this->assertNull($this->getUserDataService()->deleteMessage('wrongId', 'wrongId'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_BAD_REQUEST,
+            $this->getUserDataService()->getStatusCode()
+        ); //400
+    }
 }

@@ -21,4 +21,37 @@ class UserDataService extends BaseService
 
         return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK);
     }
+
+    /**
+     * Send a message
+     *
+     * @param array $data request data
+     * @param string $userId user ID
+     * @param string $conversationId conversation ID
+     *
+     * @return array
+     */
+    public function sendMessage(array $data, string $userId, string $conversationId): ?array
+    {
+        $response = $this->getRequestService()
+            ->makePostRequest($this->getRouter()->sendMessagesURL($userId, $conversationId), $data);
+
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_CREATED);
+    }
+
+    /**
+     * Delete a message
+     *
+     * @param string $userId user ID
+     * @param string $messageId conversation ID
+     *
+     * @return array
+     */
+    public function deleteMessage(string $userId, string $messageId): ?array
+    {
+        $response = $this->getRequestService()
+            ->makeDeleteRequest($this->getRouter()->deleteMessageURL($userId, $messageId));
+
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
+    }
 }
