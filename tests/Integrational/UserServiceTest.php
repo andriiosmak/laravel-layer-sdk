@@ -129,7 +129,7 @@ class UserServiceTest extends BaseClass
         $messageId = $this->getUserDataService()
             ->sendMessage($data, "tu1", $conversationId);
 
-        $this->assertInternalType('array', $messageId);
+        $this->assertInternalType('string', $messageId);
         $this->assertEquals(
             ResponseStatus::HTTP_CREATED,
             $this->getUserDataService()->getStatusCode()

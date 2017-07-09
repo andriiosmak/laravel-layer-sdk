@@ -31,12 +31,13 @@ class UserDataService extends BaseService
      *
      * @return array
      */
-    public function sendMessage(array $data, string $userId, string $conversationId): ?array
+    public function sendMessage(array $data, string $userId, string $conversationId): ?string
     {
         $response = $this->getRequestService()
             ->makePostRequest($this->getRouter()->sendMessagesURL($userId, $conversationId), $data);
 
-        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_CREATED);
+        return $this->getRequestService()
+            ->getCreateItemId($response, $this->getResponseStatus()::HTTP_CREATED, 'messages');
     }
 
     /**
@@ -48,7 +49,7 @@ class UserDataService extends BaseService
      *
      * @return array
      */
-    public function sendReceipt(string $type, string $userId, string $messageId): ?array
+    public function sendReceipt(string $type, string $userId, string $messageId): bool
     {
         $response = $this->getRequestService()
             ->makePostRequest(
@@ -56,7 +57,7 @@ class UserDataService extends BaseService
                     'type' => $type
                 ]);
 
-        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
+        return $this->getRequestService()->checkResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
     }
 
     /**
@@ -67,11 +68,11 @@ class UserDataService extends BaseService
      *
      * @return array
      */
-    public function deleteMessage(string $userId, string $messageId): ?array
+    public function deleteMessage(string $userId, string $messageId): bool
     {
         $response = $this->getRequestService()
             ->makeDeleteRequest($this->getRouter()->deleteMessageURL($userId, $messageId));
 
-        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
+        return $this->getRequestService()->checkResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
     }
 }

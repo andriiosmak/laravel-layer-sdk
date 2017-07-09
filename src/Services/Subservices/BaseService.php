@@ -160,6 +160,7 @@ abstract class BaseService
     public function getCreateItemId(Response $response, string $statusId, string $path): ?string
     {
         $responseObject = $this->requestService->getResponse($response, $statusId);
+
         if ($responseObject && isset($responseObject['id'])) {
             return explode('layer:///' . $path . '/', $responseObject['id'], 2)[1];
         }
