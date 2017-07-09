@@ -31,6 +31,13 @@ class RequestService
     private $statusCode;
 
     /**
+     * Raw response content
+     *
+     * @var mixed
+     */
+    private $rawResponse;
+
+    /**
      * Constructor
      *
      * @param \Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus $responseStatus
@@ -50,6 +57,16 @@ class RequestService
     public function getStatusCode()
     {
         return $this->statusCode;
+    }
+
+    /**
+     * Get response
+     *
+     * @return int
+     */
+    public function getRawResponse()
+    {
+        return $this->rawResponse;
     }
 
     /**
@@ -81,9 +98,9 @@ class RequestService
      */
     public function obtainResponseContent(Response $response): array
     {
-        $content = $response->getBody()->getContents();
-        if (strlen($content) > 1) {
-            return is_array(json_decode($content, 1))? json_decode($content, 1) : [];
+        $this->rawResponse = $response->getBody()->getContents();
+        if (strlen($this->rawResponse) > 1) {
+            return is_array(json_decode($this->rawResponse, 1))? json_decode($this->rawResponse, 1) : [];
         }
 
         return [];
@@ -222,7 +239,7 @@ class RequestService
 
         $headers   = array_replace_recursive($defaultHeaders, $requestHeaders);
         $response  = $this->client->request($method, $this->config['LAYER_SDK_BASE_URL'] . $url, $headers);
-        $this->statusCode = $response->getStatusCode();
+        $this->statusCode  = $response->getStatusCode();
         $this->setResponseContent($response);
 
         return $response;
