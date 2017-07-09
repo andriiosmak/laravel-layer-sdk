@@ -369,7 +369,7 @@ $result = $layer->getNotificationService()->create($data);
 echo $result //string
 ```
 
-### Accessing user data
+### Accessing_user_data
 
 Get all conversations by a user ID
 
