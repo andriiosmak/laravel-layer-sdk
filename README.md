@@ -16,7 +16,7 @@ Powerful package that helps Laravel 5 projects to access Layer Services ([layer.
     - [Messages](#messages)
     - [Announcements](#announcements)
     - [Notifications](#notifications)
-    - [Accessing user data](#ACCESSING USER DATA)
+    - [Accessing user data](#accessing_user_data)
 - [Contributing](#contributing)
 - [Security](#security)
 - [Credits](#credits)
@@ -369,7 +369,7 @@ $result = $layer->getNotificationService()->create($data);
 echo $result //string
 ```
 
-### ACCESSING USER DATA
+### Accessing user data
 
 Get all conversations by a user ID
 
