@@ -291,34 +291,18 @@ $result = $layer->getMessageService()->create($data, 'conversationID');
 echo $result; //boolean
 ```
 
-Get messages (system)
+Get all messages by a conversation ID
 
 ``` php
-$result = $layer->getMessageService()->allLikeSystem('conversationID');
+$result = $layer->getMessageService()->all('conversationID');
 
 echo $result; //array
 ```
 
-Get messages (user)
+Get a message
 
 ``` php
-$result = $layer->getMessageService()->allLikeUser('conversationID', 'userId');
-
-echo $result; //array
-```
-
-Get a message (system)
-
-``` php
-$result = $layer->getMessageService()->getLikeSystem('messageId', 'conversationID');
-
-echo $result; //array
-```
-
-Get a message (user)
-
-``` php
-$result = $layer->getMessageService()->getLikeUser('messageId', 'userId');
+$result = $layer->getMessageService()->get('messageId', 'conversationID');
 
 echo $result; //array
 ```
