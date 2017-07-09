@@ -5,6 +5,7 @@ namespace Aosmak\Laravel\Layer\Sdk\Integrational;
 use Illuminate\Container\Container;
 use Aosmak\Laravel\Layer\Sdk\Services\LayerService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserDataService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\AnnouncementService;
@@ -75,6 +76,16 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     public function getUserService() : UserService
     {
         return $this->service->getUserService();
+    }
+
+    /**
+     * Get a user data service
+     *
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserDataService
+     */
+    public function getUserDataService() : UserDataService
+    {
+        return $this->service->getUserDataService();
     }
 
     /**

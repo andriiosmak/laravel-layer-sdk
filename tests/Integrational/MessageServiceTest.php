@@ -148,4 +148,49 @@ class MessageServiceTest extends BaseClass
             $this->getMessageService()->getStatusCode()
         ); //404
     }
+
+    /**
+     * Send Read/Delivery Receipt
+     *
+     * @return void
+     */
+    public function testSendReceipt() : void
+    {
+        $this->testCreateMessage();
+        $response = $this->getUserDataService()->sendReceipt('read', 'tu1', self::$messageId);
+        $this->assertTrue($response);
+        $this->assertEquals(
+            ResponseStatus::HTTP_NO_CONTENT,
+            $this->getUserDataService()->getStatusCode()
+        ); //204
+        $this->assertFalse($this->getUserDataService()->sendReceipt('read', 'wrongId', 'wrongId'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_BAD_REQUEST,
+            $this->getUserDataService()->getStatusCode()
+        ); //400
+        $this->assertFalse($this->getUserDataService()->sendReceipt('test', 'tu1', self::$messageId));
+        $this->assertEquals(
+            ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
+            $this->getUserDataService()->getStatusCode()
+        ); //400
+    }
+
+    /**
+     * Test message deletion
+     *
+     * @return void
+     */
+    public function testUserDataDeleteMessage() : void
+    {
+        $this->assertTrue($this->getUserDataService()->deleteMessage('tu1', self::$messageId));
+        $this->assertEquals(
+            ResponseStatus::HTTP_NO_CONTENT,
+            $this->getUserDataService()->getStatusCode()
+        ); //204
+        $this->assertFalse($this->getUserDataService()->deleteMessage('wrongId', 'wrongId'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_BAD_REQUEST,
+            $this->getUserDataService()->getStatusCode()
+        ); //400
+    }
 }

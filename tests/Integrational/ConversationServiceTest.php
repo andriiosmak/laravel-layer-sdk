@@ -31,10 +31,10 @@ class ConversationServiceTest extends BaseClass
             ],
         ]);
 
-        $this->assertEquals(
-            ResponseStatus::HTTP_OK,
-            $this->getConversationService()->getStatusCode()
-        ); //200
+        $this->assertTrue(in_array($this->getConversationService()->getStatusCode(), [
+            ResponseStatus::HTTP_OK, 
+            ResponseStatus::HTTP_CREATED
+        ])); //200|201
         $this->assertInternalType('string', self::$conversationId);
         $this->assertNull($this->getConversationService()->create([]));
         $this->assertEquals(
@@ -118,7 +118,27 @@ class ConversationServiceTest extends BaseClass
         $this->assertEquals(
             ResponseStatus::HTTP_OK,
             $this->getConversationService()->getStatusCode()
-        ); //404
+        ); //200
+    }
+
+    /**
+     * Test get user conversations
+     *
+     * @return void
+     */
+    public function testGetUserConversations() : void
+    {
+        $result = $this->getUserDataService()->getConversations('tu1');
+        $this->assertInternalType('array', $result);
+        $this->assertArrayHasKey('id', $result[0]);
+        $this->assertArrayHasKey('url', $result[0]);
+        $this->assertArrayHasKey('messages_url', $result[0]);
+        $this->assertArrayHasKey('created_at', $result[0]);
+        $this->assertArrayHasKey('last_message', $result[0]);
+        $this->assertArrayHasKey('participants', $result[0]);
+        $this->assertArrayHasKey('distinct', $result[0]);
+        $this->assertArrayHasKey('unread_message_count', $result[0]);
+        $this->assertArrayHasKey('metadata', $result[0]);
     }
 
     /**
