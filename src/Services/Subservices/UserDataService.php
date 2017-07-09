@@ -53,9 +53,9 @@ class UserDataService extends BaseService
     {
         $response = $this->getRequestService()
             ->makePostRequest(
-                $this->getRouter()->getMessageReceiptsURL($userId, $messageId), [
-                    'type' => $type
-                ]);
+                $this->getRouter()->getMessageReceiptsURL($userId, $messageId),
+                ['type' => $type]
+            );
 
         return $this->getRequestService()->checkResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
     }
