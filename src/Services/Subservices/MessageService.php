@@ -26,22 +26,6 @@ class MessageService extends BaseService
     }
 
     /**
-     * Get messages (user perspective)
-     *
-     * @param string $conversationId conversation ID
-     * @param string $userId user ID
-     *
-     * @return mixed
-     */
-    public function allLikeUser(string $conversationId, string $userId): ?array
-    {
-        $response = $this->getRequestService()
-            ->makeGetRequest($this->getRouter()->getConversationUserURL($conversationId, $userId));
-
-        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK);
-    }
-
-    /**
      * Get messages (system perspective)
      *
      * @param string $conversationId conversation ID
@@ -52,22 +36,6 @@ class MessageService extends BaseService
     {
         $response = $this->getRequestService()
             ->makeGetRequest($this->getRouter()->getConversationURL($conversationId));
-
-        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK);
-    }
-
-    /**
-     * Get a message (user perspective)
-     *
-     * @param string $messageId message ID
-     * @param string $userId user ID
-     *
-     * @return mixed
-     */
-    public function getLikeUser(string $messageId, string $userId): ?array
-    {
-        $response = $this->getRequestService()
-            ->makeGetRequest($this->getRouter()->getMessageUserURL($messageId, $userId));
 
         return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK);
     }
@@ -102,20 +70,5 @@ class MessageService extends BaseService
             ->makeDeleteRequest($this->getRouter()->getMessageSytemURL($messageId, $conversationId));
 
         return $this->getRequestService()->checkResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
-    }
-
-    /**
-     * Create a notification
-     *
-     * @param array $data notification data
-     *
-     * @return mixed
-     */
-    public function createNotification(array $data): ?string
-    {
-        $response = $this->getRequestService()->makePostRequest($this->getRouter()->getNotificationURL(), $data);
-
-        return $this->getRequestService()
-            ->getCreateItemId($response, $this->getResponseStatus()::HTTP_ACCEPTED, 'notifications');
     }
 }

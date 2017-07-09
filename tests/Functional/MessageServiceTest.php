@@ -27,16 +27,7 @@ class MessageServiceTest extends BaseClass
             self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
             self::getResponse(ResponseStatus::HTTP_OK),
             self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(ResponseStatus::HTTP_OK),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
             self::getResponse(
-                ResponseStatus::HTTP_OK,
-                Psr7\stream_for('{"id":"layer:///messages/712e7754-22c1-402b-8e09-7254d1b95e43"}')
-            ),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-             self::getResponse(
                 ResponseStatus::HTTP_OK,
                 Psr7\stream_for('{"id":"layer:///messages/712e7754-22c1-402b-8e09-7254d1b95e43"}')
             ),
@@ -44,11 +35,6 @@ class MessageServiceTest extends BaseClass
             self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
             self::getResponse(ResponseStatus::HTTP_NO_CONTENT),
             self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(
-                ResponseStatus::HTTP_ACCEPTED,
-                Psr7\stream_for('{"id":"layer:///notifications/fbdd0bc4-e75d-46e5-b615-cca97e62601e"}')
-            ),
-            self::getResponse(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY),
         ]);
         self::setUpService($mock);
     }
@@ -88,18 +74,6 @@ class MessageServiceTest extends BaseClass
     }
 
     /**
-     * Test getListsUser method
-     *
-     * @return void
-     */
-    public function testgGetListsUserMessage() : void
-    {
-        $this->assertInternalType('array', $this->getMessageService()->allLikeUser('convId', 'tu1'));
-        $this->assertNull($this->getMessageService()->allLikeUser('wrongConvId', 'tu1'));
-        $this->assertNull($this->getMessageService()->allLikeUser('convId', 'wrongId'));
-    }
-
-    /**
      * Test getLikeSystem method
      *
      * @return void
@@ -109,18 +83,6 @@ class MessageServiceTest extends BaseClass
         $this->assertArrayHasKey('id', $this->getMessageService()->getLikeSystem('messageId', 'convId'));
         $this->assertNull($this->getMessageService()->getLikeSystem('messageId', 'wrongConvId'));
         $this->assertNull($this->getMessageService()->getLikeSystem('wrongMessageId', 'convId'));
-    }
-
-    /**
-     * Test getLikeUser method
-     *
-     * @return void
-     */
-    public function testGetLikeUserMessage() : void
-    {
-        $this->assertArrayHasKey('id', $this->getMessageService()->getLikeUser('messagwId', 'userId'));
-        $this->assertNull($this->getMessageService()->getLikeUser('messagwId', 'wrongUserId'));
-        $this->assertNull($this->getMessageService()->getLikeUser('wrongMessagwId', 'userId'));
     }
 
     /**
