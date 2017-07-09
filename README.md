@@ -104,8 +104,6 @@ class Controller
 
         //get raw response
         echo $userService->getRawResponse(); //mixed
-
-    	var_dump($result);
     }
 }
 ```
