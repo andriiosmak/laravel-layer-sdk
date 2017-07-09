@@ -150,13 +150,38 @@ class MessageServiceTest extends BaseClass
     }
 
     /**
+     * Send Read/Delivery Receipt
+     *
+     * @return void
+     */
+    public function testSendReceipt() : void
+    {
+        $this->testCreateMessage();
+        $response = $this->getUserDataService()->sendReceipt('read', 'tu1', self::$messageId);
+        $this->assertInternalType('array', $response);
+        $this->assertEquals(
+            ResponseStatus::HTTP_NO_CONTENT,
+            $this->getUserDataService()->getStatusCode()
+        ); //204
+        $this->assertNull($this->getUserDataService()->sendReceipt('read', 'wrongId', 'wrongId'));
+        $this->assertEquals(
+            ResponseStatus::HTTP_BAD_REQUEST,
+            $this->getUserDataService()->getStatusCode()
+        ); //400
+        $this->assertNull($this->getUserDataService()->sendReceipt('test', 'tu1', self::$messageId));
+        $this->assertEquals(
+            ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
+            $this->getUserDataService()->getStatusCode()
+        ); //400
+    }
+
+    /**
      * Test message deletion
      *
      * @return void
      */
     public function testUserDataDeleteMessage() : void
     {
-        $this->testCreateMessage();
         $this->assertInternalType('array', $this->getUserDataService()->deleteMessage('tu1', self::$messageId));
         $this->assertEquals(
             ResponseStatus::HTTP_NO_CONTENT,

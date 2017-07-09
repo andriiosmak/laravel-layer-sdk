@@ -40,6 +40,26 @@ class UserDataService extends BaseService
     }
 
     /**
+     * Send a receipt
+     *
+     * @param array $data request data
+     * @param string $userId user ID
+     * @param string $conversationId conversation ID
+     *
+     * @return array
+     */
+    public function sendReceipt(string $type, string $userId, string $messageId): ?array
+    {
+        $response = $this->getRequestService()
+            ->makePostRequest(
+                $this->getRouter()->getMessageReceiptsURL($userId, $messageId), [
+                    'type' => $type
+                ]);
+
+        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
+    }
+
+    /**
      * Delete a message
      *
      * @param string $userId user ID
