@@ -199,6 +199,32 @@ Get all conversations by a user ID
 $result = $layer->getUserDataService()->getConversations('userID');
 
 echo $result; //array
+
+```
+Update block list
+
+``` php
+
+$data = [
+    0 => [
+        'operation' => 'add',
+        'property'  => 'blocks',
+        'id'        => 'layer:///identities/blockMe1',
+    ]
+];
+
+$result = $layer->getUserService()->updateBlockList($data, 'userId');
+
+echo $result; //boolean
+```
+
+Get block list
+
+``` php
+
+$result = $layer->getUserService()->getBlockList('userId');
+
+echo $result; //array
 ```
 
 Send a message
@@ -233,32 +259,6 @@ Delete a message
 
 $result = $layer->getUserDataService()->deleteMessage('user_id', 'message_id');
 echo $result; //boolean
-```
-
-Update block list
-
-``` php
-
-$data = [
-    0 => [
-        'operation' => 'add',
-        'property'  => 'blocks',
-        'id'        => 'layer:///identities/blockMe1',
-    ]
-];
-
-$result = $layer->getUserService()->updateBlockList($data, 'userId');
-
-echo $result; //boolean
-```
-
-Get block list
-
-``` php
-
-$result = $layer->getUserService()->getBlockList('userId');
-
-echo $result; //array
 ```
 
 Additional information you can find [here][link-layer-documentation-user].
