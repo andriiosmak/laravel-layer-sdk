@@ -79,9 +79,7 @@ Don`t have an account? Click [here][link-signup-layer] to sign up.
 
 ## Usage
 
-### Users
-
-Usage in controller
+Basic example
 
 ``` php
 use Aosmak\Laravel\Layer\Sdk\Services\LayerServiceInterface;
@@ -97,8 +95,8 @@ class Controller
      */
     public function test(LayerServiceInterface $layer)
     {
-    	$userService = $layer->getUserService();
-    	$result      = $userService->get('userId');
+        $userService = $layer->getUserService();
+        $result      = $userService->get('userId');
 
         //get response status code
         echo $userService->getStatusCode(); //integer
@@ -108,6 +106,8 @@ class Controller
     }
 }
 ```
+
+### Users
 
 Create a user
 
