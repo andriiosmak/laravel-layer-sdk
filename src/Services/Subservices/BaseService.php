@@ -64,7 +64,7 @@ abstract class BaseService
      *
      * @return int
      */
-    public function getStatusCode() : int
+    public function getStatusCode(): int
     {
         return $this->requestService->getStatusCode();
     }

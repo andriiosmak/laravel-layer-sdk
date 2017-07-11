@@ -17,7 +17,7 @@ class AnnouncementServiceTest extends BaseClass
      *
      * @return void
      */
-    public static function setUpBeforeClass() : void
+    public static function setUpBeforeClass(): void
     {
         $mock = new MockHandler([
             self::getResponse(
@@ -34,7 +34,7 @@ class AnnouncementServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testCreateAnnouncement() : void
+    public function testCreateAnnouncement(): void
     {
         $data = [
             'recipients' => [

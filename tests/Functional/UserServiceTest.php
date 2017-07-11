@@ -17,7 +17,7 @@ class UserServiceTest extends BaseClass
      *
      * @return void
      */
-    public static function setUpBeforeClass() : void
+    public static function setUpBeforeClass(): void
     {
         $mock = new MockHandler([
             self::getResponse(ResponseStatus::HTTP_CREATED),
@@ -58,7 +58,7 @@ class UserServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testCreateUser() : void
+    public function testCreateUser(): void
     {
         $data = [
             "first_name"   => 'testName',
@@ -76,7 +76,7 @@ class UserServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testReplaceUser() : void
+    public function testReplaceUser(): void
     {
         $data = [
             "first_name"   => 'testNameUpdated',
@@ -96,7 +96,7 @@ class UserServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testUpdateUser() : void
+    public function testUpdateUser(): void
     {
         $data = [
             [
@@ -117,7 +117,7 @@ class UserServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testGetUser() : void
+    public function testGetUser(): void
     {
         $this->assertArrayHasKey('first_name', $this->getUserService()->get('userId'));
         $this->assertNull($this->getUserService()->get('wrongUserId'));
@@ -128,7 +128,7 @@ class UserServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testDeleteUser() : void
+    public function testDeleteUser(): void
     {
         $this->assertTrue($this->getUserService()->delete('userId'));
         $this->assertFalse($this->getUserService()->delete('wrongUserId'));
@@ -137,7 +137,7 @@ class UserServiceTest extends BaseClass
     /**
      * Test badge creation
      */
-    public function testCreateBadge() : void
+    public function testCreateBadge(): void
     {
         $data = [
             "external_unread_count" => 15,
@@ -152,7 +152,7 @@ class UserServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testGetBadge() : void
+    public function testGetBadge(): void
     {
         $this->assertArrayHasKey('external_unread_count', $this->getUserService()->getBadges('testUserOne'));
     }
@@ -163,7 +163,7 @@ class UserServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testBlockListUpdate() : void
+    public function testBlockListUpdate(): void
     {
         $data = [
             0 => [
@@ -181,7 +181,7 @@ class UserServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testGetBlockList() : void
+    public function testGetBlockList(): void
     {
         $this->assertInternalType('array', $this->getUserService()->getBlockList('testUserOne'));
     }
@@ -191,7 +191,7 @@ class UserServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testSendMessage() : void
+    public function testSendMessage(): void
     {
         $data = [
             'sender' => [

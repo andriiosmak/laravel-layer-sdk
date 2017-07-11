@@ -100,7 +100,7 @@ class RequestService
     {
         $this->rawResponse = $response->getBody()->getContents();
         if (strlen($this->rawResponse) > 1) {
-            return is_array(json_decode($this->rawResponse, 1))? json_decode($this->rawResponse, 1) : [];
+            return is_array(json_decode($this->rawResponse, 1))? json_decode($this->rawResponse, 1): [];
         }
 
         return [];
