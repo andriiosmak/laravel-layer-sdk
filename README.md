@@ -191,7 +191,7 @@ $result = $layer->getUserService()->getBadges('userId');
 echo $result; //array
 ```
 
-### Accessing user data
+### Accessing_user_data
 
 Get all conversations by a user ID
 
