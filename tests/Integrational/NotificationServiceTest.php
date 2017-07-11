@@ -15,7 +15,7 @@ class NotificationServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testCreateNotification() : void
+    public function testCreateNotification(): void
     {
         $data = [
             'recipients' => [

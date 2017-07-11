@@ -17,7 +17,7 @@ class ConversationServiceTest extends BaseClass
      *
      * @return void
      */
-    public static function setUpBeforeClass() : void
+    public static function setUpBeforeClass(): void
     {
         $mock = new MockHandler([
             self::getResponse(
@@ -49,7 +49,7 @@ class ConversationServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testCreateConversation() : void
+    public function testCreateConversation(): void
     {
         $id = $this->getConversationService()->create([
             'participants' => [
@@ -67,7 +67,7 @@ class ConversationServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testUpdateUser() : void
+    public function testUpdateUser(): void
     {
         $result = $this->getConversationService()->update([
             [
@@ -85,7 +85,7 @@ class ConversationServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testGetConversation() : void
+    public function testGetConversation(): void
     {
         $this->assertArrayHasKey('url', $this->getConversationService()->get('convId'));
         $this->assertNull($this->getConversationService()->get('wrongConvId'));
@@ -96,7 +96,7 @@ class ConversationServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testGetConversations() : void
+    public function testGetConversations(): void
     {
         $this->assertInternalType('array', $this->getConversationService()->all('userId'));
         $this->assertEmpty($this->getConversationService()->all('wrongUserId'));
@@ -107,7 +107,7 @@ class ConversationServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testDeleteConversation() : void
+    public function testDeleteConversation(): void
     {
         $this->assertTrue($this->getConversationService()->delete('convId'));
         $this->assertFalse($this->getConversationService()->delete('wrongConvId'));
@@ -118,7 +118,7 @@ class ConversationServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testGetUserConversations() : void
+    public function testGetUserConversations(): void
     {
         $this->assertInternalType('array', $this->getUserDataService()->getConversations('userId'));
         $this->assertNull($this->getUserDataService()->getConversations('wrongUserId'));

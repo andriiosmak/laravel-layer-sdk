@@ -22,7 +22,7 @@ class ConversationServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testCreateConversation() : void
+    public function testCreateConversation(): void
     {
         self::$conversationId = $this->getConversationService()->create([
             'participants' => [
@@ -48,7 +48,7 @@ class ConversationServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testUpdateUser() : void
+    public function testUpdateUser(): void
     {
         $result = $this->getConversationService()->update([
             [
@@ -70,7 +70,7 @@ class ConversationServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testGetConversation() : void
+    public function testGetConversation(): void
     {
         $result = $this->getConversationService()->get(self::$conversationId);
         $this->assertArrayHasKey('url', $result);
@@ -97,7 +97,7 @@ class ConversationServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testGetConversations() : void
+    public function testGetConversations(): void
     {
         $result = $this->getConversationService()->all('tu1');
         $this->assertInternalType('array', $result);
@@ -126,7 +126,7 @@ class ConversationServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testGetUserConversations() : void
+    public function testGetUserConversations(): void
     {
         $result = $this->getUserDataService()->getConversations('tu1');
         $this->assertInternalType('array', $result);
@@ -146,7 +146,7 @@ class ConversationServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testDeleteConversation() : void
+    public function testDeleteConversation(): void
     {
         $this->assertTrue($this->getConversationService()->delete(self::$conversationId));
         $this->assertEquals(

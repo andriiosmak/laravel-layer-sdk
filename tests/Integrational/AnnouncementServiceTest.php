@@ -15,7 +15,7 @@ class AnnouncementServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testCreateAnnouncement() : void
+    public function testCreateAnnouncement(): void
     {
         $data = [
             'recipients' => [
