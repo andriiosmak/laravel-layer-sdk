@@ -59,9 +59,9 @@ class MessageServiceTest extends BaseClass
         ); //201
         $this->assertNull($this->getMessageService()->create([], self::$conversationId));
         $this->assertEquals(
-            ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
+            ResponseStatus::HTTP_NOT_IMPLEMENTED,
             $this->getMessageService()->getStatusCode()
-        ); //422
+        ); //501
     }
 
     /**
@@ -125,9 +125,9 @@ class MessageServiceTest extends BaseClass
         ); //404
         $this->assertNull($this->getMessageService()->get('wrongId', self::$conversationId));
         $this->assertEquals(
-            ResponseStatus::HTTP_NOT_FOUND,
+            ResponseStatus::HTTP_BAD_REQUEST,
             $this->getMessageService()->getStatusCode()
-        ); //404
+        ); //400
     }
 
     /**
