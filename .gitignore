@@ -1,7 +1,6 @@
 .editorconfig
 layer.php
 build
-composer.lock
 docs
 vendor
 tests/Integrational/config.php
