@@ -29,7 +29,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testCreateMessage() : void
+    public function testCreateMessage(): void
     {
         $data = [
             'sender' => [
@@ -59,9 +59,9 @@ class MessageServiceTest extends BaseClass
         ); //201
         $this->assertNull($this->getMessageService()->create([], self::$conversationId));
         $this->assertEquals(
-            ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
+            ResponseStatus::HTTP_NOT_IMPLEMENTED,
             $this->getMessageService()->getStatusCode()
-        ); //422
+        ); //501
     }
 
     /**
@@ -69,7 +69,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testGetAll() : void
+    public function testGetAll(): void
     {
         $response = $this->getMessageService()->all(self::$conversationId);
         $this->assertInternalType('array', $response);
@@ -100,7 +100,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testGetMessage() : void
+    public function testGetMessage(): void
     {
         $response = $this->getMessageService()->get(self::$messageId, self::$conversationId);
         $this->assertEquals(
@@ -125,9 +125,9 @@ class MessageServiceTest extends BaseClass
         ); //404
         $this->assertNull($this->getMessageService()->get('wrongId', self::$conversationId));
         $this->assertEquals(
-            ResponseStatus::HTTP_NOT_FOUND,
+            ResponseStatus::HTTP_BAD_REQUEST,
             $this->getMessageService()->getStatusCode()
-        ); //404
+        ); //400
     }
 
     /**
@@ -135,7 +135,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testDeleteMessage() : void
+    public function testDeleteMessage(): void
     {
         $this->assertTrue($this->getMessageService()->delete(self::$messageId, self::$conversationId));
         $this->assertEquals(
@@ -154,7 +154,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testSendReceipt() : void
+    public function testSendReceipt(): void
     {
         $this->testCreateMessage();
         $response = $this->getUserDataService()->sendReceipt('read', 'tu1', self::$messageId);
@@ -180,7 +180,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testUserDataDeleteMessage() : void
+    public function testUserDataDeleteMessage(): void
     {
         $this->assertTrue($this->getUserDataService()->deleteMessage('tu1', self::$messageId));
         $this->assertEquals(

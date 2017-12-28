@@ -35,7 +35,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Services\LayerService
      */
-    protected static function setUpService(MockHandler $mock) : void
+    protected static function setUpService(MockHandler $mock): void
     {
         $handler   = HandlerStack::create($mock);
         $container = new Container;
@@ -109,7 +109,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserDataService
      */
-    public function getUserDataService() : UserDataService
+    public function getUserDataService(): UserDataService
     {
         return self::$service->getUserDataService();
     }

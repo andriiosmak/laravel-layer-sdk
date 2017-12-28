@@ -17,7 +17,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public static function setUpBeforeClass() : void
+    public static function setUpBeforeClass(): void
     {
         $mock = new MockHandler([
             self::getResponse(
@@ -48,7 +48,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testCreateMessage() : void
+    public function testCreateMessage(): void
     {
         $data = [
             'sender' => [
@@ -71,7 +71,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testGetAll() : void
+    public function testGetAll(): void
     {
         $this->assertInternalType('array', $this->getMessageService()->all('test'));
         $this->assertNull($this->getMessageService()->all('wrongId'));
@@ -82,7 +82,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testGetMessage() : void
+    public function testGetMessage(): void
     {
         $this->assertArrayHasKey('id', $this->getMessageService()->get('messageId', 'convId'));
         $this->assertNull($this->getMessageService()->get('messageId', 'wrongConvId'));
@@ -94,7 +94,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testDeleteMessage() : void
+    public function testDeleteMessage(): void
     {
         $this->assertTrue($this->getMessageService()->delete('messageId', 'ConvId'));
         $this->assertFalse($this->getMessageService()->delete('wrongMessageId', 'wrongConvId'));
@@ -105,7 +105,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testSendReceipt() : void
+    public function testSendReceipt(): void
     {
         $this->assertTrue($this->getUserDataService()->sendReceipt('read', 'userId', 'messageId'));
         $this->assertFalse($this->getUserDataService()->sendReceipt('read', 'userId', 'wrongMessageId'));
@@ -116,7 +116,7 @@ class MessageServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testUserDataDeleteMessage() : void
+    public function testUserDataDeleteMessage(): void
     {
         $this->assertTrue($this->getUserDataService()->deleteMessage('userId', 'messageId'));
         $this->assertFalse($this->getUserDataService()->deleteMessage('wrongUserId', 'wrongMessageId'));

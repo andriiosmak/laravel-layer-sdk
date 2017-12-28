@@ -29,7 +29,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function setUp() : void
+    public function setUp(): void
     {
         if (file_exists(dirname(__FILE__) . '/config.php')) {
             $config = require(dirname(__FILE__) . '/config.php');
@@ -53,7 +53,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService
      */
-    public function getConversationService() : ConversationService
+    public function getConversationService(): ConversationService
     {
         return $this->service->getConversationService();
     }
@@ -63,7 +63,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService
      */
-    public function getMessageService() : MessageService
+    public function getMessageService(): MessageService
     {
         return $this->service->getMessageService();
     }
@@ -73,7 +73,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService
      */
-    public function getUserService() : UserService
+    public function getUserService(): UserService
     {
         return $this->service->getUserService();
     }
@@ -83,7 +83,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserDataService
      */
-    public function getUserDataService() : UserDataService
+    public function getUserDataService(): UserDataService
     {
         return $this->service->getUserDataService();
     }
@@ -93,7 +93,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\AnnouncementService
      */
-    public function getAnnouncementService() : AnnouncementService
+    public function getAnnouncementService(): AnnouncementService
     {
         return $this->service->getAnnouncementService();
     }
@@ -103,7 +103,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\NotificationService
      */
-    public function getNotificationService() : NotificationService
+    public function getNotificationService(): NotificationService
     {
         return $this->service->getNotificationService();
     }
