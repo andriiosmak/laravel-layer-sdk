@@ -24,7 +24,7 @@ Powerful package that helps Laravel 5 projects to access Layer Services ([layer.
 
 ## Requirements
 
-- PHP 7.1 +
+- PHP 7.2 +
 - Laravel 5.2 +
 
 ## Installation
