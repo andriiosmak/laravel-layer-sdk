@@ -93,16 +93,16 @@ class Controller
      *
      * @return void
      */
-    public function test(LayerServiceInterface $layer)
+    public function test(LayerServiceInterface $layer): void
     {
         $userService = $layer->getUserService();
-        $result      = $userService->get('userId');
+        $response    = $userService->get('userId');
 
         //get response status code
-        echo $userService->getStatusCode(); //integer
+        echo $response->getStatusCode(); //integer
 
-        //get raw response
-        echo $userService->getRawResponse(); //mixed
+        //get response contents
+        echo $response->getContents(); //array
     }
 }
 ```
