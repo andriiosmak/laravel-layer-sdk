@@ -2,6 +2,8 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
+use Aosmak\Laravel\Layer\Sdk\Models\Response;
+
 /**
  * Class UserService
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
@@ -14,13 +16,11 @@ class UserService extends BaseService
      * @param array $data user data
      * @param string $userId user ID
      *
-     * @return bool
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function create(array $data, string $userId): bool
+    public function create(array $data, string $userId): Response
     {
-        $response = $this->getRequestService()->makePostRequest($this->getRouter()->getURL($userId), $data);
-
-        return $this->getRequestService()->checkResponse($response, $this->getResponseStatus()::HTTP_CREATED);
+        return $this->getRequestService()->makePostRequest($this->getRouter()->getURL($userId), $data);
     }
 
     /**
@@ -29,13 +29,11 @@ class UserService extends BaseService
      * @param array $data user data
      * @param string $userId user ID
      *
-     * @return bool
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function update(array $data, string $userId): bool
+    public function update(array $data, string $userId): Response
     {
-        $response = $this->getRequestService()->makePatchRequest($this->getRouter()->getURL($userId), $data);
-
-        return $this->getRequestService()->checkResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
+        return $this->getRequestService()->makePatchRequest($this->getRouter()->getURL($userId), $data);
     }
 
     /**
@@ -44,13 +42,11 @@ class UserService extends BaseService
      * @param array $data user data
      * @param string $userId user ID
      *
-     * @return bool
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function replace(array $data, string $userId): bool
+    public function replace(array $data, string $userId): Response
     {
-        $response = $this->getRequestService()->makePutRequest($this->getRouter()->getURL($userId), $data);
-
-        return $this->getRequestService()->checkResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
+        return $this->getRequestService()->makePutRequest($this->getRouter()->getURL($userId), $data);
     }
 
     /**
@@ -58,13 +54,11 @@ class UserService extends BaseService
      *
      * @param string $userId user ID
      *
-     * @return mixed
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function get(string $userId): ?array
+    public function get(string $userId): Response
     {
-        $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getURL($userId));
-
-        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK);
+        return $this->getRequestService()->makeGetRequest($this->getRouter()->getURL($userId));
     }
 
     /**
@@ -72,13 +66,11 @@ class UserService extends BaseService
      *
      * @param string $userId user ID
      *
-     * @return bool
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function delete(string $userId): bool
+    public function delete(string $userId): Response
     {
-        $response = $this->getRequestService()->makeDeleteRequest($this->getRouter()->getURL($userId));
-
-        return $this->getRequestService()->checkResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
+        return $this->getRequestService()->makeDeleteRequest($this->getRouter()->getURL($userId));
     }
 
     /**
@@ -87,13 +79,11 @@ class UserService extends BaseService
      * @param array $data badge data
      * @param string $userId user ID
      *
-     * @return bool
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function createBadge(array $data, string $userId): bool
+    public function createBadge(array $data, string $userId): Response
     {
-        $response = $this->getRequestService()->makePutRequest($this->getRouter()->getBadgeURL($userId), $data);
-
-        return $this->getRequestService()->checkResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
+        return $this->getRequestService()->makePutRequest($this->getRouter()->getBadgeURL($userId), $data);
     }
 
     /**
@@ -101,13 +91,11 @@ class UserService extends BaseService
      *
      * @param string $userId user ID
      *
-     * @return mixed
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function getBadges(string $userId): ?array
+    public function getBadges(string $userId): Response
     {
-        $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getBadgeURL($userId));
-
-        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK);
+        return $this->getRequestService()->makeGetRequest($this->getRouter()->getBadgeURL($userId));
     }
 
     /**
@@ -116,14 +104,12 @@ class UserService extends BaseService
      * @param array $data user data
      * @param string $userId user ID
      *
-     * @return bool
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function updateBlockList(array $data, string $userId): bool
+    public function updateBlockList(array $data, string $userId): Response
     {
-        $response = $this->getRequestService()
+        return $this->getRequestService()
             ->makePatchRequest($this->getRouter()->getBlockListUpdateURL($userId), $data);
-
-        return $this->getRequestService()->checkResponse($response, $this->getResponseStatus()::HTTP_ACCEPTED);
     }
 
     /**
@@ -131,12 +117,10 @@ class UserService extends BaseService
      *
      * @param string $userId user ID
      *
-     * @return mixed
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function getBlockList(string $userId): ?array
+    public function getBlockList(string $userId): Response
     {
-        $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getBlockListURL($userId));
-
-        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK);
+        return $this->getRequestService()->makeGetRequest($this->getRouter()->getBlockListURL($userId));
     }
 }

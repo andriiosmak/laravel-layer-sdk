@@ -29,13 +29,6 @@ abstract class BaseService
     private $requestService;
 
     /**
-     * Response status
-     *
-     * @var \Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus
-     */
-    private $responseStatus;
-
-    /**
      * Constructor
      *
      * @param \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService $requestService
@@ -43,40 +36,9 @@ abstract class BaseService
      *
      * @return void
      */
-    public function __construct(RequestService $requestService, ResponseStatus $responseStatus)
+    public function __construct(RequestService $requestService)
     {
         $this->requestService = $requestService;
-        $this->responseStatus = $responseStatus;
-    }
-
-    /**
-     * Get a response status model
-     *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus
-     */
-    public function getResponseStatus(): ResponseStatus
-    {
-        return $this->responseStatus;
-    }
-
-    /**
-     * Get status code
-     *
-     * @return int
-     */
-    public function getStatusCode(): int
-    {
-        return $this->requestService->getStatusCode();
-    }
-
-    /**
-     * Get raw response
-     *
-     * @return int
-     */
-    public function getRawResponse()
-    {
-        return $this->requestService->getRawResponse();
     }
 
     /**
@@ -146,25 +108,5 @@ abstract class BaseService
     public function genereteURL(string $url, array $data): string
     {
         return str_replace(array_keys($data), $data, $url);
-    }
-
-    /**
-     * Get an item ID
-     *
-     * @return \GuzzleHttp\Psr7\Response $response
-     * @return string $statusId
-     * @return string $path
-     *
-     * @return mixed conversation ID
-     */
-    public function getCreateItemId(Response $response, string $statusId, string $path): ?string
-    {
-        $responseObject = $this->requestService->getResponse($response, $statusId);
-
-        if ($responseObject && isset($responseObject['id'])) {
-            return explode('layer:///' . $path . '/', $responseObject['id'], 2)[1];
-        }
-
-        return null;
     }
 }

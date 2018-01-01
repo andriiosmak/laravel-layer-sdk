@@ -2,6 +2,8 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
+use Aosmak\Laravel\Layer\Sdk\Models\Response;
+
 /**
  * Class NotificationService
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
@@ -13,13 +15,10 @@ class NotificationService extends BaseService
      *
      * @param array $data notification data
      *
-     * @return mixed
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function create(array $data): ?string
+    public function create(array $data): Response
     {
-        $response = $this->getRequestService()->makePostRequest($this->getRouter()->getNotificationURL(), $data);
-
-        return $this->getRequestService()
-            ->getCreateItemId($response, $this->getResponseStatus()::HTTP_ACCEPTED, 'notifications');
+        return $this->getRequestService()->makePostRequest($this->getRouter()->getNotificationURL(), $data);
     }
 }
