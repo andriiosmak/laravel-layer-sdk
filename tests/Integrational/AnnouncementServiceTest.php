@@ -2,6 +2,7 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Integrational;
 
+use Aosmak\Laravel\Layer\Sdk\Models\Response;
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
 
 /**
@@ -33,15 +34,21 @@ class AnnouncementServiceTest extends BaseClass
             ],
         ];
 
-        $this->assertInternalType('string', $this->getAnnouncementService()->create($data));
+        $response = $this->getAnnouncementService()->create($data);
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertInternalType('array', $response->getContents());
+        $this->assertInternalType('string', $response->getCreatedItemId());
         $this->assertEquals(
             ResponseStatus::HTTP_ACCEPTED,
-            $this->getAnnouncementService()->getStatusCode()
+            $response->getStatusCode()
         ); //202
-        $this->assertNull($this->getAnnouncementService()->create([]));
+        $response = $this->getAnnouncementService()->create([]);
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertInternalType('array', $response->getContents());
+        $this->assertInternalType('null', $response->getCreatedItemId());
         $this->assertEquals(
             ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
-            $this->getAnnouncementService()->getStatusCode()
+            $response->getStatusCode()
         ); //422
     }
 }

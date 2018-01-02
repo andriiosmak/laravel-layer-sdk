@@ -24,22 +24,28 @@ class ConversationServiceTest extends BaseClass
      */
     public function testCreateConversation(): void
     {
-        self::$conversationId = $this->getConversationService()->create([
+        $response = $this->getConversationService()->create([
             'participants' => [
                 "tu1",
                 "tu2",
             ],
         ]);
-
-        $this->assertTrue(in_array($this->getConversationService()->getStatusCode(), [
-            ResponseStatus::HTTP_OK, 
+        $content              = $response->getContents();
+        self::$conversationId = $response->getCreatedItemId();
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertInternalType('array', $content);
+        $this->assertInternalType('string', self::$conversationId);
+        $this->assertTrue(in_array($response->getStatusCode(), [
+            ResponseStatus::HTTP_OK,
             ResponseStatus::HTTP_CREATED
         ])); //200|201
-        $this->assertInternalType('string', self::$conversationId);
-        $this->assertNull($this->getConversationService()->create([]));
+        $response = $this->getConversationService()->create([]);
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertInternalType('array', $response->getContents());
+        $this->assertInternalType('null', $response->getCreatedItemId());
         $this->assertEquals(
             ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
-            $this->getConversationService()->getStatusCode()
+            $response->getStatusCode()
         ); //422
     }
 
@@ -50,19 +56,32 @@ class ConversationServiceTest extends BaseClass
      */
     public function testUpdateUser(): void
     {
-        $result = $this->getConversationService()->update([
+        $response = $this->getConversationService()->update([
             [
                 'operation' => 'set',
                 'property'  => 'participants',
                 'value'     =>  ["tu2", "tu1"],
             ],
         ], self::$conversationId);
-
-        $this->assertTrue($result);
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertInternalType('array', $response->getContents());
         $this->assertEquals(
             ResponseStatus::HTTP_NO_CONTENT,
-            $this->getConversationService()->getStatusCode()
+            $response->getStatusCode()
         ); //204
+        $response = $this->getConversationService()->update([
+            [
+                'operation' => 'set',
+                'property'  => 'participants',
+                'value'     =>  ["tu2", "tu1"],
+            ],
+        ], 'wrongid');
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertInternalType('array', $response->getContents());
+        $this->assertEquals(
+            ResponseStatus::HTTP_NOT_FOUND,
+            $response->getStatusCode()
+        ); //404
     }
 
     /**
@@ -72,23 +91,28 @@ class ConversationServiceTest extends BaseClass
      */
     public function testGetConversation(): void
     {
-        $result = $this->getConversationService()->get(self::$conversationId);
-        $this->assertArrayHasKey('url', $result);
-        $this->assertArrayHasKey('participants', $result);
-        $this->assertArrayHasKey('id', $result);
-        $this->assertArrayHasKey('distinct', $result);
-        $this->assertArrayHasKey('metadata', $result);
-        $this->assertArrayHasKey('created_at', $result);
-        $this->assertArrayHasKey('messages_url', $result);
+        $response = $this->getConversationService()->get(self::$conversationId);
+        $content  = $response->getContents();
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertInternalType('array', $response->getContents());
+        $this->assertArrayHasKey('url', $content);
+        $this->assertArrayHasKey('participants', $content);
+        $this->assertArrayHasKey('id', $content);
+        $this->assertArrayHasKey('distinct', $content);
+        $this->assertArrayHasKey('metadata', $content);
+        $this->assertArrayHasKey('created_at', $content);
+        $this->assertArrayHasKey('messages_url', $content);
         $this->assertEquals(
             ResponseStatus::HTTP_OK,
-            $this->getConversationService()->getStatusCode()
+            $response->getStatusCode()
         ); //200
 
-        $this->assertNull($this->getConversationService()->get('wrongId'));
+        $response = $this->getConversationService()->get('wrongid');
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertInternalType('array', $response->getContents());
         $this->assertEquals(
             ResponseStatus::HTTP_NOT_FOUND,
-            $this->getConversationService()->getStatusCode()
+            $response->getStatusCode()
         ); //404
     }
 
@@ -99,26 +123,31 @@ class ConversationServiceTest extends BaseClass
      */
     public function testGetConversations(): void
     {
-        $result = $this->getConversationService()->all('tu1');
-        $this->assertInternalType('array', $result);
-        $this->assertArrayHasKey('id', $result[0]);
-        $this->assertArrayHasKey('url', $result[0]);
-        $this->assertArrayHasKey('messages_url', $result[0]);
-        $this->assertArrayHasKey('created_at', $result[0]);
-        $this->assertArrayHasKey('last_message', $result[0]);
-        $this->assertArrayHasKey('participants', $result[0]);
-        $this->assertArrayHasKey('distinct', $result[0]);
-        $this->assertArrayHasKey('unread_message_count', $result[0]);
-        $this->assertArrayHasKey('metadata', $result[0]);
+        $response = $this->getConversationService()->all('tu1');
+        $content  = $response->getContents();
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertInternalType('array', $content);
+        $this->assertArrayHasKey('id', $content[0]);
+        $this->assertArrayHasKey('url', $content[0]);
+        $this->assertArrayHasKey('messages_url', $content[0]);
+        $this->assertArrayHasKey('created_at', $content[0]);
+        $this->assertArrayHasKey('last_message', $content[0]);
+        $this->assertArrayHasKey('participants', $content[0]);
+        $this->assertArrayHasKey('distinct', $content[0]);
+        $this->assertArrayHasKey('unread_message_count', $content[0]);
+        $this->assertArrayHasKey('metadata', $content[0]);
         $this->assertEquals(
             ResponseStatus::HTTP_OK,
-            $this->getConversationService()->getStatusCode()
+            $response->getStatusCode()
         ); //200
-        $this->assertEmpty($this->getConversationService()->all('wrongId'));
+
+        $response = $this->getConversationService()->all(time());
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertInternalType('array', $response->getContents());
         $this->assertEquals(
-            ResponseStatus::HTTP_OK,
-            $this->getConversationService()->getStatusCode()
-        ); //200
+            ResponseStatus::HTTP_NOT_FOUND,
+            $response->getStatusCode()
+        ); //404
     }
 
     /**
@@ -128,17 +157,18 @@ class ConversationServiceTest extends BaseClass
      */
     public function testGetUserConversations(): void
     {
-        $result = $this->getUserDataService()->getConversations('tu1');
-        $this->assertInternalType('array', $result);
-        $this->assertArrayHasKey('id', $result[0]);
-        $this->assertArrayHasKey('url', $result[0]);
-        $this->assertArrayHasKey('messages_url', $result[0]);
-        $this->assertArrayHasKey('created_at', $result[0]);
-        $this->assertArrayHasKey('last_message', $result[0]);
-        $this->assertArrayHasKey('participants', $result[0]);
-        $this->assertArrayHasKey('distinct', $result[0]);
-        $this->assertArrayHasKey('unread_message_count', $result[0]);
-        $this->assertArrayHasKey('metadata', $result[0]);
+        $response = $this->getUserDataService()->getConversations('tu1');
+        $content  = $response->getContents();
+        $this->assertInternalType('array', $content);
+        $this->assertArrayHasKey('id', $content[0]);
+        $this->assertArrayHasKey('url', $content[0]);
+        $this->assertArrayHasKey('messages_url', $content[0]);
+        $this->assertArrayHasKey('created_at', $content[0]);
+        $this->assertArrayHasKey('last_message', $content[0]);
+        $this->assertArrayHasKey('participants', $content[0]);
+        $this->assertArrayHasKey('distinct', $content[0]);
+        $this->assertArrayHasKey('unread_message_count', $content[0]);
+        $this->assertArrayHasKey('metadata', $content[0]);
     }
 
     /**
@@ -148,15 +178,18 @@ class ConversationServiceTest extends BaseClass
      */
     public function testDeleteConversation(): void
     {
-        $this->assertTrue($this->getConversationService()->delete(self::$conversationId));
+        $response = $this->getConversationService()->delete(self::$conversationId);
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertEquals(
             ResponseStatus::HTTP_NO_CONTENT,
-            $this->getConversationService()->getStatusCode()
+            $response->getStatusCode()
         ); //204
-        $this->assertFalse($this->getConversationService()->delete('wrongId'));
+
+        $response = $this->getConversationService()->delete('wrongId');
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertEquals(
             ResponseStatus::HTTP_NOT_FOUND,
-            $this->getConversationService()->getStatusCode()
+            $response->getStatusCode()
         ); //404
     }
 }

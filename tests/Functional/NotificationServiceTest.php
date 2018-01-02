@@ -47,7 +47,11 @@ class NotificationServiceTest extends BaseClass
             ],
         ];
 
-        self::getResponse(ResponseStatus::HTTP_CREATED);
-        $this->assertNull($this->getNotificationService()->create([]));
+        $response = $this->getNotificationService()->create($data);
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertEquals(
+            ResponseStatus::HTTP_CREATED,
+            $response->getStatusCode()
+        ); //202;
     }
 }

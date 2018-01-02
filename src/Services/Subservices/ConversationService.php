@@ -2,6 +2,8 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
+use Aosmak\Laravel\Layer\Sdk\Models\Response;
+
 /**
  * Class ConversationService
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices
@@ -13,24 +15,16 @@ class ConversationService extends BaseService
      *
      * @param array $data conversation data
      *
-     * @return mixed
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function create(array $data): ?string
+    public function create(array $data): Response
     {
         //set default value
         if (!isset($data['distinct'])) {
             $data['distinct'] = true;
         }
 
-        $response = $this->getRequestService()->makePostRequest($this->getRouter()->getURL(), $data);
-
-        if ($this->getCreateItemId($response, $this->getResponseStatus()::HTTP_OK, 'conversations')) {
-            $content = $this->getCreateItemId($response, $this->getResponseStatus()::HTTP_OK, 'conversations');
-        } else {
-            $content = $this->getCreateItemId($response, $this->getResponseStatus()::HTTP_CREATED, 'conversations');
-        }
-
-        return !empty($content)? $content : null;
+        return $this->getRequestService()->makePostRequest($this->getRouter()->getURL(), $data);
     }
 
     /**
@@ -39,14 +33,12 @@ class ConversationService extends BaseService
      * @param array $data conversation data
      * @param string $conversationId conversation ID
      *
-     * @return bool
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function update(array $data, string $conversationId): bool
+    public function update(array $data, string $conversationId): Response
     {
-        $response = $this->getRequestService()
+        return $this->getRequestService()
             ->makePatchRequest($this->getRouter()->getConversationURL($conversationId), $data);
-
-        return $this->getRequestService()->checkResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
     }
 
     /**
@@ -54,13 +46,11 @@ class ConversationService extends BaseService
      *
      * @param string $conversationId conversation ID
      *
-     * @return mixed
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function get(string $conversationId): ?array
+    public function get(string $conversationId): Response
     {
-        $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getConversationURL($conversationId));
-
-        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK);
+        return $this->getRequestService()->makeGetRequest($this->getRouter()->getConversationURL($conversationId));
     }
 
     /**
@@ -68,13 +58,11 @@ class ConversationService extends BaseService
      *
      * @param string $userId user ID
      *
-     * @return mixed
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function all(string $userId): ?array
+    public function all(string $userId): Response
     {
-        $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getConversationsURL($userId));
-
-        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK);
+        return $this->getRequestService()->makeGetRequest($this->getRouter()->getConversationsURL($userId));
     }
 
     /**
@@ -82,13 +70,11 @@ class ConversationService extends BaseService
      *
      * @param string $conversationId conversation ID
      *
-     * @return bool
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function delete(string $conversationId): bool
+    public function delete(string $conversationId): Response
     {
-        $response = $this->getRequestService()
+        return $this->getRequestService()
             ->makeDeleteRequest($this->getRouter()->getConversationURL($conversationId));
-
-        return $this->getRequestService()->checkResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
     }
 }
