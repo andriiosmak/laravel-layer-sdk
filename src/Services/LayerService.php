@@ -6,7 +6,6 @@ use GuzzleHttp\Client;
 use Illuminate\Container\Container;
 use Aosmak\Laravel\Layer\Sdk\Routers\Router;
 use Aosmak\Laravel\Layer\Sdk\Traits\ConfigTrait;
-use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\BaseService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\AnnouncementService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService;
@@ -45,44 +44,19 @@ class LayerService implements LayerServiceInterface
     private $container;
 
     /**
-     * Response status
-     *
-     * @var \Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus
-     */
-    private $responseStatus;
-
-    /**
      * Constructor
      *
      * @param \Illuminate\Container\Container $container
      * @param \GuzzleHttp\Client $client
      * @param \Aosmak\Laravel\Layer\Sdk\Routers\Router $client
-     * @param \Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus $responseStatus
      *
      * @return void
      */
-    public function __construct(
-        Container $container,
-        Client $client,
-        Router $router,
-        ResponseStatus $responseStatus
-    ) {
+    public function __construct(Container $container, Client $client, Router $router)
+    {
         $this->container      = $container;
         $this->client         = $client;
         $this->router         = $router;
-        $this->responseStatus = $responseStatus;
-    }
-
-    /**
-     * Get a router
-     *
-     * @return \Aosmak\Laravel\Layer\Sdk\Routers\Router $router
-     */
-    public function getRouter(): Router
-    {
-        $router = $this->router;
-        $router->setAppId($this->config['LAYER_SDK_APP_ID']);
-        return $router;
     }
 
     /**
@@ -167,5 +141,17 @@ class LayerService implements LayerServiceInterface
         }
 
         return $service;
+    }
+
+    /**
+     * Get a router
+     *
+     * @return \Aosmak\Laravel\Layer\Sdk\Routers\Router $router
+     */
+    private function getRouter(): Router
+    {
+        $router = $this->router;
+        $router->setAppId($this->config['LAYER_SDK_APP_ID']);
+        return $router;
     }
 }

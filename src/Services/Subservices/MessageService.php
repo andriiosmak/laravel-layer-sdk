@@ -2,6 +2,8 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
+use Aosmak\Laravel\Layer\Sdk\Models\Response;
+
 /**
  * Class MessageService
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
@@ -14,15 +16,12 @@ class MessageService extends BaseService
      * @param array $data conversation data
      * @param string $conversationId conversation ID
      *
-     * @return mixed
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function create(array $data, string $conversationId): ?string
+    public function create(array $data, string $conversationId): Response
     {
-        $response = $this->getRequestService()
-            ->makePostRequest($this->getRouter()->getConversationURL($conversationId), $data);
-
         return $this->getRequestService()
-            ->getCreateItemId($response, $this->getResponseStatus()::HTTP_CREATED, 'messages');
+            ->makePostRequest($this->getRouter()->getConversationURL($conversationId), $data);
     }
 
     /**
@@ -30,14 +29,12 @@ class MessageService extends BaseService
      *
      * @param string $conversationId conversation ID
      *
-     * @return mixed
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function all(string $conversationId): ?array
+    public function all(string $conversationId): Response
     {
-        $response = $this->getRequestService()
+        return $this->getRequestService()
             ->makeGetRequest($this->getRouter()->getConversationURL($conversationId));
-
-        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK);
     }
 
     /**
@@ -46,14 +43,12 @@ class MessageService extends BaseService
      * @param string $messageId message ID
      * @param string $conversationId conversation ID
      *
-     * @return mixed
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function get(string $messageId, string $conversationId): ?array
+    public function get(string $messageId, string $conversationId): Response
     {
-        $response = $this->getRequestService()
+        return $this->getRequestService()
             ->makeGetRequest($this->getRouter()->getMessageSytemURL($messageId, $conversationId));
-
-        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK);
     }
 
     /**
@@ -62,13 +57,11 @@ class MessageService extends BaseService
      * @param string $messageId message ID
      * @param string $conversationId conversation ID
      *
-     * @return bool
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function delete(string $messageId, string $conversationId): bool
+    public function delete(string $messageId, string $conversationId): Response
     {
-        $response = $this->getRequestService()
+        return $this->getRequestService()
             ->makeDeleteRequest($this->getRouter()->getMessageSytemURL($messageId, $conversationId));
-
-        return $this->getRequestService()->checkResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
     }
 }

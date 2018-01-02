@@ -52,7 +52,13 @@ class AnnouncementServiceTest extends BaseClass
             ],
         ];
 
-        $this->assertInternalType('string', $this->getAnnouncementService()->create($data));
-        $this->assertNull($this->getAnnouncementService()->create([]));
+        $response = $this->getAnnouncementService()->create($data);
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertInternalType('array', $response->getContents());
+        $this->assertInternalType('string', $response->getCreatedItemId());
+        $this->assertEquals(
+            ResponseStatus::HTTP_ACCEPTED,
+            $response->getStatusCode()
+        ); //202
     }
 }

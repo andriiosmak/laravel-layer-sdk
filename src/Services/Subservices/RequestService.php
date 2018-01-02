@@ -2,11 +2,10 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
-use GuzzleHttp\Psr7\Response;
+use Illuminate\Container\Container;
 use Aosmak\Laravel\Layer\Sdk\Traits\ConfigTrait;
 use Aosmak\Laravel\Layer\Sdk\Traits\ClientTrait;
-use Aosmak\Laravel\Layer\Sdk\Traits\ResponseContentTrait;
-use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
+use Aosmak\Laravel\Layer\Sdk\Models\Response;
 
 /**
  * Class RequestService
@@ -14,96 +13,18 @@ use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
  */
 class RequestService
 {
-    use ConfigTrait, ClientTrait, ResponseContentTrait;
-
-    /**
-     * Response status
-     *
-     * @var \Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus
-     */
-    private $responseStatus;
-
-    /**
-     * Status code
-     *
-     * @var int
-     */
-    private $statusCode;
-
-    /**
-     * Raw response content
-     *
-     * @var mixed
-     */
-    private $rawResponse;
+    use ConfigTrait, ClientTrait;
 
     /**
      * Constructor
      *
-     * @param \Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus $responseStatus
+     * @param \Illuminate\Container\Container $container
      *
      * @return void
      */
-    public function __construct(ResponseStatus $responseStatus)
+    public function __construct(Container $container)
     {
-        $this->responseStatus = $responseStatus;
-    }
-
-    /**
-     * Get status code
-     *
-     * @return int
-     */
-    public function getStatusCode()
-    {
-        return $this->statusCode;
-    }
-
-    /**
-     * Get response
-     *
-     * @return int
-     */
-    public function getRawResponse()
-    {
-        return $this->rawResponse;
-    }
-
-    /**
-     * Get an item ID
-     *
-     * @return \GuzzleHttp\Psr7\Response $response
-     * @return string $statusId
-     * @return string $path
-     *
-     * @return mixed conversation ID
-     */
-    public function getCreateItemId(Response $response, string $statusId, string $path): ?string
-    {
-        $responseObject = $this->getResponse($response, $statusId);
-        if ($responseObject && isset($responseObject['id'])) {
-            return explode('layer:///' . $path . '/', $responseObject['id'], 2)[1];
-        }
-
-        return null;
-    }
-
-
-    /**
-     * Get a response content
-     *
-     * @param \Guzzle\Psr7\Response $response Guzzle response
-     *
-     * @var array
-     */
-    public function obtainResponseContent(Response $response): array
-    {
-        $this->rawResponse = $response->getBody()->getContents();
-        if (strlen($this->rawResponse) > 1) {
-            return is_array(json_decode($this->rawResponse, 1))? json_decode($this->rawResponse, 1): [];
-        }
-
-        return [];
+        $this->container = $container;
     }
 
     /**
@@ -113,7 +34,7 @@ class RequestService
      * @param array $data request data
      * @param array $requestHeaders request headers
      *
-     * @return \Guzzle\Psr7\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
     public function makePostRequest(string $url, array $data = [], array $requestHeaders = []): Response
     {
@@ -127,7 +48,7 @@ class RequestService
      * @param array $data request data
      * @param array $requestHeaders request headers
      *
-     * @return \Guzzle\Psr7\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
     public function makePutRequest(string $url, array $data = [], array $requestHeaders = []): Response
     {
@@ -141,7 +62,7 @@ class RequestService
      * @param array $data request data
      * @param array $requestHeaders request headers
      *
-     * @return \Guzzle\Psr7\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
     public function makePatchRequest(string $url, array $data = [], array $requestHeaders = []): Response
     {
@@ -163,7 +84,7 @@ class RequestService
      * @param array $data request data
      * @param array $requestHeaders request headers
      *
-     * @return \Guzzle\Psr7\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
     public function makeGetRequest(string $url, array $data = [], array $requestHeaders = []): Response
     {
@@ -177,41 +98,11 @@ class RequestService
      * @param array $data request data
      * @param array $requestHeaders request headers
      *
-     * @return \Guzzle\Psr7\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
     public function makeDeleteRequest(string $url, array $data = [], array $requestHeaders = []): Response
     {
         return $this->makeRequest('DELETE', $url, $data, $requestHeaders);
-    }
-
-    /**
-     * Get a response
-     *
-     * @param \GuzzleHttp\Psr7\Response $result Guzzle response
-     * @param int $successStatus success status
-     *
-     * @return mixed
-     */
-    public function getResponse(Response $result, int $successStatus): ?array
-    {
-        if ($result->getStatusCode() === $successStatus) {
-            return $this->getResponseContent();
-        }
-
-        return null;
-    }
-
-    /**
-     * Check a response
-     *
-     * @param \GuzzleHttp\Psr7\Response $result Guzzle response
-     * @param int $successStatus success status
-     *
-     * @return bool
-     */
-    public function checkResponse(Response $result, int $successStatus): bool
-    {
-        return ($result->getStatusCode() === $successStatus)? true : false;
     }
 
     /**
@@ -222,7 +113,7 @@ class RequestService
      * @param array $data request data
      * @param array $requestHeaders request headers
      *
-     * @return \Guzzle\Psr7\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
     private function makeRequest(string $method, string $url, array $data, array $requestHeaders): Response
     {
@@ -237,11 +128,9 @@ class RequestService
             'http_errors'    => $this->config['LAYER_SDK_SHOW_HTTP_ERRORS'],
         ];
 
-        $headers   = array_replace_recursive($defaultHeaders, $requestHeaders);
-        $response  = $this->client->request($method, $this->config['LAYER_SDK_BASE_URL'] . $url, $headers);
-        $this->statusCode  = $response->getStatusCode();
-        $this->setResponseContent($response);
+        $headers  = array_replace_recursive($defaultHeaders, $requestHeaders);
+        $response = $this->client->request($method, $this->config['LAYER_SDK_BASE_URL'] . $url, $headers);
 
-        return $response;
+        return $this->container->make('Aosmak\Laravel\Layer\Sdk\Models\Response', ['response' => $response]);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
+use Aosmak\Laravel\Layer\Sdk\Models\Response;
+
 /**
  * Class UserDataService
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
@@ -13,13 +15,11 @@ class UserDataService extends BaseService
      *
      * @param string $userId user ID
      *
-     * @return array
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function getConversations(string $userId): ?array
+    public function getConversations(string $userId): Response
     {
-        $response = $this->getRequestService()->makeGetRequest($this->getRouter()->getConversationsURL($userId));
-
-        return $this->getRequestService()->getResponse($response, $this->getResponseStatus()::HTTP_OK);
+        return $this->getRequestService()->makeGetRequest($this->getRouter()->getConversationsURL($userId));
     }
 
     /**
@@ -29,15 +29,12 @@ class UserDataService extends BaseService
      * @param string $userId user ID
      * @param string $conversationId conversation ID
      *
-     * @return array
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function sendMessage(array $data, string $userId, string $conversationId): ?string
+    public function sendMessage(array $data, string $userId, string $conversationId): Response
     {
-        $response = $this->getRequestService()
-            ->makePostRequest($this->getRouter()->sendMessagesURL($userId, $conversationId), $data);
-
         return $this->getRequestService()
-            ->getCreateItemId($response, $this->getResponseStatus()::HTTP_CREATED, 'messages');
+            ->makePostRequest($this->getRouter()->sendMessagesURL($userId, $conversationId), $data);
     }
 
     /**
@@ -47,17 +44,15 @@ class UserDataService extends BaseService
      * @param string $userId user ID
      * @param string $conversationId conversation ID
      *
-     * @return array
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function sendReceipt(string $type, string $userId, string $messageId): bool
+    public function sendReceipt(string $type, string $userId, string $messageId): Response
     {
-        $response = $this->getRequestService()
+        return $this->getRequestService()
             ->makePostRequest(
                 $this->getRouter()->getMessageReceiptsURL($userId, $messageId),
                 ['type' => $type]
             );
-
-        return $this->getRequestService()->checkResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
     }
 
     /**
@@ -66,13 +61,11 @@ class UserDataService extends BaseService
      * @param string $userId user ID
      * @param string $messageId conversation ID
      *
-     * @return array
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function deleteMessage(string $userId, string $messageId): bool
+    public function deleteMessage(string $userId, string $messageId): Response
     {
-        $response = $this->getRequestService()
+        return $this->getRequestService()
             ->makeDeleteRequest($this->getRouter()->deleteMessageURL($userId, $messageId));
-
-        return $this->getRequestService()->checkResponse($response, $this->getResponseStatus()::HTTP_NO_CONTENT);
     }
 }
