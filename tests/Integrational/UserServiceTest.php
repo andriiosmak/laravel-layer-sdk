@@ -134,9 +134,7 @@ class UserServiceTest extends BaseClass
             ],
         ])->getCreatedItemId();
 
-        $response = $this->getUserDataService()
-            ->sendMessage($data, "tu1", $conversationId);
-
+        $response = $this->getUserDataService()->sendMessage($data, "tu1", $conversationId);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertInternalType('string', $response->getCreatedItemId());
         $this->assertEquals(

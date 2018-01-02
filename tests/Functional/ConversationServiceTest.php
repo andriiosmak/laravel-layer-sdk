@@ -56,10 +56,10 @@ class ConversationServiceTest extends BaseClass
                 "userId1",
                 "userId2",
             ],
-        ]);
+        ])->getCreatedItemId();
 
         $this->assertInternalType('string', $id);
-        $this->assertNull($this->getConversationService()->create([]));
+        $this->assertNull($this->getConversationService()->create([])->getCreatedItemId());
     }
 
     /**
@@ -67,9 +67,9 @@ class ConversationServiceTest extends BaseClass
      *
      * @return void
      */
-    public function testUpdateUser(): void
+    public function testUpdateConversation(): void
     {
-        $result = $this->getConversationService()->update([
+        $response = $this->getConversationService()->update([
             [
                 'operation' => 'set',
                 'property'  => 'participants',
@@ -77,7 +77,12 @@ class ConversationServiceTest extends BaseClass
             ],
         ], 'convId');
 
-        $this->assertTrue($result);
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertInternalType('array', $response->getContents());
+        $this->assertEquals(
+            ResponseStatus::HTTP_NO_CONTENT,
+            $response->getStatusCode()
+        ); //204
     }
 
     /**
@@ -87,8 +92,10 @@ class ConversationServiceTest extends BaseClass
      */
     public function testGetConversation(): void
     {
-        $this->assertArrayHasKey('url', $this->getConversationService()->get('convId'));
-        $this->assertNull($this->getConversationService()->get('wrongConvId'));
+        $response = $this->getConversationService()->get('convId');
+        $content  = $response->getContents();
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertInternalType('array', $response->getContents());
     }
 
     /**
@@ -98,19 +105,10 @@ class ConversationServiceTest extends BaseClass
      */
     public function testGetConversations(): void
     {
-        $this->assertInternalType('array', $this->getConversationService()->all('userId'));
-        $this->assertEmpty($this->getConversationService()->all('wrongUserId'));
-    }
-
-    /**
-     * Test conversation deletion
-     *
-     * @return void
-     */
-    public function testDeleteConversation(): void
-    {
-        $this->assertTrue($this->getConversationService()->delete('convId'));
-        $this->assertFalse($this->getConversationService()->delete('wrongConvId'));
+        $response = $this->getConversationService()->all('tu1');
+        $content  = $response->getContents();
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertInternalType('array', $content);
     }
 
     /**
@@ -120,7 +118,18 @@ class ConversationServiceTest extends BaseClass
      */
     public function testGetUserConversations(): void
     {
-        $this->assertInternalType('array', $this->getUserDataService()->getConversations('userId'));
-        $this->assertNull($this->getUserDataService()->getConversations('wrongUserId'));
+        $response = $this->getUserDataService()->getConversations('userId');
+        $this->assertInternalType('array', $response->getContents());
+    }
+
+    /**
+     * Test conversation deletion
+     *
+     * @return void
+     */
+    public function testDeleteConversation(): void
+    {
+        $response = $this->getConversationService()->delete('convId');
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
     }
 }
