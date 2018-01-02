@@ -32,7 +32,6 @@ abstract class BaseService
      * Constructor
      *
      * @param \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService $requestService
-     * @param \Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus $responseStatus
      *
      * @return void
      */
