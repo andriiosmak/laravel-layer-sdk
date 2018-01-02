@@ -50,6 +50,9 @@ class UserServiceTest extends BaseClass
             $response->getStatusCode()
         ); //201
 
+        var_dump($content);
+        die;
+
         $response = $this->getUserService()->create([], 'testUserOne');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertInternalType('array', $content);

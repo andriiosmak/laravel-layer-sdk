@@ -119,9 +119,9 @@ $data = [
     "phone_number" => 'testPhoneNumber',
 ];
 
-$result = $layer->getUserService()->create($data, 'userId');
+$response = $this->getUserService()->create($data, 'userId');
 
-echo $result; //boolean
+echo $response->getStatusCode(); //201
 ```
 
 Replace a user
@@ -134,9 +134,9 @@ $data = [
     "phone_number" => 'testPhoneNumberReplacement',
 ];
 
-$result = $layer->getUserService()->replace($data, 'userId');
+$response = $this->getUserService()->replace($data, 'userId');
 
-echo $result; //boolean
+echo $response->getStatusCode(); //204
 ```
 
 Update a user
@@ -150,25 +150,26 @@ $data = [
     ],
 ];
 
-$result = $layer->getUserService()->update($data, 'userId');
+$response = $this->getUserService()->update($data, 'userId');
 
-echo $result; //boolean
+echo $response->getStatusCode(); //204
 ```
 
 Get user details
 
 ``` php
-$result = $layer->getUserService()->get('userId');
+$response = $this->getUserService()->get('userId');
 
-echo $result; //array
+echo $response->getStatusCode(); //200
+echo $response->getContents(); //array
 ```
 
 Delete a user
 
 ``` php
-$result = $layer->getUserService()->delete('userId');
+$response = $layer->getUserService()->delete('userId');
 
-echo $result; //boolean
+echo $response->getStatusCode(); //204
 ```
 
 Create a badge for a user
@@ -178,17 +179,18 @@ $data = [
     "external_unread_count" => 15,
 ];
 
-$result = $layer->getUserService()->createBadge($data, 'userId');
+$response = $layer->getUserService()->createBadge($data, 'userId');
 
-echo $result; //boolean
+echo $response->getStatusCode(); //204
 ```
 
 Get user`s badges
 
 ``` php
-$result = $layer->getUserService()->getBadges('userId');
+$response = $layer->getUserService()->getBadges('userId');
 
-echo $result; //array
+echo $response->getStatusCode(); //200
+echo $response->getContents(); //array
 ```
 
 ### Accessing_user_data
@@ -196,10 +198,10 @@ echo $result; //array
 Get all conversations by a user ID
 
 ``` php
-$result = $layer->getUserDataService()->getConversations('userID');
+$response = $layer->getUserDataService()->getConversations('userID');
 
-echo $result; //array
-
+echo $response->getStatusCode(); //200
+echo $response->getContents(); //array
 ```
 Update block list
 
@@ -213,18 +215,20 @@ $data = [
     ]
 ];
 
-$result = $layer->getUserService()->updateBlockList($data, 'userId');
+$response = $layer->getUserService()->updateBlockList($data, 'userId');
 
-echo $result; //boolean
+echo $response->getStatusCode(); //202
+echo $response->getContents(); //array
 ```
 
 Get block list
 
 ``` php
 
-$result = $layer->getUserService()->getBlockList('userId');
+$response = $layer->getUserService()->getBlockList('userId');
 
-echo $result; //array
+echo $response->getStatusCode(); //200
+echo $response->getContents(); //array
 ```
 
 Send a message
@@ -239,26 +243,25 @@ $data = [
     ],
 ];
 
-$messageId = $layer->getUserDataService()
-    ->sendMessage($data, "user_id", "conversation_id");
+$response = $layer->getUserDataService()->sendMessage($data, "user_id", "conversation_id");
 
-echo $messageId; //string
+echo $response->getStatusCode(); //201
 ```
 
 Send a receipt
 
 ``` php
 
-$result = $layer->getUserDataService()->sendReceipt('read', 'user_id', 'message_id');
-echo $result; //boolean
+$response = $layer->getUserDataService()->sendReceipt('read', 'user_id', 'message_id');
+echo $response->getStatusCode(); //204
 ```
 
 Delete a message
 
 ``` php
 
-$result = $layer->getUserDataService()->deleteMessage('user_id', 'message_id');
-echo $result; //boolean
+$response = $layer->getUserDataService()->deleteMessage('user_id', 'message_id');
+echo $response->getStatusCode(); //204
 ```
 
 Additional information you can find [here][link-layer-documentation-user].
@@ -268,20 +271,20 @@ Additional information you can find [here][link-layer-documentation-user].
 Create a conversation
 
 ``` php
-$result = $layer->getConversationService()->create([
+$response = $layer->getConversationService()->create([
     'participants' => [
         "userId1",
         "userId2",
     ],
 ]);
 
-echo $result; //string
+echo $response->getStatusCode(); //201
 ```
 
 Update a conversation
 
 ``` php
-$result = $this->getConversationService()->update([
+$response = $this->getConversationService()->update([
     [
         'operation' => 'set',
         'property'  => 'participants',
@@ -289,31 +292,33 @@ $result = $this->getConversationService()->update([
     ],
 ], 'conversationID');
 
-echo $result; //boolean
+echo $response->getStatusCode(); //204
 ```
 
 Get conversation details
 
 ``` php
-$result = $layer->getConversationService()->get('conversationID');
+$response = $this->getConversationService()->get('conversationID');
 
-echo $result; //array
+echo $response->getStatusCode(); //200
+echo $response->getContents(); //array
 ```
 
 Get all conversations by user ID
 
 ``` php
-$result = $layer->getConversationService()->all('userId1');
+$response = $layer->getConversationService()->all('userId1');
 
-echo $result; //array
+echo $response->getStatusCode(); //200
+echo $response->getContents(); //array
 ```
 
 Delete a conversation
 
 ``` php
-$result = $layer->getConversationService()->delete('conversationID');
+$response = $layer->getConversationService()->delete('conversationID');
 
-echo $result; //boolean
+echo $response->getStatusCode(); //204
 ```
 
 Additional information you can find [here][link-layer-documentation-conversation].
@@ -335,35 +340,36 @@ $data = [
     ],
 ];
 
-$result = $layer->getMessageService()->create($data, 'conversationID');
+$response = $layer->getMessageService()->create($data, 'conversationID');
 
-echo $result; //boolean
+echo $response->getStatusCode(); //201
 ```
 
 Get all messages by a conversation ID
 
 ``` php
-$result = $layer->getMessageService()->all('conversationID');
+$response = $layer->getMessageService()->all('conversationID');
 
-echo $result; //array
+echo $response->getStatusCode(); //200
+echo $response->getContents(); //array
 ```
 
 Get a message
 
 ``` php
-$result = $layer->getMessageService()->get('messageId', 'conversationID');
+$response = $layer->getMessageService()->get('messageId', 'conversationID');
 
-echo $result; //array
+echo $response->getStatusCode(); //200
+echo $response->getContents(); //array
 ```
 
 Delete a message
 
 ``` php
-$result = $layer->getMessageService()->delete('messageId', 'conversationID');
+$response = $layer->getMessageService()->delete('messageId', 'conversationID');
 
-echo $result; //boolean
+echo $response->getStatusCode(); //204
 ```
-
 
 ### Announcements
 
@@ -386,9 +392,9 @@ $data = [
     ],
 ];
 
-$result = $layer->getAnnouncementService()->create($data);
+$response = $layer->getAnnouncementService()->create($data);
 
-echo $result //string
+echo $response->getStatusCode(); //202
 ```
 
 ### Notifications
@@ -408,9 +414,9 @@ $data = [
     ],
 ];
 
-$result = $layer->getNotificationService()->create($data);
+$response = $layer->getNotificationService()->create($data);
 
-echo $result //string
+echo $response->getStatusCode(); //202
 ```
 
 ## Contributing
