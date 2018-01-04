@@ -35,8 +35,8 @@ class AnnouncementServiceTest extends BaseClass
         ];
 
         $response = $this->getAnnouncementService()->create($data);
-        $this->assertTrue($response->isSuccessful());
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertInternalType('array', $response->getContents());
         $this->assertInternalType('string', $response->getCreatedItemId());
         $this->assertEquals(
@@ -44,8 +44,8 @@ class AnnouncementServiceTest extends BaseClass
             $response->getStatusCode()
         ); //202
         $response = $this->getAnnouncementService()->create([]);
-        $this->assertFalse($response->isSuccessful());
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
         $this->assertInternalType('array', $response->getContents());
         $this->assertInternalType('null', $response->getCreatedItemId());
         $this->assertEquals(

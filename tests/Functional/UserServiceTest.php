@@ -90,9 +90,10 @@ class UserServiceTest extends BaseClass
             "phone_number" => 'testPhoneNumber',
         ];
 
-        $response             = $this->getUserService()->create($data, 'userId');
-        $content              = $response->getContents();
+        $response = $this->getUserService()->create($data, 'userId');
+        $content  = $response->getContents();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertInternalType('array', $content);
         $this->assertEquals(
             ResponseStatus::HTTP_CREATED,
@@ -101,6 +102,7 @@ class UserServiceTest extends BaseClass
 
         $response = $this->getUserService()->create([], 'userId');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
         $this->assertInternalType('array', $content);
         $this->assertEquals(
             ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
@@ -124,6 +126,7 @@ class UserServiceTest extends BaseClass
 
         $response = $this->getUserService()->replace($data, 'userId');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_NO_CONTENT,
             $response->getStatusCode()
@@ -131,6 +134,7 @@ class UserServiceTest extends BaseClass
 
         $response = $this->getUserService()->replace([], 'userId');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
             $response->getStatusCode()
@@ -154,6 +158,7 @@ class UserServiceTest extends BaseClass
 
         $response = $this->getUserService()->update($data, 'userId');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_NO_CONTENT,
             $response->getStatusCode()
@@ -170,6 +175,7 @@ class UserServiceTest extends BaseClass
         $response = $this->getUserService()->get('userId');
         $content  = $response->getContents();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_OK,
             $response->getStatusCode()
@@ -180,6 +186,7 @@ class UserServiceTest extends BaseClass
         $response = $this->getUserService()->get('wrongUserId');
         $content  = $response->getContents();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_NOT_FOUND,
             $response->getStatusCode()
@@ -195,6 +202,7 @@ class UserServiceTest extends BaseClass
     {
         $response = $this->getUserService()->delete('userId');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_NO_CONTENT,
             $response->getStatusCode()
@@ -202,6 +210,7 @@ class UserServiceTest extends BaseClass
 
         $response = $this->getUserService()->delete('wrongUserId');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_NOT_FOUND,
             $response->getStatusCode()
@@ -219,6 +228,7 @@ class UserServiceTest extends BaseClass
 
         $response = $this->getUserService()->createBadge($data, 'id');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_NO_CONTENT,
             $response->getStatusCode()
@@ -226,6 +236,7 @@ class UserServiceTest extends BaseClass
 
         $response = $this->getUserService()->createBadge([], 'wrongId');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
             $response->getStatusCode()
@@ -242,6 +253,7 @@ class UserServiceTest extends BaseClass
         $response = $this->getUserService()->getBadges('id');
         $content  = $response->getContents();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_OK,
             $response->getStatusCode()
@@ -265,6 +277,7 @@ class UserServiceTest extends BaseClass
 
         $response = $this->getUserService()->updateBlockList($data, 'id');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_ACCEPTED,
             $response->getStatusCode()
@@ -284,6 +297,7 @@ class UserServiceTest extends BaseClass
         $response = $this->getUserService()->getBlockList('id');
         $content  = $response->getContents();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_OK,
             $response->getStatusCode()
@@ -313,6 +327,7 @@ class UserServiceTest extends BaseClass
 
         $response = $this->getUserDataService()->sendMessage($data, "tu1", 'conversationId');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertInternalType('string', $response->getCreatedItemId());
         $this->assertEquals(
             ResponseStatus::HTTP_CREATED,
@@ -321,6 +336,7 @@ class UserServiceTest extends BaseClass
 
         $response = $this->getUserDataService()->sendMessage([], "tu1", 'conversationId');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
         $this->assertNull($response->getCreatedItemId());
         $this->assertEquals(
             ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,

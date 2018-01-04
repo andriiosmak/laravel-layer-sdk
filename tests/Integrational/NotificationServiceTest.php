@@ -31,6 +31,7 @@ class NotificationServiceTest extends BaseClass
 
         $response = $this->getNotificationService()->create($data);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_ACCEPTED,
             $response->getStatusCode()
@@ -38,6 +39,7 @@ class NotificationServiceTest extends BaseClass
 
         $response = $this->getNotificationService()->create([]);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
             $response->getStatusCode()
