@@ -33,6 +33,7 @@ class ConversationServiceTest extends BaseClass
         $content              = $response->getContents();
         self::$conversationId = $response->getCreatedItemId();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertInternalType('array', $content);
         $this->assertInternalType('string', self::$conversationId);
         $this->assertTrue(in_array($response->getStatusCode(), [
@@ -41,6 +42,7 @@ class ConversationServiceTest extends BaseClass
         ])); //200|201
         $response = $this->getConversationService()->create([]);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
         $this->assertInternalType('array', $response->getContents());
         $this->assertInternalType('null', $response->getCreatedItemId());
         $this->assertEquals(
@@ -64,6 +66,7 @@ class ConversationServiceTest extends BaseClass
             ],
         ], self::$conversationId);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertInternalType('array', $response->getContents());
         $this->assertEquals(
             ResponseStatus::HTTP_NO_CONTENT,
@@ -77,6 +80,7 @@ class ConversationServiceTest extends BaseClass
             ],
         ], 'wrongid');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
         $this->assertInternalType('array', $response->getContents());
         $this->assertEquals(
             ResponseStatus::HTTP_NOT_FOUND,
@@ -94,6 +98,7 @@ class ConversationServiceTest extends BaseClass
         $response = $this->getConversationService()->get(self::$conversationId);
         $content  = $response->getContents();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertInternalType('array', $response->getContents());
         $this->assertArrayHasKey('url', $content);
         $this->assertArrayHasKey('participants', $content);
@@ -109,6 +114,7 @@ class ConversationServiceTest extends BaseClass
 
         $response = $this->getConversationService()->get('wrongid');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
         $this->assertInternalType('array', $response->getContents());
         $this->assertEquals(
             ResponseStatus::HTTP_NOT_FOUND,
@@ -126,6 +132,7 @@ class ConversationServiceTest extends BaseClass
         $response = $this->getConversationService()->all('tu1');
         $content  = $response->getContents();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertInternalType('array', $content);
         $this->assertArrayHasKey('id', $content[0]);
         $this->assertArrayHasKey('url', $content[0]);
@@ -143,6 +150,7 @@ class ConversationServiceTest extends BaseClass
 
         $response = $this->getConversationService()->all(time());
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
         $this->assertInternalType('array', $response->getContents());
         $this->assertEquals(
             ResponseStatus::HTTP_NOT_FOUND,
@@ -158,6 +166,8 @@ class ConversationServiceTest extends BaseClass
     public function testGetUserConversations(): void
     {
         $response = $this->getUserDataService()->getConversations('tu1');
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $content  = $response->getContents();
         $this->assertInternalType('array', $content);
         $this->assertArrayHasKey('id', $content[0]);
@@ -180,6 +190,7 @@ class ConversationServiceTest extends BaseClass
     {
         $response = $this->getConversationService()->delete(self::$conversationId);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_NO_CONTENT,
             $response->getStatusCode()
@@ -187,6 +198,7 @@ class ConversationServiceTest extends BaseClass
 
         $response = $this->getConversationService()->delete('wrongId');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_NOT_FOUND,
             $response->getStatusCode()

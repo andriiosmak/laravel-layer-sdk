@@ -24,7 +24,7 @@ class NotificationServiceTest extends BaseClass
                 ResponseStatus::HTTP_CREATED,
                 Psr7\stream_for('{"id":"layer:///messages/712e7754-22c1-402b-8e09-7254d1b95e43"}')
             ),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
+            self::getResponse(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY),
         ]);
         self::setUpService($mock);
     }
@@ -49,9 +49,18 @@ class NotificationServiceTest extends BaseClass
 
         $response = $this->getNotificationService()->create($data);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_CREATED,
             $response->getStatusCode()
         ); //202;
+
+        $response = $this->getNotificationService()->create([]);
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
+        $this->assertEquals(
+            ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
+            $response->getStatusCode()
+        ); //422
     }
 }

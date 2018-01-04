@@ -54,11 +54,21 @@ class AnnouncementServiceTest extends BaseClass
 
         $response = $this->getAnnouncementService()->create($data);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertInternalType('array', $response->getContents());
         $this->assertInternalType('string', $response->getCreatedItemId());
         $this->assertEquals(
             ResponseStatus::HTTP_ACCEPTED,
             $response->getStatusCode()
         ); //202
+        $response = $this->getAnnouncementService()->create([]);
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
+        $this->assertInternalType('array', $response->getContents());
+        $this->assertInternalType('null', $response->getCreatedItemId());
+        $this->assertEquals(
+            ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
+            $response->getStatusCode()
+        ); //422
     }
 }
