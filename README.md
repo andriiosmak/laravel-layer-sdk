@@ -370,8 +370,9 @@ $response = $layer->getMessageService()->delete('messageId', 'conversationID');
 
 echo $response->getStatusCode(); //204
 
-Additional information you can find [here][link-layer-documentation-message].
 ```
+
+Additional information you can find [here][link-layer-documentation-message].
 
 ### Announcements
 
@@ -397,8 +398,9 @@ $data = [
 $response = $layer->getAnnouncementService()->create($data);
 
 echo $response->getStatusCode(); //202
-Additional information you can find [here][link-layer-documentation-announcement].
 ```
+
+Additional information you can find [here][link-layer-documentation-announcement].
 
 ### Notifications
 
@@ -420,8 +422,9 @@ $data = [
 $response = $layer->getNotificationService()->create($data);
 
 echo $response->getStatusCode(); //202
-Additional information you can find [here][link-layer-documentation-notification].
 ```
+
+Additional information you can find [here][link-layer-documentation-notification].
 
 ## Contributing
 
