@@ -53,6 +53,7 @@ class MessageServiceTest extends BaseClass
         $response        = $this->getMessageService()->create($data, self::$conversationId);
         self::$messageId = $response->getCreatedItemId();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertInternalType('string', self::$messageId);
         $this->assertEquals(
             ResponseStatus::HTTP_CREATED,
@@ -61,6 +62,7 @@ class MessageServiceTest extends BaseClass
 
         $response = $this->getMessageService()->create([], self::$conversationId);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
         $this->assertNull($response->getCreatedItemId());
         $this->assertEquals(
             ResponseStatus::HTTP_NOT_IMPLEMENTED,
@@ -78,6 +80,7 @@ class MessageServiceTest extends BaseClass
         $response = $this->getMessageService()->all(self::$conversationId);
         $content  = $response->getContents();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertInternalType('array', $content);
         $this->assertArrayHasKey('id', $content[0]);
         $this->assertArrayHasKey('url', $content[0]);
@@ -96,6 +99,7 @@ class MessageServiceTest extends BaseClass
         ); //200
         $response = $this->getMessageService()->all('wrongid');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_NOT_FOUND,
             $response->getStatusCode()
@@ -112,6 +116,7 @@ class MessageServiceTest extends BaseClass
         $response = $this->getMessageService()->get(self::$messageId, self::$conversationId);
         $content  = $response->getContents();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_OK,
             $response->getStatusCode()
@@ -130,6 +135,7 @@ class MessageServiceTest extends BaseClass
 
         $response = $this->getMessageService()->get(self::$messageId, 'wrongId');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_NOT_FOUND,
             $response->getStatusCode()
@@ -137,6 +143,7 @@ class MessageServiceTest extends BaseClass
 
         $response = $this->getMessageService()->get('wrongId', self::$conversationId);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_BAD_REQUEST,
             $response->getStatusCode()
@@ -152,6 +159,7 @@ class MessageServiceTest extends BaseClass
     {
         $response = $this->getMessageService()->delete(self::$messageId, self::$conversationId);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_NO_CONTENT,
             $response->getStatusCode()
@@ -159,6 +167,7 @@ class MessageServiceTest extends BaseClass
 
         $response = $this->getMessageService()->delete('wrongId', 'wrongId');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_NOT_FOUND,
             $response->getStatusCode()
@@ -175,6 +184,7 @@ class MessageServiceTest extends BaseClass
         $this->testCreateMessage();
         $response = $this->getUserDataService()->sendReceipt('read', 'tu1', self::$messageId);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_NO_CONTENT,
             $response->getStatusCode()
@@ -182,6 +192,7 @@ class MessageServiceTest extends BaseClass
 
         $response = $this->getUserDataService()->sendReceipt('read', 'wrongId', 'wrongId');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_BAD_REQUEST,
             $response->getStatusCode()
@@ -189,6 +200,7 @@ class MessageServiceTest extends BaseClass
 
         $response = $this->getUserDataService()->sendReceipt('test', 'tu1', self::$messageId);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
             $response->getStatusCode()
@@ -204,6 +216,7 @@ class MessageServiceTest extends BaseClass
     {
         $response = $this->getUserDataService()->deleteMessage('tu1', self::$messageId);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_NO_CONTENT,
             $response->getStatusCode()
@@ -211,6 +224,7 @@ class MessageServiceTest extends BaseClass
 
         $response = $this->getUserDataService()->deleteMessage('wrongId', 'wrongId');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_BAD_REQUEST,
             $response->getStatusCode()
