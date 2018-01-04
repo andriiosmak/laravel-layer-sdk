@@ -58,6 +58,16 @@ class Response
     }
 
     /**
+     * Check whether a request was successful
+     *
+     * @return array request content
+     */
+    public function isSuccessful(): bool
+    {
+        return ($this->statusCode >= 200 && $this->statusCode <= 299)? true : false;
+    }
+
+    /**
      * Get an item ID
      *
      * @return string $statusId
