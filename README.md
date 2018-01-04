@@ -369,7 +369,10 @@ Delete a message
 $response = $layer->getMessageService()->delete('messageId', 'conversationID');
 
 echo $response->getStatusCode(); //204
+
 ```
+
+Additional information you can find [here][link-layer-documentation-message].
 
 ### Announcements
 
@@ -397,6 +400,8 @@ $response = $layer->getAnnouncementService()->create($data);
 echo $response->getStatusCode(); //202
 ```
 
+Additional information you can find [here][link-layer-documentation-announcement].
+
 ### Notifications
 
 Create a notification
@@ -419,6 +424,8 @@ $response = $layer->getNotificationService()->create($data);
 echo $response->getStatusCode(); //202
 ```
 
+Additional information you can find [here][link-layer-documentation-notification].
+
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.
@@ -438,9 +445,11 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-author]: https://github.com/andriiosmak
 [link-layer]: https://layer.com
 [link-signup-layer]: https://developer.layer.com/signup
-[link-layer-documentation-user]: https://developer.layer.com/docs/platform/users#identity
-[link-layer-documentation-conversation]: https://developer.layer.com/docs/platform/conversations#retrieve-a-conversation
-[link-layer-documentation-message]: https://developer.layer.com/docs/platform/messages#send-a-message
+[link-layer-documentation-user]: https://docs.layer.com/reference/server_api-1.1/users.out
+[link-layer-documentation-conversation]: https://docs.layer.com/reference/server_api-1.1/conversations.out
+[link-layer-documentation-message]: https://docs.layer.com/reference/server_api-1.1/messages.out
+[link-layer-documentation-announcement]: https://docs.layer.com/reference/server_api-1.1/announcements.out
+[link-layer-documentation-notification]: https://docs.layer.com/reference/server_api-1.1/push_notifications.out
 
 [ico-version]: https://img.shields.io/packagist/v/aosmak/laravel-layer-sdk.svg
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg
