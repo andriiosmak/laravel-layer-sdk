@@ -73,6 +73,7 @@ return [
     'LAYER_SDK_AUTH'             => env('LAYER_SDK_AUTH', '-YOUR_APP_AUTH_TOKEN-'),
     'LAYER_SDK_BASE_URL'         => env('LAYER_SDK_BASE_URL', 'https://api.layer.com/apps/'),
     'LAYER_SDK_SHOW_HTTP_ERRORS' => env('LAYER_SDK_SHOW_HTTP_ERRORS', false),
+    'LAYER_SDK_API_VERSION'      => env('LAYER_SDK_API_VERSION', '1.1')
 ];
 ```
 Don`t have an account? Click [here][link-signup-layer] to sign up.
@@ -198,7 +199,7 @@ echo $response->getContents(); //array
 Get all conversations by a user ID
 
 ``` php
-$response = $layer->getUserDataService()->getConversations('userID');
+$response = $layer->getUserDataService()->getConversations('userId');
 
 echo $response->getStatusCode(); //200
 echo $response->getContents(); //array
@@ -290,7 +291,7 @@ $response = $this->getConversationService()->update([
         'property'  => 'participants',
         'value'     =>  ["userId1", "userId2", "userId3"],
     ],
-], 'conversationID');
+], 'conversationId');
 
 echo $response->getStatusCode(); //204
 ```
@@ -298,7 +299,7 @@ echo $response->getStatusCode(); //204
 Get conversation details
 
 ``` php
-$response = $this->getConversationService()->get('conversationID');
+$response = $this->getConversationService()->get('conversationId');
 
 echo $response->getStatusCode(); //200
 echo $response->getContents(); //array
@@ -316,7 +317,7 @@ echo $response->getContents(); //array
 Delete a conversation
 
 ``` php
-$response = $layer->getConversationService()->delete('conversationID');
+$response = $layer->getConversationService()->delete('conversationId');
 
 echo $response->getStatusCode(); //204
 ```
@@ -340,7 +341,7 @@ $data = [
     ],
 ];
 
-$response = $layer->getMessageService()->create($data, 'conversationID');
+$response = $layer->getMessageService()->create($data, 'conversationId');
 
 echo $response->getStatusCode(); //201
 ```
@@ -348,7 +349,7 @@ echo $response->getStatusCode(); //201
 Get all messages by a conversation ID
 
 ``` php
-$response = $layer->getMessageService()->all('conversationID');
+$response = $layer->getMessageService()->all('conversationId');
 
 echo $response->getStatusCode(); //200
 echo $response->getContents(); //array
@@ -357,7 +358,7 @@ echo $response->getContents(); //array
 Get a message
 
 ``` php
-$response = $layer->getMessageService()->get('messageId', 'conversationID');
+$response = $layer->getMessageService()->get('messageId', 'conversationId');
 
 echo $response->getStatusCode(); //200
 echo $response->getContents(); //array
@@ -366,7 +367,7 @@ echo $response->getContents(); //array
 Delete a message
 
 ``` php
-$response = $layer->getMessageService()->delete('messageId', 'conversationID');
+$response = $layer->getMessageService()->delete('messageId', 'conversationId');
 
 echo $response->getStatusCode(); //204
 

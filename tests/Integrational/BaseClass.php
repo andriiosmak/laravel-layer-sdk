@@ -38,7 +38,8 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
                 'LAYER_SDK_APP_ID'           => getenv('LAYER_SDK_APP_ID'),
                 'LAYER_SDK_AUTH'             => getenv('LAYER_SDK_AUTH'),
                 'LAYER_SDK_BASE_URL'         => getenv('LAYER_SDK_BASE_URL'),
-                'LAYER_SDK_SHOW_HTTP_ERRORS' => false,
+                'LAYER_SDK_API_VERSION'      => getenv('LAYER_SDK_API_VERSION'),
+                'LAYER_SDK_SHOW_HTTP_ERRORS' => false
             ];
         }
 
