@@ -2,6 +2,7 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Functional;
 
+use PHPUnit\Framework\TestCase;
 use Aosmak\Laravel\Layer\Sdk\Services\LayerService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService;
@@ -19,7 +20,7 @@ use Illuminate\Container\Container;
  * Class BaseClass
  * @package namespace Aosmak\Laravel\Layer\Sdk\Functional
  */
-abstract class BaseClass extends \PHPUnit_Framework_TestCase
+abstract class BaseClass extends TestCase
 {
     /**
      * Layer Service
@@ -44,6 +45,7 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
             'LAYER_SDK_APP_ID'           => 'id',
             'LAYER_SDK_AUTH'             => 'key',
             'LAYER_SDK_BASE_URL'         => 'url',
+            'LAYER_SDK_API_VERSION'      => '1.1',
             'LAYER_SDK_SHOW_HTTP_ERRORS' => false
         ]);
         $reflection = new \ReflectionClass($service);

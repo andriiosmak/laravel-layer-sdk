@@ -2,6 +2,7 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Integrational;
 
+use PHPUnit\Framework\TestCase;
 use Illuminate\Container\Container;
 use Aosmak\Laravel\Layer\Sdk\Services\LayerService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
@@ -15,7 +16,7 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\NotificationService;
  * Class BaseClass
  * @package namespace Aosmak\Laravel\Layer\Sdk\Integrational
  */
-abstract class BaseClass extends \PHPUnit_Framework_TestCase
+abstract class BaseClass extends TestCase
 {
     /**
      * Layer Service
@@ -38,7 +39,8 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
                 'LAYER_SDK_APP_ID'           => getenv('LAYER_SDK_APP_ID'),
                 'LAYER_SDK_AUTH'             => getenv('LAYER_SDK_AUTH'),
                 'LAYER_SDK_BASE_URL'         => getenv('LAYER_SDK_BASE_URL'),
-                'LAYER_SDK_SHOW_HTTP_ERRORS' => false,
+                'LAYER_SDK_API_VERSION'      => '1.1',
+                'LAYER_SDK_SHOW_HTTP_ERRORS' => false
             ];
         }
 

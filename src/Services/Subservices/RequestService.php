@@ -120,7 +120,7 @@ class RequestService
         $defaultHeaders = [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->config['LAYER_SDK_AUTH'],
-                'Accept'        => 'application/vnd.layer+json; version=1.1',
+                'Accept'        => 'application/vnd.layer+json; version=' . $this->config['LAYER_SDK_API_VERSION'],
                 'Content-Type'  => 'application/json',
             ],
             'json'           => $data,
