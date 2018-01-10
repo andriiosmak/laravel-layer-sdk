@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5473bf4fc08976e4fc1e96fe26dd0931",
+    "content-hash": "52b87df3db49c4a1dcf1988358297ce1",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -953,30 +953,30 @@
         },
         {
             "name": "internations/http-mock",
-            "version": "0.8.1",
+            "version": "0.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/InterNations/http-mock.git",
-                "reference": "55036713b0213b295c5c6bf05ac8aad84c033c9a"
+                "reference": "f7e727d9d694087f63d4feaee37785be377308fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InterNations/http-mock/zipball/55036713b0213b295c5c6bf05ac8aad84c033c9a",
-                "reference": "55036713b0213b295c5c6bf05ac8aad84c033c9a",
+                "url": "https://api.github.com/repos/InterNations/http-mock/zipball/f7e727d9d694087f63d4feaee37785be377308fa",
+                "reference": "f7e727d9d694087f63d4feaee37785be377308fa",
                 "shasum": ""
             },
             "require": {
                 "guzzle/guzzle": "*",
                 "jeremeamia/superclosure": "~2",
                 "lstrojny/hmmmath": ">=0.5.0",
-                "php": ">=5.6.0",
                 "silex/silex": "~2.0",
                 "symfony/process": "~3"
             },
             "require-dev": {
-                "internations/kodierungsregelwerksammlung": "dev-master",
-                "internations/testing-component": "dev-master",
-                "phpunit/phpunit": ">=5.4"
+                "internations/kodierungsregelwerksammlung": "~0.23.0",
+                "internations/testing-component": "1.0.1",
+                "phpunit/phpunit": "^5.7|^6",
+                "phpunit/phpunit-mock-objects": "^3|^4"
             },
             "type": "library",
             "autoload": {
@@ -999,7 +999,7 @@
                 }
             ],
             "description": "Mock HTTP requests on the server side in your PHP unit tests",
-            "time": "2016-09-15T10:20:17+00:00"
+            "time": "2017-12-21T10:36:56+00:00"
         },
         {
             "name": "jeremeamia/SuperClosure",
