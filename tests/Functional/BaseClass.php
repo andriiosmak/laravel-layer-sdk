@@ -2,6 +2,7 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Functional;
 
+use PHPUnit\Framework\TestCase;
 use Aosmak\Laravel\Layer\Sdk\Services\LayerService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService;
@@ -19,7 +20,7 @@ use Illuminate\Container\Container;
  * Class BaseClass
  * @package namespace Aosmak\Laravel\Layer\Sdk\Functional
  */
-abstract class BaseClass extends \PHPUnit_Framework_TestCase
+abstract class BaseClass extends TestCase
 {
     /**
      * Layer Service

@@ -2,6 +2,7 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Integrational;
 
+use PHPUnit\Framework\TestCase;
 use Illuminate\Container\Container;
 use Aosmak\Laravel\Layer\Sdk\Services\LayerService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
@@ -15,7 +16,7 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\NotificationService;
  * Class BaseClass
  * @package namespace Aosmak\Laravel\Layer\Sdk\Integrational
  */
-abstract class BaseClass extends \PHPUnit_Framework_TestCase
+abstract class BaseClass extends TestCase
 {
     /**
      * Layer Service
