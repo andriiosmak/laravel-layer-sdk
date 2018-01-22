@@ -48,7 +48,7 @@ class MessageService extends BaseService
     public function get(string $messageId, string $conversationId): Response
     {
         return $this->getRequestService()
-            ->makeGetRequest($this->getRouter()->getMessageSytemURL($messageId, $conversationId));
+            ->makeGetRequest($this->getRouter()->getMessageURL($messageId, $conversationId));
     }
 
     /**
@@ -62,6 +62,6 @@ class MessageService extends BaseService
     public function delete(string $messageId, string $conversationId): Response
     {
         return $this->getRequestService()
-            ->makeDeleteRequest($this->getRouter()->getMessageSytemURL($messageId, $conversationId));
+            ->makeDeleteRequest($this->getRouter()->getMessageURL($messageId, $conversationId));
     }
 }

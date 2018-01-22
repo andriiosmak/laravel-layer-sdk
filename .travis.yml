@@ -15,4 +15,4 @@ script:
 
 notifications:
   email:
-    - aoworld@meta.ua
+    - andrii.osmak.dev@gmail.com

@@ -24,7 +24,8 @@ class ConversationService extends BaseService
             $data['distinct'] = true;
         }
 
-        return $this->getRequestService()->makePostRequest($this->getRouter()->getURL(), $data);
+        return $this->getRequestService()
+            ->makePostRequest($this->getRouter()->genereteURL('conversations', []), $data);
     }
 
     /**
@@ -38,7 +39,7 @@ class ConversationService extends BaseService
     public function update(array $data, string $conversationId): Response
     {
         return $this->getRequestService()
-            ->makePatchRequest($this->getRouter()->getConversationURL($conversationId), $data);
+            ->makePatchRequest($this->getRouter()->getUrl($conversationId), $data);
     }
 
     /**
@@ -50,19 +51,7 @@ class ConversationService extends BaseService
      */
     public function get(string $conversationId): Response
     {
-        return $this->getRequestService()->makeGetRequest($this->getRouter()->getConversationURL($conversationId));
-    }
-
-    /**
-     * Get all conversations by user ID
-     *
-     * @param string $userId user ID
-     *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
-     */
-    public function all(string $userId): Response
-    {
-        return $this->getRequestService()->makeGetRequest($this->getRouter()->getConversationsURL($userId));
+        return $this->getRequestService()->makeGetRequest($this->getRouter()->getUrl($conversationId));
     }
 
     /**
@@ -75,6 +64,6 @@ class ConversationService extends BaseService
     public function delete(string $conversationId): Response
     {
         return $this->getRequestService()
-            ->makeDeleteRequest($this->getRouter()->getConversationURL($conversationId));
+            ->makeDeleteRequest($this->getRouter()->getUrl($conversationId));
     }
 }

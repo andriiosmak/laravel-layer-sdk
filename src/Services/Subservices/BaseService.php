@@ -2,11 +2,12 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
-use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\ClientInterface;
 use Aosmak\Laravel\Layer\Sdk\Routers\Router;
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
 use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\RequestServiceInterface;
 
 /**
  * Class BaseService
@@ -24,7 +25,7 @@ abstract class BaseService
     /**
      * Request service
      *
-     * @var \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService
+     * @var \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestServiceInterface
      */
     private $requestService;
 
@@ -43,11 +44,11 @@ abstract class BaseService
     /**
      * Set a Guzzle client
      *
-     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\ClientInterface $client
      *
      * @return void
      */
-    public function setClient(Client $client): void
+    public function setClient(ClientInterface $client): void
     {
         $this->requestService->setClient($client);
     }
@@ -79,9 +80,9 @@ abstract class BaseService
     /**
      * Get a request service
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService
+     * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestServiceInterface
      */
-    public function getRequestService(): RequestService
+    public function getRequestService(): RequestServiceInterface
     {
         return $this->requestService;
     }

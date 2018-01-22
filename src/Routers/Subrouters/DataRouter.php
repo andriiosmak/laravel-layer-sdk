@@ -3,22 +3,22 @@
 namespace Aosmak\Laravel\Layer\Sdk\Routers\Subrouters;
 
 /**
- * Class UserRouter
+ * Class DataRouter
  * @package namespace Aosmak\Laravel\Layer\Sdk\Routers\Subrouters;
  */
-class UserRouter extends BaseRouter
+class DataRouter extends BaseRouter
 {
     /**
      * Get a URL
      *
-     * @param string $userId user ID
+     * @param string $exportId export ID
      * @param string $path path
      *
      * @return string
      */
-    public function getUrl(string $userId, string $path = ''): string
+    public function getExportUrl(string $exportId, string $path = ''): string
     {
-        $pattern = 'users/:user_id';
+        $pattern = 'exports/:exportId';
         if (!empty($path)) {
             $pattern = implode([
                 $pattern,
@@ -27,6 +27,6 @@ class UserRouter extends BaseRouter
             ]);
         }
 
-        return $this->genereteURL($pattern, [':user_id' => $userId]);
+        return $this->genereteURL($pattern, [':exportId' => $exportId]);
     }
 }

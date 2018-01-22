@@ -10,6 +10,9 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\AnnouncementService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\NotificationService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserDataService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\DataService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\IdentityService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\RichContentService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -45,7 +48,7 @@ abstract class BaseClass extends TestCase
             'LAYER_SDK_APP_ID'           => 'id',
             'LAYER_SDK_AUTH'             => 'key',
             'LAYER_SDK_BASE_URL'         => 'url',
-            'LAYER_SDK_API_VERSION'      => '1.1',
+            'LAYER_SDK_API_VERSION'      => '3.0',
             'LAYER_SDK_SHOW_HTTP_ERRORS' => false
         ]);
         $reflection = new \ReflectionClass($service);
@@ -74,6 +77,17 @@ abstract class BaseClass extends TestCase
     public function getMessageService(): MessageService
     {
         return self::$service->getMessageService();
+    }
+
+
+    /**
+     * Get an identity service
+     *
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\IdentityService
+     */
+    public function getIdentityService(): IdentityService
+    {
+        return self::$service->getIdentityService();
     }
 
     /**
@@ -114,6 +128,26 @@ abstract class BaseClass extends TestCase
     public function getUserDataService(): UserDataService
     {
         return self::$service->getUserDataService();
+    }
+
+    /**
+     * Get a data service
+     *
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\DataService
+     */
+    public function getDataService(): DataService
+    {
+        return self::$service->getDataService();
+    }
+
+    /**
+     * Get a rich content service
+     *
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\RichContentService
+     */
+    public function getRichContentService(): RichContentService
+    {
+        return self::$service->getRichContentService();
     }
 
     /**

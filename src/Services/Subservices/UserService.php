@@ -20,7 +20,7 @@ class UserService extends BaseService
      */
     public function create(array $data, string $userId): Response
     {
-        return $this->getRequestService()->makePostRequest($this->getRouter()->getURL($userId), $data);
+        return $this->getRequestService()->makePostRequest($this->getRouter()->getUrl($userId, 'identity'), $data);
     }
 
     /**
@@ -33,7 +33,7 @@ class UserService extends BaseService
      */
     public function update(array $data, string $userId): Response
     {
-        return $this->getRequestService()->makePatchRequest($this->getRouter()->getURL($userId), $data);
+        return $this->getRequestService()->makePatchRequest($this->getRouter()->getUrl($userId, 'identity'), $data);
     }
 
     /**
@@ -46,7 +46,7 @@ class UserService extends BaseService
      */
     public function replace(array $data, string $userId): Response
     {
-        return $this->getRequestService()->makePutRequest($this->getRouter()->getURL($userId), $data);
+        return $this->getRequestService()->makePutRequest($this->getRouter()->getUrl($userId, 'identity'), $data);
     }
 
     /**
@@ -58,7 +58,7 @@ class UserService extends BaseService
      */
     public function get(string $userId): Response
     {
-        return $this->getRequestService()->makeGetRequest($this->getRouter()->getURL($userId));
+        return $this->getRequestService()->makeGetRequest($this->getRouter()->getUrl($userId, 'identity'));
     }
 
     /**
@@ -70,7 +70,7 @@ class UserService extends BaseService
      */
     public function delete(string $userId): Response
     {
-        return $this->getRequestService()->makeDeleteRequest($this->getRouter()->getURL($userId));
+        return $this->getRequestService()->makeDeleteRequest($this->getRouter()->getUrl($userId, 'identity'));
     }
 
     /**
@@ -83,7 +83,7 @@ class UserService extends BaseService
      */
     public function createBadge(array $data, string $userId): Response
     {
-        return $this->getRequestService()->makePutRequest($this->getRouter()->getBadgeURL($userId), $data);
+        return $this->getRequestService()->makePutRequest($this->getRouter()->getUrl($userId, 'badge'), $data);
     }
 
     /**
@@ -95,7 +95,7 @@ class UserService extends BaseService
      */
     public function getBadges(string $userId): Response
     {
-        return $this->getRequestService()->makeGetRequest($this->getRouter()->getBadgeURL($userId));
+        return $this->getRequestService()->makeGetRequest($this->getRouter()->getUrl($userId, 'badge'));
     }
 
     /**
@@ -109,7 +109,7 @@ class UserService extends BaseService
     public function updateBlockList(array $data, string $userId): Response
     {
         return $this->getRequestService()
-            ->makePatchRequest($this->getRouter()->getBlockListUpdateURL($userId), $data);
+            ->makePatchRequest($this->getRouter()->getUrl($userId), $data);
     }
 
     /**
@@ -121,6 +121,73 @@ class UserService extends BaseService
      */
     public function getBlockList(string $userId): Response
     {
-        return $this->getRequestService()->makeGetRequest($this->getRouter()->getBlockListURL($userId));
+        return $this->getRequestService()->makeGetRequest($this->getRouter()->getUrl($userId, 'blocks'));
+    }
+
+    /**
+     * Set suspended property
+     *
+     * @param string $userId user ID
+     * @param bool $value user ID
+     *
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     */
+    public function suspend(string $userId, bool $value): Response
+    {
+        $data = [
+            [
+                'operation' => 'set',
+                'property'  => 'suspended',
+                'value'     => $value
+            ]
+        ];
+
+        return $this->getRequestService()
+            ->makePatchRequest($this->getRouter()->getUrl($userId), $data);
+    }
+
+    /**
+     * Set TTL in seconds
+     *
+     * @param bool $value user ID
+     *
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     */
+    public function setTtl(int $value): Response
+    {
+        $data = [
+            [
+                'operation' => 'set',
+                'property'  => 'session_ttl_in_seconds',
+                'value'     => $value
+            ]
+        ];
+
+        return $this->getRequestService()
+            ->makePatchRequest($this->getRouter()->genereteURL('', []), $data);
+    }
+
+    /**
+     * Get suspension status
+     *
+     * @param string $userId user ID
+     *
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     */
+    public function getGetSuspensionStatus(string $userId): Response
+    {
+        return $this->getRequestService()->makeGetRequest($this->getRouter()->getUrl($userId));
+    }
+
+    /**
+     * Delete a user
+     *
+     * @param string $userId user ID
+     *
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     */
+    public function deleteSessions(string $userId): Response
+    {
+        return $this->getRequestService()->makeDeleteRequest($this->getRouter()->getUrl($userId, 'sessions'));
     }
 }

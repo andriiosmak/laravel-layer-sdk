@@ -25,6 +25,13 @@ class Response
     private $contents;
 
     /**
+     * Headers
+     *
+     * @var array
+     */
+    private $headers;
+
+    /**
      * Get status code
      *
      * @return GuzzleHttp\Psr7\Response $response
@@ -34,6 +41,7 @@ class Response
     public function __construct(GuzzleResponse $response)
     {
         $this->statusCode = $response->getStatusCode();
+        $this->headers    = $response->getHeaders();
         $this->contents   = $this->obtainResponseContent($response->getBody()->getContents());
     }
 
@@ -55,6 +63,16 @@ class Response
     public function getContents(): array
     {
         return $this->contents;
+    }
+
+    /**
+     * Get request headers
+     *
+     * @return array request headers
+     */
+    public function getHeaders(): array
+    {
+        return $this->headers;
     }
 
     /**

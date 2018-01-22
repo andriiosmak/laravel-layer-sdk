@@ -39,6 +39,10 @@ abstract class BaseRouter
     {
         $data[':app_id'] = $this->appId;
 
-        return str_replace(array_keys($data), $data, ':app_id/' . $url);
+        if (!empty($url)) {
+            $url = '/' . $url;
+        }
+
+        return str_replace(array_keys($data), $data, ':app_id' . $url);
     }
 }

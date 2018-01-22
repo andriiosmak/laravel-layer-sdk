@@ -6,12 +6,13 @@ use Illuminate\Container\Container;
 use Aosmak\Laravel\Layer\Sdk\Traits\ConfigTrait;
 use Aosmak\Laravel\Layer\Sdk\Traits\ClientTrait;
 use Aosmak\Laravel\Layer\Sdk\Models\Response;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\RequestServiceInterface;
 
 /**
  * Class RequestService
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
  */
-class RequestService
+class RequestService implements RequestServiceInterface
 {
     use ConfigTrait, ClientTrait;
 
@@ -38,7 +39,7 @@ class RequestService
      */
     public function makePostRequest(string $url, array $data = [], array $requestHeaders = []): Response
     {
-        return $this->makeRequest('POST', $url, $data, $requestHeaders);
+        return $this->prepareRequest('POST', $url, $data, $requestHeaders);
     }
 
     /**
@@ -52,7 +53,7 @@ class RequestService
      */
     public function makePutRequest(string $url, array $data = [], array $requestHeaders = []): Response
     {
-        return $this->makeRequest('PUT', $url, $data, $requestHeaders);
+        return $this->prepareRequest('PUT', $url, $data, $requestHeaders);
     }
 
     /**
@@ -74,7 +75,7 @@ class RequestService
 
         $headers = array_replace_recursive($defaultHeaders, $requestHeaders);
 
-        return $this->makeRequest('PATCH', $url, $data, $headers);
+        return $this->prepareRequest('PATCH', $url, $data, $headers);
     }
 
     /**
@@ -88,7 +89,7 @@ class RequestService
      */
     public function makeGetRequest(string $url, array $data = [], array $requestHeaders = []): Response
     {
-        return $this->makeRequest('GET', $url, $data, $requestHeaders);
+        return $this->prepareRequest('GET', $url, $data, $requestHeaders);
     }
 
     /**
@@ -102,11 +103,11 @@ class RequestService
      */
     public function makeDeleteRequest(string $url, array $data = [], array $requestHeaders = []): Response
     {
-        return $this->makeRequest('DELETE', $url, $data, $requestHeaders);
+        return $this->prepareRequest('DELETE', $url, $data, $requestHeaders);
     }
 
     /**
-     * Make a HTTP request
+     * Prepare a HTTP request
      *
      * @param string $method HTTP method
      * @param string $url request url
@@ -115,7 +116,7 @@ class RequestService
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    private function makeRequest(string $method, string $url, array $data, array $requestHeaders): Response
+    private function prepareRequest(string $method, string $url, array $data, array $requestHeaders): Response
     {
         $defaultHeaders = [
             'headers' => [
@@ -128,9 +129,47 @@ class RequestService
             'http_errors'    => $this->config['LAYER_SDK_SHOW_HTTP_ERRORS'],
         ];
 
-        $headers  = array_replace_recursive($defaultHeaders, $requestHeaders);
-        $response = $this->client->request($method, $this->config['LAYER_SDK_BASE_URL'] . $url, $headers);
+        $headers = array_replace_recursive($defaultHeaders, $requestHeaders);
+        $url     = $this->config['LAYER_SDK_BASE_URL'] . $url;
+
+        return $this->makeRequest($method, $url, $headers);
+    }
+
+    /**
+     * Make a HTTP request
+     *
+     * @param string $method HTTP method
+     * @param string $url request url
+     * @param array $requestHeaders request headers
+     *
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     */
+    public function makeRequest(string $method, string $url, array $headers): Response
+    {
+        $response = $this->client->request($method, $url, $headers);
 
         return $this->container->make('Aosmak\Laravel\Layer\Sdk\Models\Response', ['response' => $response]);
+    }
+
+    /**
+     * Upload file request
+     *
+     * @param string $url request url
+     * @param string $path file path
+     *
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     */
+    public function uploadFile(string $url, string $path)
+    {
+        $headers = [
+            'multipart'      => [
+                [
+                    'name'     => 'file',
+                    'contents' => file_get_contents($path)
+                ]
+            ],
+        ];
+
+        return $this->makeRequest('POST', $url, $headers);
     }
 }

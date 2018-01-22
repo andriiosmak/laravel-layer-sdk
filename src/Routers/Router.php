@@ -4,9 +4,6 @@ namespace Aosmak\Laravel\Layer\Sdk\Routers;
 
 use Illuminate\Container\Container;
 use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter;
-use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\ConversationRouter;
-use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\MessageRouter;
-use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\UserRouter;
 
 /**
  * Class Router
@@ -56,11 +53,11 @@ class Router
      * Return a router
      *
      * @param string $name method name
-     * @param string $value method value
+     * @param array $value method value
      *
      * @return mixed
      */
-    public function __call($name, $value)
+    public function __call(string $name, array $value)
     {
         if ($response = $this->getSubRouter(str_replace('get', '', $name))) {
             return $response;
@@ -76,7 +73,7 @@ class Router
      *
      * @return mixed Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter|null
      */
-    private function getSubRouter($routerName): ?BaseRouter
+    private function getSubRouter(string $routerName): ?BaseRouter
     {
         $propName = lcfirst($routerName);
         if (empty($this->$propName)) {
@@ -94,7 +91,7 @@ class Router
      *
      * @return mixed Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter|null
      */
-    private function resolveSubRouter($propName, $routerPath): ?BaseRouter
+    private function resolveSubRouter(string $propName, string $routerPath): ?BaseRouter
     {
         if (class_exists($routerPath)) {
             $router = $this->container->make($routerPath);
