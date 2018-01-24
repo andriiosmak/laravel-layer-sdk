@@ -10,8 +10,7 @@ script:
   - vendor/bin/phpcs --extensions=php --standard=PSR2 src
   - vendor/bin/phpmd src text codesize,unusedcode,naming
   - vendor/bin/phpcpd src
-  - vendor/bin/phpunit tests/Functional --no-coverage
-  - vendor/bin/phpunit tests/Integrational --no-coverage
+  - vendor/bin/phpunit --no-coverage --stop-on-failure
 
 notifications:
   email:
