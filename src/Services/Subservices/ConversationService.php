@@ -25,7 +25,7 @@ class ConversationService extends BaseService
         }
 
         return $this->getRequestService()
-            ->makePostRequest($this->getRouter()->genereteURL('conversations', []), $data);
+            ->makePostRequest($this->getRouter()->getShortUrl('conversations'), $data);
     }
 
     /**
@@ -39,7 +39,7 @@ class ConversationService extends BaseService
     public function update(array $data, string $conversationId): Response
     {
         return $this->getRequestService()
-            ->makePatchRequest($this->getRouter()->getUrl($conversationId), $data);
+            ->makePatchRequest($this->getRouter()->getShortUrl('conversations', $conversationId), $data);
     }
 
     /**
@@ -51,7 +51,8 @@ class ConversationService extends BaseService
      */
     public function get(string $conversationId): Response
     {
-        return $this->getRequestService()->makeGetRequest($this->getRouter()->getUrl($conversationId));
+        return $this->getRequestService()
+            ->makeGetRequest($this->getRouter()->getShortUrl('conversations', $conversationId));
     }
 
     /**
@@ -64,6 +65,6 @@ class ConversationService extends BaseService
     public function delete(string $conversationId): Response
     {
         return $this->getRequestService()
-            ->makeDeleteRequest($this->getRouter()->getUrl($conversationId));
+            ->makeDeleteRequest($this->getRouter()->getShortUrl('conversations', $conversationId));
     }
 }

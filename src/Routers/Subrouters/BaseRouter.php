@@ -45,4 +45,33 @@ abstract class BaseRouter
 
         return str_replace(array_keys($data), $data, ':app_id' . $url);
     }
+
+    /**
+     * Get a URL
+     *
+     * @param string $pattern base uri pattern
+     * @param string $entityId entity ID
+     * @param string $path path
+     *
+     * @return string
+     */
+    public function getShortUrl(string $pattern, string $entityId = null, string $path = null): string
+    {
+        $data = [];
+
+        if (!empty($entityId)) {
+            $data    = [':entity_id' => $entityId];
+            $pattern = implode([$pattern, '/:entity_id']);
+        }
+
+        if (!empty($path)) {
+            $pattern = implode([
+                $pattern,
+                '/',
+                $path
+            ]);
+        }
+
+        return $this->genereteURL($pattern, [':entity_id' => $entityId]);
+    }
 }

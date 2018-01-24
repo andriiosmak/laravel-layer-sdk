@@ -19,6 +19,6 @@ class AnnouncementService extends BaseService
      */
     public function create(array $data): Response
     {
-        return $this->getRequestService()->makePostRequest($this->getRouter()->getAnnouncementURL(), $data);
+        return $this->getRequestService()->makePostRequest($this->getRouter()->getShortUrl('announcements'), $data);
     }
 }
