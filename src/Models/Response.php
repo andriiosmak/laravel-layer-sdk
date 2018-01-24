@@ -8,7 +8,7 @@ use GuzzleHttp\Psr7\Response as GuzzleResponse;
  * Class Response
  * @package namespace Aosmak\Laravel\Layer\Sdk\Models;
  */
-class Response
+class Response implements ResponseInterface
 {
     /**
      * Request status code

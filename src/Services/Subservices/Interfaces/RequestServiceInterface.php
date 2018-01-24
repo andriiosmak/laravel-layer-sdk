@@ -2,7 +2,7 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces;
 
-use Aosmak\Laravel\Layer\Sdk\Models\Response;
+use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
 
 /**
  * Interface RequestService
@@ -17,9 +17,9 @@ interface RequestServiceInterface
      * @param array $data request data
      * @param array $requestHeaders request headers
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function makePostRequest(string $url, array $data = [], array $requestHeaders = []): Response;
+    public function makePostRequest(string $url, array $data = [], array $requestHeaders = []): ResponseInterface;
 
     /**
      * Make a PUT request
@@ -28,9 +28,9 @@ interface RequestServiceInterface
      * @param array $data request data
      * @param array $requestHeaders request headers
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function makePutRequest(string $url, array $data = [], array $requestHeaders = []): Response;
+    public function makePutRequest(string $url, array $data = [], array $requestHeaders = []): ResponseInterface;
 
     /**
      * Make a PATCH request
@@ -39,9 +39,9 @@ interface RequestServiceInterface
      * @param array $data request data
      * @param array $requestHeaders request headers
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function makePatchRequest(string $url, array $data = [], array $requestHeaders = []): Response;
+    public function makePatchRequest(string $url, array $data = [], array $requestHeaders = []): ResponseInterface;
 
     /**
      * Make a GET request
@@ -50,9 +50,9 @@ interface RequestServiceInterface
      * @param array $data request data
      * @param array $requestHeaders request headers
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function makeGetRequest(string $url, array $data = [], array $requestHeaders = []): Response;
+    public function makeGetRequest(string $url, array $data = [], array $requestHeaders = []): ResponseInterface;
 
     /**
      * Make a DELETE request
@@ -61,7 +61,7 @@ interface RequestServiceInterface
      * @param array $data request data
      * @param array $requestHeaders request headers
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function makeDeleteRequest(string $url, array $data = [], array $requestHeaders = []): Response;
+    public function makeDeleteRequest(string $url, array $data = [], array $requestHeaders = []): ResponseInterface;
 }

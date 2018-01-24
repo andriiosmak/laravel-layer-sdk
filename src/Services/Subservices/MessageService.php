@@ -2,7 +2,7 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
-use Aosmak\Laravel\Layer\Sdk\Models\Response;
+use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
 
 /**
  * Class MessageService
@@ -16,9 +16,9 @@ class MessageService extends BaseService
      * @param array $data conversation data
      * @param string $conversationId conversation ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function create(array $data, string $conversationId): Response
+    public function create(array $data, string $conversationId): ResponseInterface
     {
         return $this->getRequestService()
             ->makePostRequest($this->getRouter()->getShortUrl('conversations', $conversationId, 'messages'), $data);
@@ -29,9 +29,9 @@ class MessageService extends BaseService
      *
      * @param string $conversationId conversation ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function all(string $conversationId): Response
+    public function all(string $conversationId): ResponseInterface
     {
         return $this->getRequestService()
             ->makeGetRequest($this->getRouter()->getShortUrl('conversations', $conversationId, 'messages'));
@@ -43,9 +43,9 @@ class MessageService extends BaseService
      * @param string $messageId message ID
      * @param string $conversationId conversation ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function get(string $messageId, string $conversationId): Response
+    public function get(string $messageId, string $conversationId): ResponseInterface
     {
         return $this->getRequestService()
             ->makeGetRequest($this->getRouter()->getMessageURL($messageId, $conversationId));
@@ -57,9 +57,9 @@ class MessageService extends BaseService
      * @param string $messageId message ID
      * @param string $conversationId conversation ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function delete(string $messageId, string $conversationId): Response
+    public function delete(string $messageId, string $conversationId): ResponseInterface
     {
         return $this->getRequestService()
             ->makeDeleteRequest($this->getRouter()->getMessageURL($messageId, $conversationId));

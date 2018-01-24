@@ -2,7 +2,7 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
-use Aosmak\Laravel\Layer\Sdk\Models\Response;
+use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
 
 /**
  * Class AnnouncementService
@@ -15,9 +15,9 @@ class AnnouncementService extends BaseService
      *
      * @param array $data announcement data
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function create(array $data): Response
+    public function create(array $data): ResponseInterface
     {
         return $this->getRequestService()->makePostRequest($this->getRouter()->getShortUrl('announcements'), $data);
     }

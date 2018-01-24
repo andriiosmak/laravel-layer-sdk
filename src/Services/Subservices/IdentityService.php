@@ -2,7 +2,7 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
-use Aosmak\Laravel\Layer\Sdk\Models\Response;
+use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
 
 /**
  * Class IdentityService
@@ -16,9 +16,9 @@ class IdentityService extends BaseService
      * @param array $data identity data
      * @param string $identityId identity ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function create(array $data, string $identityId): Response
+    public function create(array $data, string $identityId): ResponseInterface
     {
         return $this->getRequestService()
             ->makePostRequest($this->getRouter()->getShortUrl('users', $identityId, 'identity'), $data);
@@ -30,9 +30,9 @@ class IdentityService extends BaseService
      * @param array $data identity data
      * @param string $identityId identity ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function update(array $data, string $identityId): Response
+    public function update(array $data, string $identityId): ResponseInterface
     {
         return $this->getRequestService()
             ->makePatchRequest($this->getRouter()->getShortUrl('users', $identityId, 'identity'), $data);
@@ -44,9 +44,9 @@ class IdentityService extends BaseService
      * @param array $data identity data
      * @param string $identityId identity ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function replace(array $data, string $identityId): Response
+    public function replace(array $data, string $identityId): ResponseInterface
     {
         return $this->getRequestService()
             ->makePutRequest($this->getRouter()->getShortUrl('users', $identityId, 'identity'), $data);
@@ -57,9 +57,9 @@ class IdentityService extends BaseService
      *
      * @param string $identityId identity ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function get(string $identityId): Response
+    public function get(string $identityId): ResponseInterface
     {
         return $this->getRequestService()
             ->makeGetRequest($this->getRouter()->getShortUrl('users', $identityId, 'identity'));
@@ -70,9 +70,9 @@ class IdentityService extends BaseService
      *
      * @param string $identityId identity ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function delete(string $identityId): Response
+    public function delete(string $identityId): ResponseInterface
     {
         return $this->getRequestService()
             ->makeDeleteRequest($this->getRouter()->getShortUrl('users', $identityId, 'identity'));

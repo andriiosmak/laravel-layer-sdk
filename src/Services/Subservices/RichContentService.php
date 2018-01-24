@@ -2,8 +2,7 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
-use Aosmak\Laravel\Layer\Sdk\Models\Response;
-use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
+use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
 
 /**
  * Class RichContentService
@@ -19,7 +18,7 @@ class RichContentService extends BaseService
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
      */
-    public function requestUpload(string $conversationId, string $path): ?Response
+    public function requestUpload(string $conversationId, string $path): ?ResponseInterface
     {
         $headers['headers'] = [
             'Upload-Content-Type'   => mime_content_type($path),
@@ -39,9 +38,9 @@ class RichContentService extends BaseService
      * @param string $uploadUrl upload URL
      * @param string $url file URL
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function uploadFile(string $uploadUrl, string $path): ?Response
+    public function uploadFile(string $uploadUrl, string $path): ?ResponseInterface
     {
         return $this->getRequestService()->uploadFile(
             $uploadUrl,
@@ -55,9 +54,9 @@ class RichContentService extends BaseService
      * @param string $conversationId conversation ID
      * @param string $data data
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function sendUpload(string $conversationId, array $data): Response
+    public function sendUpload(string $conversationId, array $data): ResponseInterface
     {
         return $this->getRequestService()->makePostRequest(
             $this->getRouter()->getShortUrl('conversations', $conversationId, 'messages'),
@@ -71,9 +70,9 @@ class RichContentService extends BaseService
      * @param string $conversationId conversation ID
      * @param string $contentId content item ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function refreshUrl(string $conversationId, string $contentId): Response
+    public function refreshUrl(string $conversationId, string $contentId): ResponseInterface
     {
         return $this->getRequestService()->makeGetRequest(
             $this->getRouter()->getContentUrl($conversationId, $contentId)
