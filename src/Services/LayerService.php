@@ -16,6 +16,7 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\RichContentService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\NotificationService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\DataService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService;
 
 /**
  * Class LayerService
@@ -47,19 +48,28 @@ class LayerService implements LayerServiceInterface
     private $container;
 
     /**
+     * Container
+     *
+     * @var \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService
+     */
+    private $requestService;
+
+    /**
      * Constructor
      *
      * @param \Illuminate\Container\Container $container
      * @param \GuzzleHttp\Client $client
-     * @param \Aosmak\Laravel\Layer\Sdk\Routers\Router $client
+     * @param \Aosmak\Laravel\Layer\Sdk\Routers\Router $router
+     * @param \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService $requestService
      *
      * @return void
      */
-    public function __construct(Container $container, Client $client, Router $router)
+    public function __construct(Container $container, Client $client, Router $router, RequestService $requestService)
     {
-        $this->container = $container;
-        $this->client    = $client;
-        $this->router    = $router;
+        $this->container      = $container;
+        $this->client         = $client;
+        $this->router         = $router;
+        $this->requestService = $requestService;
     }
 
     /**
@@ -164,6 +174,7 @@ class LayerService implements LayerServiceInterface
         $propName = lcfirst($serviceName);
         if (empty($this->$propName)) {
             $service = $this->container->make('Aosmak\Laravel\Layer\Sdk\Services\Subservices\\'. $serviceName);
+            $service->setRequestService($this->requestService);
             $service->setConfig($this->config);
             $service->setClient($this->client);
             $service->setRouter($this->getRouter());

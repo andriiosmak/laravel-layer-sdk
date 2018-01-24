@@ -51,6 +51,18 @@ abstract class BaseService
     }
 
     /**
+     * Set a request service
+     *
+     * @param \Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\RequestServiceInterface $requestService
+     *
+     * @return void
+     */
+    public function setRequestService(RequestServiceInterface $requestService): void
+    {
+        $this->requestService = $requestService;
+    }
+
+    /**
      * Set a configuration array
      *
      * @param array $config
