@@ -9,7 +9,7 @@ use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter;
  * Class Router
  * @package namespace Aosmak\Laravel\Layer\Sdk\Routers;
  */
-class Router
+class Router implements RouterInterface
 {
     /**
      * Container
