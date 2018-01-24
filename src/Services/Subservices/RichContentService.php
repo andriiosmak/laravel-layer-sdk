@@ -27,7 +27,7 @@ class RichContentService extends BaseService
         ];
 
         return $this->getRequestService()->makePostRequest(
-            $this->getRouter()->getUrl($conversationId, 'content'),
+            $this->getRouter()->getShortUrl('conversations', $conversationId, 'content'),
             [],
             $headers
         );
@@ -60,7 +60,7 @@ class RichContentService extends BaseService
     public function sendUpload(string $conversationId, array $data): Response
     {
         return $this->getRequestService()->makePostRequest(
-            $this->getRouter()->getUrl($conversationId, 'messages'),
+            $this->getRouter()->getShortUrl('conversations', $conversationId, 'messages'),
             $data
         );
     }

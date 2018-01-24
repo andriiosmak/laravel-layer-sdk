@@ -20,7 +20,8 @@ class UserService extends BaseService
      */
     public function create(array $data, string $userId): Response
     {
-        return $this->getRequestService()->makePostRequest($this->getRouter()->getUrl($userId, 'identity'), $data);
+        return $this->getRequestService()
+            ->makePostRequest($this->getRouter()->getShortUrl('users', $userId, 'identity'), $data);
     }
 
     /**
@@ -33,7 +34,8 @@ class UserService extends BaseService
      */
     public function update(array $data, string $userId): Response
     {
-        return $this->getRequestService()->makePatchRequest($this->getRouter()->getUrl($userId, 'identity'), $data);
+        return $this->getRequestService()
+            ->makePatchRequest($this->getRouter()->getShortUrl('users', $userId, 'identity'), $data);
     }
 
     /**
@@ -46,7 +48,8 @@ class UserService extends BaseService
      */
     public function replace(array $data, string $userId): Response
     {
-        return $this->getRequestService()->makePutRequest($this->getRouter()->getUrl($userId, 'identity'), $data);
+        return $this->getRequestService()
+            ->makePutRequest($this->getRouter()->getShortUrl('users', $userId, 'identity'), $data);
     }
 
     /**
@@ -58,7 +61,8 @@ class UserService extends BaseService
      */
     public function get(string $userId): Response
     {
-        return $this->getRequestService()->makeGetRequest($this->getRouter()->getUrl($userId, 'identity'));
+        return $this->getRequestService()
+            ->makeGetRequest($this->getRouter()->getShortUrl('users', $userId, 'identity'));
     }
 
     /**
@@ -70,7 +74,8 @@ class UserService extends BaseService
      */
     public function delete(string $userId): Response
     {
-        return $this->getRequestService()->makeDeleteRequest($this->getRouter()->getUrl($userId, 'identity'));
+        return $this->getRequestService()
+            ->makeDeleteRequest($this->getRouter()->getShortUrl('users', $userId, 'identity'));
     }
 
     /**
@@ -83,7 +88,8 @@ class UserService extends BaseService
      */
     public function createBadge(array $data, string $userId): Response
     {
-        return $this->getRequestService()->makePutRequest($this->getRouter()->getUrl($userId, 'badge'), $data);
+        return $this->getRequestService()
+            ->makePutRequest($this->getRouter()->getShortUrl('users', $userId, 'badge'), $data);
     }
 
     /**
@@ -95,7 +101,8 @@ class UserService extends BaseService
      */
     public function getBadges(string $userId): Response
     {
-        return $this->getRequestService()->makeGetRequest($this->getRouter()->getUrl($userId, 'badge'));
+        return $this->getRequestService()
+            ->makeGetRequest($this->getRouter()->getShortUrl('users', $userId, 'badge'));
     }
 
     /**
@@ -109,7 +116,7 @@ class UserService extends BaseService
     public function updateBlockList(array $data, string $userId): Response
     {
         return $this->getRequestService()
-            ->makePatchRequest($this->getRouter()->getUrl($userId), $data);
+            ->makePatchRequest($this->getRouter()->getShortUrl('users', $userId), $data);
     }
 
     /**
@@ -121,7 +128,8 @@ class UserService extends BaseService
      */
     public function getBlockList(string $userId): Response
     {
-        return $this->getRequestService()->makeGetRequest($this->getRouter()->getUrl($userId, 'blocks'));
+        return $this->getRequestService()
+            ->makeGetRequest($this->getRouter()->getShortUrl('users', $userId, 'blocks'));
     }
 
     /**
@@ -143,7 +151,7 @@ class UserService extends BaseService
         ];
 
         return $this->getRequestService()
-            ->makePatchRequest($this->getRouter()->getUrl($userId), $data);
+            ->makePatchRequest($this->getRouter()->getShortUrl('users', $userId), $data);
     }
 
     /**
@@ -176,7 +184,8 @@ class UserService extends BaseService
      */
     public function getGetSuspensionStatus(string $userId): Response
     {
-        return $this->getRequestService()->makeGetRequest($this->getRouter()->getUrl($userId));
+        return $this->getRequestService()
+            ->makeGetRequest($this->getRouter()->getShortUrl('users', $userId));
     }
 
     /**
@@ -188,6 +197,7 @@ class UserService extends BaseService
      */
     public function deleteSessions(string $userId): Response
     {
-        return $this->getRequestService()->makeDeleteRequest($this->getRouter()->getUrl($userId, 'sessions'));
+        return $this->getRequestService()
+            ->makeDeleteRequest($this->getRouter()->getShortUrl('users', $userId, 'sessions'));
     }
 }

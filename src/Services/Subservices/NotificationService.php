@@ -19,6 +19,6 @@ class NotificationService extends BaseService
      */
     public function create(array $data): Response
     {
-        return $this->getRequestService()->makePostRequest($this->getRouter()->getNotificationURL(), $data);
+        return $this->getRequestService()->makePostRequest($this->getRouter()->getShortUrl('notifications'), $data);
     }
 }

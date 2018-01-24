@@ -24,7 +24,7 @@ class DataService extends BaseService
         ];
 
         return $this->getRequestService()
-            ->makePutRequest($this->getRouter()->genereteURL('export_security', []), $data);
+            ->makePutRequest($this->getRouter()->getShortUrl('export_security'), $data);
     }
 
     /**
@@ -35,7 +35,7 @@ class DataService extends BaseService
     public function getPublicKey(): Response
     {
         return $this->getRequestService()
-            ->makeGetRequest($this->getRouter()->genereteURL('export_security', []));
+            ->makeGetRequest($this->getRouter()->getShortUrl('export_security'));
     }
 
     /**
@@ -46,7 +46,7 @@ class DataService extends BaseService
     public function requestHistoricalExport(): Response
     {
         return $this->getRequestService()
-            ->makePostRequest($this->getRouter()->genereteURL('exports', []));
+            ->makePostRequest($this->getRouter()->getShortUrl('exports'));
     }
 
     /**
@@ -59,7 +59,7 @@ class DataService extends BaseService
     public function trackExportStatus(string $exportId): Response
     {
         return $this->getRequestService()
-            ->makeGetRequest($this->getRouter()->getExportUrl($exportId, 'status'));
+            ->makeGetRequest($this->getRouter()->getShortUrl('exports', $exportId, 'status'));
     }
 
     /**
@@ -70,7 +70,7 @@ class DataService extends BaseService
     public function getExports(): Response
     {
         return $this->getRequestService()
-            ->makeGetRequest($this->getRouter()->genereteURL('exports', []));
+            ->makeGetRequest($this->getRouter()->getShortUrl('exports'));
     }
 
     /**
@@ -81,7 +81,7 @@ class DataService extends BaseService
     public function configureScheduledExport(array $data): Response
     {
         return $this->getRequestService()
-            ->makePutRequest($this->getRouter()->genereteURL('export_schedule', []), $data);
+            ->makePutRequest($this->getRouter()->getShortUrl('export_schedule'), $data);
     }
 
     /**
@@ -92,7 +92,7 @@ class DataService extends BaseService
     public function getExportScheduleConfiguration(): Response
     {
         return $this->getRequestService()
-            ->makeGetRequest($this->getRouter()->genereteURL('export_schedule', []));
+            ->makeGetRequest($this->getRouter()->getShortUrl('export_schedule'));
     }
 
     /**
@@ -105,6 +105,6 @@ class DataService extends BaseService
     public function deleteExport(string $exportId): Response
     {
         return $this->getRequestService()
-            ->makeDeleteRequest($this->getRouter()->getExportUrl($exportId));
+            ->makeDeleteRequest($this->getRouter()->getShortUrl('exports', $exportId));
     }
 }

@@ -20,7 +20,8 @@ class IdentityService extends BaseService
      */
     public function create(array $data, string $identityId): Response
     {
-        return $this->getRequestService()->makePostRequest($this->getRouter()->getUrl($identityId, 'identity'), $data);
+        return $this->getRequestService()
+            ->makePostRequest($this->getRouter()->getShortUrl('users', $identityId, 'identity'), $data);
     }
 
     /**
@@ -33,7 +34,8 @@ class IdentityService extends BaseService
      */
     public function update(array $data, string $identityId): Response
     {
-        return $this->getRequestService()->makePatchRequest($this->getRouter()->getUrl($identityId, 'identity'), $data);
+        return $this->getRequestService()
+            ->makePatchRequest($this->getRouter()->getShortUrl('users', $identityId, 'identity'), $data);
     }
 
     /**
@@ -46,7 +48,8 @@ class IdentityService extends BaseService
      */
     public function replace(array $data, string $identityId): Response
     {
-        return $this->getRequestService()->makePutRequest($this->getRouter()->getUrl($identityId, 'identity'), $data);
+        return $this->getRequestService()
+            ->makePutRequest($this->getRouter()->getShortUrl('users', $identityId, 'identity'), $data);
     }
 
     /**
@@ -58,7 +61,8 @@ class IdentityService extends BaseService
      */
     public function get(string $identityId): Response
     {
-        return $this->getRequestService()->makeGetRequest($this->getRouter()->getUrl($identityId, 'identity'));
+        return $this->getRequestService()
+            ->makeGetRequest($this->getRouter()->getShortUrl('users', $identityId, 'identity'));
     }
 
     /**
@@ -70,6 +74,7 @@ class IdentityService extends BaseService
      */
     public function delete(string $identityId): Response
     {
-        return $this->getRequestService()->makeDeleteRequest($this->getRouter()->getUrl($identityId, 'identity'));
+        return $this->getRequestService()
+            ->makeDeleteRequest($this->getRouter()->getShortUrl('users', $identityId, 'identity'));
     }
 }

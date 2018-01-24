@@ -16,6 +16,7 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\RichContentService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\NotificationService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\DataService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService;
 
 /**
  * Class LayerService
@@ -47,19 +48,28 @@ class LayerService implements LayerServiceInterface
     private $container;
 
     /**
+     * Container
+     *
+     * @var \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService
+     */
+    private $requestService;
+
+    /**
      * Constructor
      *
      * @param \Illuminate\Container\Container $container
      * @param \GuzzleHttp\Client $client
-     * @param \Aosmak\Laravel\Layer\Sdk\Routers\Router $client
+     * @param \Aosmak\Laravel\Layer\Sdk\Routers\Router $router
+     * @param \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService $requestService
      *
      * @return void
      */
-    public function __construct(Container $container, Client $client, Router $router)
+    public function __construct(Container $container, Client $client, Router $router, RequestService $requestService)
     {
-        $this->container = $container;
-        $this->client    = $client;
-        $this->router    = $router;
+        $this->container      = $container;
+        $this->client         = $client;
+        $this->router         = $router;
+        $this->requestService = $requestService;
     }
 
     /**
@@ -69,7 +79,7 @@ class LayerService implements LayerServiceInterface
      */
     public function getConversationService(): ConversationService
     {
-        return $this->getService('ConversationService', $this->getRouter()->getConversationRouter());
+        return $this->getService('ConversationService');
     }
 
     /**
@@ -79,7 +89,7 @@ class LayerService implements LayerServiceInterface
      */
     public function getMessageService(): MessageService
     {
-        return $this->getService('MessageService', $this->getRouter()->getMessageRouter());
+        return $this->getService('MessageService');
     }
 
     /**
@@ -89,7 +99,7 @@ class LayerService implements LayerServiceInterface
      */
     public function getUserService(): UserService
     {
-        return $this->getService('UserService', $this->getRouter()->getUserRouter());
+        return $this->getService('UserService');
     }
 
     /**
@@ -99,7 +109,7 @@ class LayerService implements LayerServiceInterface
      */
     public function getIdentityService(): IdentityService
     {
-        return $this->getService('IdentityService', $this->getRouter()->getIdentityRouter());
+        return $this->getService('IdentityService');
     }
 
     /**
@@ -109,7 +119,7 @@ class LayerService implements LayerServiceInterface
      */
     public function getUserDataService(): UserDataService
     {
-        return $this->getService('UserDataService', $this->getRouter()->getUserDataRouter());
+        return $this->getService('UserDataService');
     }
 
     /**
@@ -119,7 +129,7 @@ class LayerService implements LayerServiceInterface
      */
     public function getAnnouncementService(): AnnouncementService
     {
-        return $this->getService('AnnouncementService', $this->getRouter()->getAnnouncementRouter());
+        return $this->getService('AnnouncementService');
     }
 
     /**
@@ -129,7 +139,7 @@ class LayerService implements LayerServiceInterface
      */
     public function getNotificationService(): NotificationService
     {
-        return $this->getService('NotificationService', $this->getRouter()->getNotificationRouter());
+        return $this->getService('NotificationService');
     }
 
     /**
@@ -139,7 +149,7 @@ class LayerService implements LayerServiceInterface
      */
     public function getDataService(): DataService
     {
-        return $this->getService('DataService', $this->getRouter()->getDataRouter());
+        return $this->getService('DataService');
     }
 
     /**
@@ -149,25 +159,25 @@ class LayerService implements LayerServiceInterface
      */
     public function getRichContentService(): RichContentService
     {
-        return $this->getService('RichContentService', $this->getRouter()->getRichContentRouter());
+        return $this->getService('RichContentService');
     }
 
     /**
      * Get a service
      *
      * @param string $serviceName service name
-     * @param Aosmak\Laravel\Layer\Sdk\Services\Subrouters\BaseRouter $router
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\BaseService
      */
-    private function getService(string $serviceName, $router): BaseService
+    private function getService(string $serviceName): BaseService
     {
         $propName = lcfirst($serviceName);
         if (empty($this->$propName)) {
             $service = $this->container->make('Aosmak\Laravel\Layer\Sdk\Services\Subservices\\'. $serviceName);
+            $service->setRequestService($this->requestService);
             $service->setConfig($this->config);
             $service->setClient($this->client);
-            $service->setRouter($router);
+            $service->setRouter($this->getRouter());
             $this->$propName = $service;
         } else {
             $service = $this->$propName;
@@ -184,6 +194,7 @@ class LayerService implements LayerServiceInterface
     private function getRouter(): Router
     {
         $router = $this->router;
+        $router->setContainer($this->container);
         $router->setAppId($this->config['LAYER_SDK_APP_ID']);
         return $router;
     }
