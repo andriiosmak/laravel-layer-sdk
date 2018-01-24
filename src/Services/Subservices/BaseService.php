@@ -6,7 +6,6 @@ use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\ClientInterface;
 use Aosmak\Laravel\Layer\Sdk\Routers\Router;
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
-use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\RequestServiceInterface;
 
 /**
@@ -18,7 +17,7 @@ abstract class BaseService
     /**
      * Router
      *
-     * @var \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter
+     * @var \Aosmak\Laravel\Layer\Sdk\Routers\Router
      */
     protected $router;
 
@@ -33,12 +32,14 @@ abstract class BaseService
      * Constructor
      *
      * @param \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService $requestService
+     * @param \Aosmak\Laravel\Layer\Sdk\Routers\Router $router
      *
      * @return void
      */
-    public function __construct(RequestService $requestService)
+    public function __construct(RequestService $requestService, Router $router)
     {
         $this->requestService = $requestService;
+        $this->router         = $router;
     }
 
     /**
@@ -66,18 +67,6 @@ abstract class BaseService
     }
 
     /**
-     * Set a router
-     *
-     * @param \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter $router
-     *
-     * @return void
-     */
-    public function setRouter(BaseRouter $router): void
-    {
-        $this->router = $router;
-    }
-
-    /**
      * Get a request service
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestServiceInterface
@@ -90,9 +79,9 @@ abstract class BaseService
     /**
      * Get a router
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter
+     * @return \Aosmak\Laravel\Layer\Sdk\Routers\Router
      */
-    public function getRouter(): BaseRouter
+    public function getRouter(): Router
     {
         return $this->router;
     }

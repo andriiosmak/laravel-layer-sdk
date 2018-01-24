@@ -50,59 +50,130 @@ class Router
     }
 
     /**
-     * Return a router
+     * Generate a request URL
      *
-     * @param string $name method name
-     * @param array $value method value
+     * @param integer $id user ID
+     * @param array $data user data
      *
-     * @return mixed
+     * @return string
      */
-    public function __call(string $name, array $value)
+    public function genereteURL(string $url, array $data): string
     {
-        if ($response = $this->getSubRouter(str_replace('get', '', $name))) {
-            return $response;
+        $data[':app_id'] = $this->appId;
+
+        if (!empty($url)) {
+            $url = '/' . $url;
         }
 
-        throw new \Exception('Unable to find a router.');
+        return str_replace(array_keys($data), $data, ':app_id' . $url);
     }
 
     /**
-     * Get a router
+     * Get a URL
      *
-     * @param string $routerName router name
+     * @param string $pattern base uri pattern
+     * @param string $entityId entity ID
+     * @param string $path path
      *
-     * @return mixed Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter|null
+     * @return string
      */
-    private function getSubRouter(string $routerName): ?BaseRouter
+    public function getShortUrl(string $pattern, string $entityId = null, string $path = null): string
     {
-        $propName = lcfirst($routerName);
-        if (empty($this->$propName)) {
-            $this->$propName = $this->resolveSubRouter(
-                $propName,
-                'Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\\' . $routerName
-            );
+        $data = [];
+
+        if (!empty($entityId)) {
+            $data    = [':entity_id' => $entityId];
+            $pattern = implode([$pattern, '/:entity_id']);
         }
 
-        return !empty($this->$propName)? $this->$propName : null;
+        if (!empty($path)) {
+            $pattern = implode([
+                $pattern,
+                '/',
+                $path
+            ]);
+        }
+
+        return $this->genereteURL($pattern, [':entity_id' => $entityId]);
     }
 
     /**
-     * Resolve a router
+     * Get a content URL
      *
-     * @param string $propName property name
-     * @param string $routerPath full path
+     * @param string $conversationId user ID
+     * @param string $contentId contentId content item ID
      *
-     * @return mixed Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter|null
+     * @return string
      */
-    private function resolveSubRouter(string $propName, string $routerPath): ?BaseRouter
+    public function getContentUrl(string $conversationId, string $contentId): string
     {
-        if (class_exists($routerPath)) {
-            $router = $this->container->make($routerPath);
-            $router->setAppId($this->appId);
-            $this->$propName = $router;
-            return $router;
-        } else {
-            return null;
-        }
+        return $this->genereteURL('conversations/:conversation_id/content/:content_id', [
+            ':conversation_id' => $conversationId,
+            ':content_id'      => $contentId
+        ]);
+    }
+
+    /**
+     * Send message URL
+     *
+     * @param string $userId user ID
+     * @param string $conversationId conversation ID
+     *
+     * @return string
+     */
+    public function sendMessagesURL(string $userId, string $conversationId): string
+    {
+        return $this->genereteURL('users/:user_id/conversations/:conversation_id/messages', [
+            ':user_id'         => $userId,
+            ':conversation_id' => $conversationId,
+        ]);
+    }
+
+    /**
+     * Get user message receipts URL
+     *
+     * @param string $userId user ID
+     * @param string $messageId message ID
+     *
+     * @return string
+     */
+    public function getMessageReceiptsURL(string $userId, string $messageId): string
+    {
+        return $this->genereteURL('users/:user_id/messages/:message_id/receipts', [
+            ':user_id'    => $userId,
+            ':message_id' => $messageId,
+        ]);
+    }
+
+    /**
+     * Get a user message URL
+     *
+     * @param string $userId user ID
+     * @param string $messageId message ID
+     *
+     * @return string
+     */
+    public function deleteMessageURL(string $userId, string $messageId): string
+    {
+        return $this->genereteURL('users/:user_id/messages/:message_id?mode=all_participants', [
+            ':user_id'    => $userId,
+            ':message_id' => $messageId,
+        ]);
+    }
+
+    /**
+     * Get a message URL
+     *
+     * @param string $messageId message ID
+     * @param string $conversationId user ID
+     *
+     * @return string
+     */
+    public function getMessageURL(string $messageId, string $conversationId): string
+    {
+        return $this->genereteURL('conversations/:conversation_id/messages/:message_id', [
+            ':conversation_id' => $conversationId,
+            ':message_id'      => $messageId
+        ]);
     }
 }
