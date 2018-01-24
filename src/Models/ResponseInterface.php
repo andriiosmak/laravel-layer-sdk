@@ -2,8 +2,6 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Models;
 
-use GuzzleHttp\Psr7\Response as GuzzleResponse;
-
 /**
  * Interface ResponseInterface
  * @package namespace Aosmak\Laravel\Layer\Sdk\Models;
