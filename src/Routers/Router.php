@@ -77,7 +77,10 @@ class Router
     {
         $propName = lcfirst($routerName);
         if (empty($this->$propName)) {
-            $this->$propName = $this->resolveSubRouter($propName, 'Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\\'. $routerName);
+            $this->$propName = $this->resolveSubRouter(
+                $propName,
+                'Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\\' . $routerName
+            );
         }
 
         return !empty($this->$propName)? $this->$propName : null;
