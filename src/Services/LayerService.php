@@ -194,6 +194,7 @@ class LayerService implements LayerServiceInterface
     private function getRouter(): Router
     {
         $router = $this->router;
+        $router->setContainer($this->container);
         $router->setAppId($this->config['LAYER_SDK_APP_ID']);
         return $router;
     }

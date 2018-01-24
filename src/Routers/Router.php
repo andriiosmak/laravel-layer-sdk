@@ -26,18 +26,6 @@ class Router implements RouterInterface
     protected $appId;
 
     /**
-     * Constructor
-     *
-     * @param \Illuminate\Container\Container $container
-     *
-     * @return void
-     */
-    public function __construct(Container $container)
-    {
-        $this->container = $container;
-    }
-
-    /**
      * Set an application ID
      *
      * @param string $appId application ID
@@ -47,6 +35,18 @@ class Router implements RouterInterface
     public function setAppId(string $appId): void
     {
         $this->appId = $appId;
+    }
+
+    /**
+     * Set an Container
+     *
+     * @param \Illuminate\Container\Container $container
+     *
+     * @return void
+     */
+    public function setContainer(Container $container): void
+    {
+        $this->container = $container;
     }
 
     /**
