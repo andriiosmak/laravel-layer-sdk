@@ -2,7 +2,7 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
-use Aosmak\Laravel\Layer\Sdk\Models\Response;
+use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
 
 /**
  * Class DataService
@@ -15,9 +15,9 @@ class DataService extends BaseService
      *
      * @param string $key public key
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function registerPublicKey(string $key): Response
+    public function registerPublicKey(string $key): ResponseInterface
     {
         $data = [
             'public_key' => $key
@@ -30,9 +30,9 @@ class DataService extends BaseService
     /**
      * Get public key
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function getPublicKey(): Response
+    public function getPublicKey(): ResponseInterface
     {
         return $this->getRequestService()
             ->makeGetRequest($this->getRouter()->getShortUrl('export_security'));
@@ -41,9 +41,9 @@ class DataService extends BaseService
     /**
      * Request historical export
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function requestHistoricalExport(): Response
+    public function requestHistoricalExport(): ResponseInterface
     {
         return $this->getRequestService()
             ->makePostRequest($this->getRouter()->getShortUrl('exports'));
@@ -54,9 +54,9 @@ class DataService extends BaseService
      *
      * @param string $exportId export ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function trackExportStatus(string $exportId): Response
+    public function trackExportStatus(string $exportId): ResponseInterface
     {
         return $this->getRequestService()
             ->makeGetRequest($this->getRouter()->getShortUrl('exports', $exportId, 'status'));
@@ -65,9 +65,9 @@ class DataService extends BaseService
     /**
      * Get exports
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function getExports(): Response
+    public function getExports(): ResponseInterface
     {
         return $this->getRequestService()
             ->makeGetRequest($this->getRouter()->getShortUrl('exports'));
@@ -76,9 +76,9 @@ class DataService extends BaseService
     /**
      * Configure scheduled export
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function configureScheduledExport(array $data): Response
+    public function configureScheduledExport(array $data): ResponseInterface
     {
         return $this->getRequestService()
             ->makePutRequest($this->getRouter()->getShortUrl('export_schedule'), $data);
@@ -87,9 +87,9 @@ class DataService extends BaseService
     /**
      * Get export schedule configuration
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function getExportScheduleConfiguration(): Response
+    public function getExportScheduleConfiguration(): ResponseInterface
     {
         return $this->getRequestService()
             ->makeGetRequest($this->getRouter()->getShortUrl('export_schedule'));
@@ -100,9 +100,9 @@ class DataService extends BaseService
      *
      * @param string $exportId export ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function deleteExport(string $exportId): Response
+    public function deleteExport(string $exportId): ResponseInterface
     {
         return $this->getRequestService()
             ->makeDeleteRequest($this->getRouter()->getShortUrl('exports', $exportId));

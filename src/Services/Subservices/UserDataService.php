@@ -2,7 +2,7 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
-use Aosmak\Laravel\Layer\Sdk\Models\Response;
+use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
 
 /**
  * Class UserDataService
@@ -15,9 +15,9 @@ class UserDataService extends BaseService
      *
      * @param string $userId user ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function getConversations(string $userId): Response
+    public function getConversations(string $userId): ResponseInterface
     {
         return $this->getRequestService()
             ->makeGetRequest($this->getRouter()->getShortUrl('users', $userId, 'conversations'));
@@ -30,9 +30,9 @@ class UserDataService extends BaseService
      * @param string $userId user ID
      * @param string $conversationId conversation ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function sendMessage(array $data, string $userId, string $conversationId): Response
+    public function sendMessage(array $data, string $userId, string $conversationId): ResponseInterface
     {
         return $this->getRequestService()
             ->makePostRequest($this->getRouter()->sendMessagesURL($userId, $conversationId), $data);
@@ -45,9 +45,9 @@ class UserDataService extends BaseService
      * @param string $userId user ID
      * @param string $conversationId conversation ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function sendReceipt(string $type, string $userId, string $messageId): Response
+    public function sendReceipt(string $type, string $userId, string $messageId): ResponseInterface
     {
         return $this->getRequestService()
             ->makePostRequest(
@@ -62,9 +62,9 @@ class UserDataService extends BaseService
      * @param string $userId user ID
      * @param string $messageId conversation ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function deleteMessage(string $userId, string $messageId): Response
+    public function deleteMessage(string $userId, string $messageId): ResponseInterface
     {
         return $this->getRequestService()
             ->makeDeleteRequest($this->getRouter()->deleteMessageURL($userId, $messageId));

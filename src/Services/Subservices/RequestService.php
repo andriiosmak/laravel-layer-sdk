@@ -5,7 +5,7 @@ namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 use Illuminate\Container\Container;
 use Aosmak\Laravel\Layer\Sdk\Traits\ConfigTrait;
 use Aosmak\Laravel\Layer\Sdk\Traits\ClientTrait;
-use Aosmak\Laravel\Layer\Sdk\Models\Response;
+use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\RequestServiceInterface;
 
 /**
@@ -35,9 +35,9 @@ class RequestService implements RequestServiceInterface
      * @param array $data request data
      * @param array $requestHeaders request headers
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function makePostRequest(string $url, array $data = [], array $requestHeaders = []): Response
+    public function makePostRequest(string $url, array $data = [], array $requestHeaders = []): ResponseInterface
     {
         return $this->prepareRequest('POST', $url, $data, $requestHeaders);
     }
@@ -49,9 +49,9 @@ class RequestService implements RequestServiceInterface
      * @param array $data request data
      * @param array $requestHeaders request headers
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function makePutRequest(string $url, array $data = [], array $requestHeaders = []): Response
+    public function makePutRequest(string $url, array $data = [], array $requestHeaders = []): ResponseInterface
     {
         return $this->prepareRequest('PUT', $url, $data, $requestHeaders);
     }
@@ -63,9 +63,9 @@ class RequestService implements RequestServiceInterface
      * @param array $data request data
      * @param array $requestHeaders request headers
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function makePatchRequest(string $url, array $data = [], array $requestHeaders = []): Response
+    public function makePatchRequest(string $url, array $data = [], array $requestHeaders = []): ResponseInterface
     {
         $defaultHeaders = [
             'headers' => [
@@ -85,9 +85,9 @@ class RequestService implements RequestServiceInterface
      * @param array $data request data
      * @param array $requestHeaders request headers
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function makeGetRequest(string $url, array $data = [], array $requestHeaders = []): Response
+    public function makeGetRequest(string $url, array $data = [], array $requestHeaders = []): ResponseInterface
     {
         return $this->prepareRequest('GET', $url, $data, $requestHeaders);
     }
@@ -99,9 +99,9 @@ class RequestService implements RequestServiceInterface
      * @param array $data request data
      * @param array $requestHeaders request headers
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function makeDeleteRequest(string $url, array $data = [], array $requestHeaders = []): Response
+    public function makeDeleteRequest(string $url, array $data = [], array $requestHeaders = []): ResponseInterface
     {
         return $this->prepareRequest('DELETE', $url, $data, $requestHeaders);
     }
@@ -114,9 +114,9 @@ class RequestService implements RequestServiceInterface
      * @param array $data request data
      * @param array $requestHeaders request headers
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    private function prepareRequest(string $method, string $url, array $data, array $requestHeaders): Response
+    private function prepareRequest(string $method, string $url, array $data, array $requestHeaders): ResponseInterface
     {
         $defaultHeaders = [
             'headers' => [
@@ -142,9 +142,9 @@ class RequestService implements RequestServiceInterface
      * @param string $url request url
      * @param array $requestHeaders request headers
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function makeRequest(string $method, string $url, array $headers): Response
+    public function makeRequest(string $method, string $url, array $headers): ResponseInterface
     {
         $response = $this->client->request($method, $url, $headers);
 
@@ -157,7 +157,7 @@ class RequestService implements RequestServiceInterface
      * @param string $url request url
      * @param string $path file path
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
     public function uploadFile(string $url, string $path)
     {
