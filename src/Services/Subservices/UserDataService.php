@@ -19,7 +19,8 @@ class UserDataService extends BaseService
      */
     public function getConversations(string $userId): Response
     {
-        return $this->getRequestService()->makeGetRequest($this->getRouter()->getConversationsURL($userId));
+        return $this->getRequestService()
+            ->makeGetRequest($this->getRouter()->getShortUrl('users', $userId, 'conversations'));
     }
 
     /**

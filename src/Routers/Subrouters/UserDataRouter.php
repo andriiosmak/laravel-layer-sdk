@@ -9,18 +9,6 @@ namespace Aosmak\Laravel\Layer\Sdk\Routers\Subrouters;
 class UserDataRouter extends BaseRouter
 {
     /**
-     * Get user conversations URL
-     *
-     * @param string $userId user ID
-     *
-     * @return string
-     */
-    public function getConversationsURL(string $userId): string
-    {
-        return $this->genereteURL('users/:user_id/conversations', [':user_id' => $userId]);
-    }
-
-    /**
      * Send message URL
      *
      * @param string $userId user ID

@@ -21,7 +21,7 @@ class MessageService extends BaseService
     public function create(array $data, string $conversationId): Response
     {
         return $this->getRequestService()
-            ->makePostRequest($this->getRouter()->getConversationURL($conversationId), $data);
+            ->makePostRequest($this->getRouter()->getShortUrl('conversations', $conversationId, 'messages'), $data);
     }
 
     /**
@@ -34,7 +34,7 @@ class MessageService extends BaseService
     public function all(string $conversationId): Response
     {
         return $this->getRequestService()
-            ->makeGetRequest($this->getRouter()->getConversationURL($conversationId));
+            ->makeGetRequest($this->getRouter()->getShortUrl('conversations', $conversationId, 'messages'));
     }
 
     /**

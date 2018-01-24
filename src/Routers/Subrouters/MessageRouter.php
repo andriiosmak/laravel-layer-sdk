@@ -23,18 +23,4 @@ class MessageRouter extends BaseRouter
             ':message_id'      => $messageId
         ]);
     }
-
-    /**
-     * Get a conversation URL
-     *
-     * @param string $conversationId conversation ID
-     *
-     * @return string
-     */
-    public function getConversationURL(string $conversationId): string
-    {
-        return $this->genereteURL('conversations/:conversation_id/messages', [
-            ':conversation_id' => $conversationId
-        ]);
-    }
 }
