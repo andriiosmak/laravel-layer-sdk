@@ -5,12 +5,13 @@ namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 use GuzzleHttp\ClientInterface;
 use Aosmak\Laravel\Layer\Sdk\Routers\RouterInterface;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\RequestServiceInterface;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\BaseServiceInterface;
 
 /**
  * Class BaseService
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
  */
-abstract class BaseService
+abstract class BaseService implements BaseServiceInterface
 {
     /**
      * Router

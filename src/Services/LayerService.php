@@ -5,8 +5,8 @@ namespace Aosmak\Laravel\Layer\Sdk\Services;
 use GuzzleHttp\Client;
 use Illuminate\Container\Container;
 use Aosmak\Laravel\Layer\Sdk\Routers\Router;
+use Aosmak\Laravel\Layer\Sdk\Routers\RouterInterface;
 use Aosmak\Laravel\Layer\Sdk\Traits\ConfigTrait;
-use Aosmak\Laravel\Layer\Sdk\Services\Subservices\BaseService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\AnnouncementService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
@@ -17,6 +17,7 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\NotificationService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\DataService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\BaseServiceInterface;
 
 /**
  * Class LayerService
@@ -167,9 +168,9 @@ class LayerService implements LayerServiceInterface
      *
      * @param string $serviceName service name
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\BaseService
+     * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\BaseServiceInterface
      */
-    private function getService(string $serviceName): BaseService
+    private function getService(string $serviceName): BaseServiceInterface
     {
         $propName = lcfirst($serviceName);
         if (empty($this->$propName)) {
@@ -189,9 +190,9 @@ class LayerService implements LayerServiceInterface
     /**
      * Get a router
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Routers\Router $router
+     * @return \Aosmak\Laravel\Layer\Sdk\Routers\RouterInterface $router
      */
-    private function getRouter(): Router
+    private function getRouter(): RouterInterface
     {
         $router = $this->router;
         $router->setContainer($this->container);
