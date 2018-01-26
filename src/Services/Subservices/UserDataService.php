@@ -3,12 +3,13 @@
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\UserDataServiceInterface;
 
 /**
  * Class UserDataService
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
  */
-class UserDataService extends BaseService
+class UserDataService extends BaseService implements UserDataServiceInterface
 {
     /**
      * Get user conversations

@@ -7,8 +7,8 @@ use Aosmak\Laravel\Layer\Sdk\Routers\RouterInterface;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\RequestServiceInterface;
 
 /**
- * Class BaseServiceInterface
- * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
+ * Interface BaseServiceInterface
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces;
  */
 interface BaseServiceInterface
 {

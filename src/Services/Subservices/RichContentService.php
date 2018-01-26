@@ -3,12 +3,13 @@
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\RichContentServiceInterface;
 
 /**
  * Class RichContentService
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
  */
-class RichContentService extends BaseService
+class RichContentService extends BaseService implements RichContentServiceInterface
 {
     /**
      * Request rich content upload

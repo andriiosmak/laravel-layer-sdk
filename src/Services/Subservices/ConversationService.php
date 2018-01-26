@@ -3,12 +3,13 @@
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\ConversationServiceInterface;
 
 /**
  * Class ConversationService
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices
  */
-class ConversationService extends BaseService
+class ConversationService extends BaseService implements ConversationServiceInterface
 {
     /**
      * Create a conversation
