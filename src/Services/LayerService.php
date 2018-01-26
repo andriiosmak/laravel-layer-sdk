@@ -49,7 +49,7 @@ class LayerService implements LayerServiceInterface
     private $container;
 
     /**
-     * Container
+     * RequestService
      *
      * @var \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService
      */
