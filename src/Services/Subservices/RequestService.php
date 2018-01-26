@@ -10,7 +10,7 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\RequestServiceInter
 
 /**
  * Class RequestService
- * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices
  */
 class RequestService implements RequestServiceInterface
 {

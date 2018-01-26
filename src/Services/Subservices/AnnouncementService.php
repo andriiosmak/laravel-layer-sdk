@@ -7,7 +7,7 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\AnnouncementService
 
 /**
  * Class AnnouncementService
- * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices
  */
 class AnnouncementService extends BaseService implements AnnouncementServiceInterface
 {

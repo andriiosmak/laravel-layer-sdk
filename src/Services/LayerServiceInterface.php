@@ -14,7 +14,7 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\DataServiceInterfac
 
 /**
  * Interface LayerServiceInterface.
- * @package namespace Aosmak\Laravel\Layer\Sdk\Services;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Services
  */
 interface LayerServiceInterface
 {

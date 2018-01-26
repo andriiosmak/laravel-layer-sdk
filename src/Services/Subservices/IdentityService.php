@@ -7,7 +7,7 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\IdentityServiceInte
 
 /**
  * Class IdentityService
- * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices
  */
 class IdentityService extends BaseService implements IdentityServiceInterface
 {

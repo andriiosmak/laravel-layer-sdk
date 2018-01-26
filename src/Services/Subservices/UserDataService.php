@@ -7,7 +7,7 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\UserDataServiceInte
 
 /**
  * Class UserDataService
- * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices
  */
 class UserDataService extends BaseService implements UserDataServiceInterface
 {

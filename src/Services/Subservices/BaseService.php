@@ -9,7 +9,7 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\BaseServiceInterfac
 
 /**
  * Class BaseService
- * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices
  */
 abstract class BaseService implements BaseServiceInterface
 {

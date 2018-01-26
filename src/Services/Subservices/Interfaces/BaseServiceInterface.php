@@ -8,7 +8,7 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\RequestServiceInter
 
 /**
  * Interface BaseServiceInterface
- * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces
  */
 interface BaseServiceInterface
 {

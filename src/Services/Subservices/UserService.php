@@ -7,7 +7,7 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\UserServiceInterfac
 
 /**
  * Class UserService
- * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices
  */
 class UserService extends BaseService implements UserServiceInterface
 {

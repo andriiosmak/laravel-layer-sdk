@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 
 /**
  * Trait ClientTrait
- * @package namespace Aosmak\Laravel\Layer\Sdk\Traits;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Traits
  */
 trait ClientTrait
 {

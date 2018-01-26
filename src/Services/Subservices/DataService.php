@@ -7,7 +7,7 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\DataServiceInterfac
 
 /**
  * Class DataService
- * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices
  */
 class DataService extends BaseService implements DataServiceInterface
 {
