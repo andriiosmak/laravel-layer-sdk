@@ -67,9 +67,10 @@ class LayerService implements LayerServiceInterface
      */
     public function __construct(Container $container, Client $client, Router $router, RequestService $requestService)
     {
-        $this->container      = $container;
-        $this->client         = $client;
-        $this->router         = $router;
+        $this->container = $container;
+        $this->client    = $client;
+        $this->router    = $router;
+        $requestService->setContainer($container);
         $this->requestService = $requestService;
     }
 

@@ -2,9 +2,9 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
-use Illuminate\Container\Container;
 use Aosmak\Laravel\Layer\Sdk\Traits\ConfigTrait;
 use Aosmak\Laravel\Layer\Sdk\Traits\ClientTrait;
+use Aosmak\Laravel\Layer\Sdk\Traits\ContainerTrait;
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\RequestServiceInterface;
 
@@ -14,19 +14,7 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\RequestServiceInter
  */
 class RequestService implements RequestServiceInterface
 {
-    use ConfigTrait, ClientTrait;
-
-    /**
-     * Constructor
-     *
-     * @param \Illuminate\Container\Container $container
-     *
-     * @return void
-     */
-    public function __construct(Container $container)
-    {
-        $this->container = $container;
-    }
+    use ConfigTrait, ClientTrait, ContainerTrait;
 
     /**
      * Make a POST request

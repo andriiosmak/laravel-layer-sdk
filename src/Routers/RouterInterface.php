@@ -6,7 +6,7 @@ use Illuminate\Contracts\Container\Container;
 
 /**
  * Interface RouterInterface
- * @package namespace Aosmak\Laravel\Layer\Sdk\Routers;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Routers
  */
 interface RouterInterface
 {
