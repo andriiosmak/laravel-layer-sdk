@@ -2,9 +2,11 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Routers;
 
+use Illuminate\Contracts\Container\Container;
+
 /**
  * Interface RouterInterface
- * @package namespace Aosmak\Laravel\Layer\Sdk\Routers;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Routers
  */
 interface RouterInterface
 {
@@ -16,6 +18,15 @@ interface RouterInterface
      * @return void
      */
     public function setAppId(string $appId): void;
+
+    /**
+     * Set an Container
+     *
+     * @param \Illuminate\Contracts\Container\Container $container
+     *
+     * @return void
+     */
+    public function setContainer(Container $container): void;
 
     /**
      * Generate a request URL

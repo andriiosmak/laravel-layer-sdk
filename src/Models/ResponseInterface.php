@@ -4,7 +4,7 @@ namespace Aosmak\Laravel\Layer\Sdk\Models;
 
 /**
  * Interface ResponseInterface
- * @package namespace Aosmak\Laravel\Layer\Sdk\Models;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Models
  */
 interface ResponseInterface
 {

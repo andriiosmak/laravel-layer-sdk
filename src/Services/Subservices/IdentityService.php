@@ -3,12 +3,13 @@
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\IdentityServiceInterface;
 
 /**
  * Class IdentityService
- * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices
  */
-class IdentityService extends BaseService
+class IdentityService extends BaseService implements IdentityServiceInterface
 {
     /**
      * Create a identity

@@ -4,6 +4,10 @@ namespace Aosmak\Laravel\Layer\Sdk;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class LayerProvider
+ * @package namespace Aosmak\Laravel\Layer\Sdk
+ */
 class LayerProvider extends ServiceProvider
 {
     /**

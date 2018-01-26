@@ -2,29 +2,29 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Traits;
 
-use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 
 /**
  * Trait ClientTrait
- * @package namespace Aosmak\Laravel\Layer\Sdk\Traits;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Traits
  */
 trait ClientTrait
 {
     /**
      * Guzzle client
      *
-     * @var \GuzzleHttp\Client
+     * @var \GuzzleHttp\ClientInterface
      */
     protected $client;
 
     /**
      * Set Guzzle client
      *
-     * @param \GuzzleHttp\Client $client
+     * @param \GuzzleHttp\ClientInterface $client
      *
      * @return void
      */
-    public function setClient(Client $client): void
+    public function setClient(ClientInterface $client): void
     {
         $this->client = $client;
     }

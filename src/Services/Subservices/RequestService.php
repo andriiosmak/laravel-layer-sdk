@@ -2,31 +2,19 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
-use Illuminate\Container\Container;
 use Aosmak\Laravel\Layer\Sdk\Traits\ConfigTrait;
 use Aosmak\Laravel\Layer\Sdk\Traits\ClientTrait;
+use Aosmak\Laravel\Layer\Sdk\Traits\ContainerTrait;
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\RequestServiceInterface;
 
 /**
  * Class RequestService
- * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices
  */
 class RequestService implements RequestServiceInterface
 {
-    use ConfigTrait, ClientTrait;
-
-    /**
-     * Constructor
-     *
-     * @param \Illuminate\Container\Container $container
-     *
-     * @return void
-     */
-    public function __construct(Container $container)
-    {
-        $this->container = $container;
-    }
+    use ConfigTrait, ClientTrait, ContainerTrait;
 
     /**
      * Make a POST request
@@ -162,7 +150,7 @@ class RequestService implements RequestServiceInterface
     public function uploadFile(string $url, string $path)
     {
         $headers = [
-            'multipart'      => [
+            'multipart' => [
                 [
                     'name'     => 'file',
                     'contents' => file_get_contents($path)
