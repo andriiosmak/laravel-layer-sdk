@@ -2,23 +2,24 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
-use Aosmak\Laravel\Layer\Sdk\Models\Response;
+use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\NotificationServiceInterface;
 
 /**
  * Class NotificationService
- * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices
  */
-class NotificationService extends BaseService
+class NotificationService extends BaseService implements NotificationServiceInterface
 {
     /**
      * Create a notification
      *
      * @param array $data notification data
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function create(array $data): Response
+    public function create(array $data): ResponseInterface
     {
-        return $this->getRequestService()->makePostRequest($this->getRouter()->getNotificationURL(), $data);
+        return $this->getRequestService()->makePostRequest($this->getRouter()->getShortUrl('notifications'), $data);
     }
 }

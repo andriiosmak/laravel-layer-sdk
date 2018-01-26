@@ -2,20 +2,24 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Integrational;
 
+use PHPUnit\Framework\TestCase;
 use Illuminate\Container\Container;
 use Aosmak\Laravel\Layer\Sdk\Services\LayerService;
-use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
-use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserDataService;
-use Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService;
-use Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService;
-use Aosmak\Laravel\Layer\Sdk\Services\Subservices\AnnouncementService;
-use Aosmak\Laravel\Layer\Sdk\Services\Subservices\NotificationService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\AnnouncementServiceInterface;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\ConversationServiceInterface;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\UserServiceInterface;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\IdentityServiceInterface;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\UserDataServiceInterface;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\RichContentServiceInterface;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\MessageServiceInterface;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\NotificationServiceInterface;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\DataServiceInterface;
 
 /**
  * Class BaseClass
  * @package namespace Aosmak\Laravel\Layer\Sdk\Integrational
  */
-abstract class BaseClass extends \PHPUnit_Framework_TestCase
+abstract class BaseClass extends TestCase
 {
     /**
      * Layer Service
@@ -38,7 +42,8 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
                 'LAYER_SDK_APP_ID'           => getenv('LAYER_SDK_APP_ID'),
                 'LAYER_SDK_AUTH'             => getenv('LAYER_SDK_AUTH'),
                 'LAYER_SDK_BASE_URL'         => getenv('LAYER_SDK_BASE_URL'),
-                'LAYER_SDK_SHOW_HTTP_ERRORS' => false,
+                'LAYER_SDK_API_VERSION'      => '3.0',
+                'LAYER_SDK_SHOW_HTTP_ERRORS' => false
             ];
         }
 
@@ -51,9 +56,9 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     /**
      * Get a conversation service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\ConversationService
      */
-    public function getConversationService(): ConversationService
+    public function getConversationService(): ConversationServiceInterface
     {
         return $this->service->getConversationService();
     }
@@ -61,9 +66,9 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     /**
      * Get a message service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\MessageService
      */
-    public function getMessageService(): MessageService
+    public function getMessageService(): MessageServiceInterface
     {
         return $this->service->getMessageService();
     }
@@ -71,19 +76,29 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     /**
      * Get a user service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\UserService
      */
-    public function getUserService(): UserService
+    public function getUserService(): UserServiceInterface
     {
         return $this->service->getUserService();
     }
 
     /**
+     * Get an identity service
+     *
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\IdentityService
+     */
+    public function getIdentityService(): IdentityServiceInterface
+    {
+        return $this->service->getIdentityService();
+    }
+
+    /**
      * Get a user data service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserDataService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\UserDataService
      */
-    public function getUserDataService(): UserDataService
+    public function getUserDataService(): UserDataServiceInterface
     {
         return $this->service->getUserDataService();
     }
@@ -91,9 +106,9 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     /**
      * Get an announcement service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\AnnouncementService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\AnnouncementService
      */
-    public function getAnnouncementService(): AnnouncementService
+    public function getAnnouncementService(): AnnouncementServiceInterface
     {
         return $this->service->getAnnouncementService();
     }
@@ -101,10 +116,30 @@ abstract class BaseClass extends \PHPUnit_Framework_TestCase
     /**
      * Get a notification service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\NotificationService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\NotificationService
      */
-    public function getNotificationService(): NotificationService
+    public function getNotificationService(): NotificationServiceInterface
     {
         return $this->service->getNotificationService();
+    }
+
+    /**
+     * Get a data service
+     *
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\DataService
+     */
+    public function getDataService(): DataServiceInterface
+    {
+        return $this->service->getDataService();
+    }
+
+    /**
+     * Get a rich content service
+     *
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\RichContentService
+     */
+    public function getRichContentService(): RichContentServiceInterface
+    {
+        return $this->service->getRichContentService();
     }
 }

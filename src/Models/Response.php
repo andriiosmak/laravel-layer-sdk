@@ -6,9 +6,9 @@ use GuzzleHttp\Psr7\Response as GuzzleResponse;
 
 /**
  * Class Response
- * @package namespace Aosmak\Laravel\Layer\Sdk\Models;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Models
  */
-class Response
+class Response implements ResponseInterface
 {
     /**
      * Request status code
@@ -25,15 +25,23 @@ class Response
     private $contents;
 
     /**
+     * Headers
+     *
+     * @var array
+     */
+    private $headers;
+
+    /**
      * Get status code
      *
-     * @return GuzzleHttp\Psr7\Response $response
+     * @param GuzzleHttp\Psr7\Response $response
      *
      * @return void
      */
     public function __construct(GuzzleResponse $response)
     {
         $this->statusCode = $response->getStatusCode();
+        $this->headers    = $response->getHeaders();
         $this->contents   = $this->obtainResponseContent($response->getBody()->getContents());
     }
 
@@ -58,6 +66,16 @@ class Response
     }
 
     /**
+     * Get request headers
+     *
+     * @return array request headers
+     */
+    public function getHeaders(): array
+    {
+        return $this->headers;
+    }
+
+    /**
      * Check whether a request was successful
      *
      * @return array request content
@@ -70,8 +88,8 @@ class Response
     /**
      * Get an item ID
      *
-     * @return string $statusId
-     * @return string $path
+     * @param string $statusId
+     * @param string $path
      *
      * @return string|null conversation ID
      */
@@ -87,9 +105,9 @@ class Response
     /**
      * Get a response content
      *
-     * @return string $contents
+     * @param string $contents
      *
-     * @var array
+     * @return array
      */
     private function obtainResponseContent(string $contents): array
     {

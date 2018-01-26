@@ -4,7 +4,7 @@ namespace Aosmak\Laravel\Layer\Sdk\Models;
 
 /**
  * Class ResponseStatus
- * @package namespace Aosmak\Laravel\Layer\Sdk\Models;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Models
  */
 class ResponseStatus
 {

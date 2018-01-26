@@ -31,24 +31,43 @@ class MessageServiceTest extends BaseClass
      */
     public function testCreateMessage(): void
     {
-        $data = [
-            'sender' => [
-                "user_id" => "tu1",
-            ],
-            'parts' => [
-                [
-                    'body'      => 'Hello, World!',
-                    'mime_type' => 'text/plain'
-                ],
-            ],
+        $userData = [
+            "first_name"   => 'testName',
+            "last_name"    => 'testSurname',
+            "display_name" => 'testDisplayName',
+            "phone_number" => 'testPhoneNumber',
         ];
+
+        $this->getUserService()->create($userData, 'testUserOne');
+        $response = $this->getUserService()->get('testUserOne');
+        $userId   = $response->getContents()['id'];
 
         self::$conversationId = $this->getConversationService()->create([
             'participants' => [
-                "tu1",
+                $userId,
                 "tu2",
             ],
         ])->getCreatedItemId();
+
+        $data = [
+            'sender_id' => $userId,
+            'parts'     => [
+                [
+                    'body'      => 'Hello, World!',
+                    'mime_type' => 'text/plain',
+                ],
+                [
+                    'body'      => 'YW55IGNhcm5hbCBwbGVhc3VyZQ==',
+                    'mime_type' => 'image/jpeg',
+                    'encoding'  => 'base64',
+                ],
+            ],
+            'notification' => [
+                'title' => 'New Alert',
+                'text'  => 'This is the alert text to include with the Push Notification.',
+                'sound' => 'chime.aiff',
+            ],
+        ];
 
         $response        = $this->getMessageService()->create($data, self::$conversationId);
         self::$messageId = $response->getCreatedItemId();
@@ -60,14 +79,78 @@ class MessageServiceTest extends BaseClass
             $response->getStatusCode()
         ); //201
 
+        $data = [
+            'sender_id' => $userId,
+            'parts'     => [
+                [
+                    'body'      => 'Hello, World!',
+                    'mime_type' => 'text/plain',
+                ],
+            ],
+            'notification' => [
+                'title' => 'New Alert',
+                'text'  => 'This is the alert text to include with the Push Notification.',
+                'sound' => 'chime.aiff',
+            ],
+            'schedule' => [
+                'delay_in_seconds'            => 8.2,
+                'typing_indicator_in_seconds' => 3.8,
+            ]
+        ];
+
+        $response        = $this->getMessageService()->create($data, self::$conversationId);
+        $messageId = $response->getCreatedItemId();
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
+        $this->assertInternalType('string', self::$messageId);
+        $this->assertEquals(
+            ResponseStatus::HTTP_ACCEPTED,
+            $response->getStatusCode()
+        ); //202
+
+        $data = [
+            [
+                'sender_id' => $userId,
+                'schedule'  => [
+                    'delay_in_seconds'            => 7.0,
+                    'typing_indicator_in_seconds' => 3.8,
+                ],
+                'parts' => [
+                    [
+                        'mime_type' => 'text/plain',
+                        'body'      => 'Thanks for your inquiry. Let me see what rooms we have available...',
+                    ]
+                ]
+            ]
+        ];
+
+        $response  = $this->getMessageService()->create($data, self::$conversationId);
+        $messageId = $response->getCreatedItemId();
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertTrue($response->isSuccessful());
+        $this->assertInternalType('string', self::$messageId);
+        $this->assertEquals(
+            ResponseStatus::HTTP_ACCEPTED,
+            $response->getStatusCode()
+        ); //202
+
         $response = $this->getMessageService()->create([], self::$conversationId);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertFalse($response->isSuccessful());
         $this->assertNull($response->getCreatedItemId());
         $this->assertEquals(
-            ResponseStatus::HTTP_NOT_IMPLEMENTED,
+            ResponseStatus::HTTP_BAD_REQUEST,
             $response->getStatusCode()
-        ); //501
+        ); //400
+
+        $response = $this->getMessageService()->create([], 'wrongId');
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
+        $this->assertNull($response->getCreatedItemId());
+        $this->assertEquals(
+            ResponseStatus::HTTP_NOT_FOUND,
+            $response->getStatusCode()
+        ); //404;
     }
 
     /**
@@ -93,10 +176,13 @@ class MessageServiceTest extends BaseClass
         $this->assertArrayHasKey('sender', $content[0]);
         $this->assertArrayHasKey('is_unread', $content[0]);
         $this->assertArrayHasKey('recipient_status', $content[0]);
-        $this->assertEquals(
-            ResponseStatus::HTTP_OK,
-            $response->getStatusCode()
-        ); //200
+        $this->assertTrue(in_array($response->getStatusCode(),
+            [
+                ResponseStatus::HTTP_OK,
+                ResponseStatus::HTTP_PARTIAL_CONTENT
+            ]
+        ));
+
         $response = $this->getMessageService()->all('wrongid');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertFalse($response->isSuccessful());
@@ -172,62 +258,5 @@ class MessageServiceTest extends BaseClass
             ResponseStatus::HTTP_NOT_FOUND,
             $response->getStatusCode()
         ); //404
-    }
-
-    /**
-     * Send Read/Delivery Receipt
-     *
-     * @return void
-     */
-    public function testSendReceipt(): void
-    {
-        $this->testCreateMessage();
-        $response = $this->getUserDataService()->sendReceipt('read', 'tu1', self::$messageId);
-        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
-        $this->assertTrue($response->isSuccessful());
-        $this->assertEquals(
-            ResponseStatus::HTTP_NO_CONTENT,
-            $response->getStatusCode()
-        ); //204
-
-        $response = $this->getUserDataService()->sendReceipt('read', 'wrongId', 'wrongId');
-        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
-        $this->assertFalse($response->isSuccessful());
-        $this->assertEquals(
-            ResponseStatus::HTTP_BAD_REQUEST,
-            $response->getStatusCode()
-        ); //400
-
-        $response = $this->getUserDataService()->sendReceipt('test', 'tu1', self::$messageId);
-        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
-        $this->assertFalse($response->isSuccessful());
-        $this->assertEquals(
-            ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
-            $response->getStatusCode()
-        ); //400
-    }
-
-    /**
-     * Test message deletion
-     *
-     * @return void
-     */
-    public function testUserDataDeleteMessage(): void
-    {
-        $response = $this->getUserDataService()->deleteMessage('tu1', self::$messageId);
-        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
-        $this->assertTrue($response->isSuccessful());
-        $this->assertEquals(
-            ResponseStatus::HTTP_NO_CONTENT,
-            $response->getStatusCode()
-        ); //204
-
-        $response = $this->getUserDataService()->deleteMessage('wrongId', 'wrongId');
-        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
-        $this->assertFalse($response->isSuccessful());
-        $this->assertEquals(
-            ResponseStatus::HTTP_BAD_REQUEST,
-            $response->getStatusCode()
-        ); //400
     }
 }

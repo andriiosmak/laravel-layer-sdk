@@ -19,19 +19,42 @@ class AnnouncementServiceTest extends BaseClass
     public function testCreateAnnouncement(): void
     {
         $data = [
+            "first_name"   => 'testName',
+            "last_name"    => 'testSurname',
+            "display_name" => 'testDisplayName',
+            "phone_number" => 'testPhoneNumber',
+        ];
+
+        $this->getUserService()->create($data, 'testUserOne');
+        $response = $this->getUserService()->get('testUserOne');
+        $useId    = $response->getContents()['id'];
+        $data     = [
+            "first_name"    => 'testName',
+            "last_name"     => 'testSurname',
+            "display_name"  => 'testDisplayName',
+            "phone_number"  => 'testPhoneNumber',
+            "identity_type" => 'bot',
+        ];
+
+        $response = $this->getIdentityService()->create($data, 'testBotOne');
+        $response = $this->getIdentityService()->get('testBotOne');
+        $botId    = $response->getContents()['id'];
+        $data     = [
             'recipients' => [
-                "tu1",
-                "tu2",
+                $useId
             ],
-            'sender' => [
-                'name' => 'The System',
-            ],
-            'parts' => [
+            'sender_id' => $botId,
+            'parts'     => [
                 [
                     'body'      => 'Hello, World!',
                     'mime_type' => 'text/plain'
                 ],
             ],
+            "notification" => [
+                "title" => "New Alert",
+                "text"  => "This is the alert text to include with the Push Notification.",
+                "sound" => "chime.aiff"
+            ]
         ];
 
         $response = $this->getAnnouncementService()->create($data);
@@ -43,6 +66,7 @@ class AnnouncementServiceTest extends BaseClass
             ResponseStatus::HTTP_ACCEPTED,
             $response->getStatusCode()
         ); //202
+
         $response = $this->getAnnouncementService()->create([]);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertFalse($response->isSuccessful());

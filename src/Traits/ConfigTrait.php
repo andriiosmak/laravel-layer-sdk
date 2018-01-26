@@ -4,7 +4,7 @@ namespace Aosmak\Laravel\Layer\Sdk\Traits;
 
 /**
  * Trait ConfigTrait
- * @package namespace Aosmak\Laravel\Layer\Sdk\Traits;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Traits
  */
 trait ConfigTrait
 {
