@@ -162,7 +162,7 @@ class RequestService implements RequestServiceInterface
     public function uploadFile(string $url, string $path)
     {
         $headers = [
-            'multipart'      => [
+            'multipart' => [
                 [
                     'name'     => 'file',
                     'contents' => file_get_contents($path)
