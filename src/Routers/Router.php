@@ -2,7 +2,7 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Routers;
 
-use Illuminate\Contracts\Container\Container;
+use Aosmak\Laravel\Layer\Sdk\Traits\ContainerTrait;
 use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter;
 
 /**
@@ -11,12 +11,7 @@ use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter;
  */
 class Router implements RouterInterface
 {
-    /**
-     * Container
-     *
-     * @var \Illuminate\Contracts\Container\Container
-     */
-    private $container;
+    use ContainerTrait;
 
     /**
      * Application ID
@@ -35,18 +30,6 @@ class Router implements RouterInterface
     public function setAppId(string $appId): void
     {
         $this->appId = $appId;
-    }
-
-    /**
-     * Set an Container
-     *
-     * @param \Illuminate\Contracts\Container\Container $container
-     *
-     * @return void
-     */
-    public function setContainer(Container $container): void
-    {
-        $this->container = $container;
     }
 
     /**
