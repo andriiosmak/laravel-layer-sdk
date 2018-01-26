@@ -2,7 +2,7 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Routers;
 
-use Illuminate\Container\Container;
+use Illuminate\Contracts\Container\Container;
 use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter;
 
 /**
@@ -14,7 +14,7 @@ class Router implements RouterInterface
     /**
      * Container
      *
-     * @var \Illuminate\Container\Container
+     * @var \Illuminate\Contracts\Container\Container
      */
     private $container;
 
@@ -40,7 +40,7 @@ class Router implements RouterInterface
     /**
      * Set an Container
      *
-     * @param \Illuminate\Container\Container $container
+     * @param \Illuminate\Contracts\Container\Container $container
      *
      * @return void
      */
