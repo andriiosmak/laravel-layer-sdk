@@ -273,7 +273,7 @@ class UserServiceTest extends BaseClass
         ); //202
 
         //check status
-        $response = $this->getUserService()->getGetSuspensionStatus('testUserOne');
+        $response = $this->getUserService()->getUserStatus('testUserOne');
         $content  = $response->getContents();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
@@ -293,7 +293,7 @@ class UserServiceTest extends BaseClass
         ); //202
 
         //check status
-        $response = $this->getUserService()->getGetSuspensionStatus('testUserOne');
+        $response = $this->getUserService()->getUserStatus('testUserOne');
         $content  = $response->getContents();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
