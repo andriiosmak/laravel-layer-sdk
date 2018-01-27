@@ -6,7 +6,7 @@
 ![Unstable][ico-unstable]
 [![Software License][ico-license]](LICENSE.md)
 
-The Layer SDK for Laravel 5 is a library with powerful features that enable PHP developers to easily make requests to [Layer Server API](https://docs.layer.com/reference/server_api/introduction). Despite the fact this package was designed to be easily integrated to projects based on Laravel 5.2+ framework, it can be integrated to projects based on other web frameworks.
+The Layer SDK for Laravel 5 is a library with powerful features that enable PHP developers to easily make requests to [Layer Server API](https://docs.layer.com/reference/server_api/introduction). Despite the fact this package was designed to be easily integrated to projects based on Laravel 5.5+ framework, it can be integrated to projects based on other web frameworks.
 
 - [Requirements](#requirements)
 - [Installation](#installation)
