@@ -177,13 +177,13 @@ class UserService extends BaseService implements UserServiceInterface
     }
 
     /**
-     * Get suspension status
+     * Get user status
      *
      * @param string $userId user ID
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function getGetSuspensionStatus(string $userId): ResponseInterface
+    public function getUserStatus(string $userId): ResponseInterface
     {
         return $this->getRequestService()
             ->makeGetRequest($this->getRouter()->getShortUrl('users', $userId));
