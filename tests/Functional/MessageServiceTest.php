@@ -21,21 +21,24 @@ class MessageServiceTest extends BaseClass
     {
         $mock = new MockHandler([
             self::getResponse(
-                ResponseStatus::HTTP_CREATED,
+                ResponseStatus::HTTP_ACCEPTED,
                 Psr7\stream_for('{"id":"layer:///messages/712e7754-22c1-402b-8e09-7254d1b95e43"}')
             ),
-            self::getResponse(ResponseStatus::HTTP_OK),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(ResponseStatus::HTTP_OK),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(ResponseStatus::HTTP_NO_CONTENT),
-            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
-            self::getResponse(ResponseStatus::HTTP_NO_CONTENT),
             self::getResponse(ResponseStatus::HTTP_BAD_REQUEST),
-            self::getResponse(ResponseStatus::HTTP_UNPROCESSABLE_ENTITY),
+            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
+            self::getResponse(
+                ResponseStatus::HTTP_OK,
+                Psr7\stream_for('{"id":"layer:///messages/712e7754-22c1-402b-8e09-7254d1b95e43"}')
+            ),
+            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
+            self::getResponse(
+                ResponseStatus::HTTP_OK,
+                Psr7\stream_for('{"id":"layer:///messages/712e7754-22c1-402b-8e09-7254d1b95e43"}')
+            ),
+            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
+            self::getResponse(ResponseStatus::HTTP_BAD_REQUEST),
             self::getResponse(ResponseStatus::HTTP_NO_CONTENT),
-            self::getResponse(ResponseStatus::HTTP_BAD_REQUEST)
+            self::getResponse(ResponseStatus::HTTP_NOT_FOUND),
         ]);
         self::setUpService($mock);
     }
@@ -48,25 +51,48 @@ class MessageServiceTest extends BaseClass
     public function testCreateMessage(): void
     {
         $data = [
-            'sender' => [
-                "user_id" => "tu1",
-            ],
-            'parts' => [
-                [
-                    'body'      => 'Hello, World!',
-                    'mime_type' => 'text/plain'
+            [
+                'sender_id' => 'userId',
+                'schedule'  => [
+                    'delay_in_seconds'            => 7.0,
+                    'typing_indicator_in_seconds' => 3.8,
                 ],
-            ],
+                'parts' => [
+                    [
+                        'mime_type' => 'text/plain',
+                        'body'      => 'Thanks for your inquiry. Let me see what rooms we have available...',
+                    ]
+                ]
+            ]
         ];
 
-        $response = $this->getMessageService()->create($data, 'conversationId');
+        $response  = $this->getMessageService()->create($data, 'conversationId');
+        $messageId = $response->getCreatedItemId();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
-        $this->assertInternalType('string', $response->getCreatedItemId());
+        $this->assertInternalType('string', $messageId);
         $this->assertEquals(
-            ResponseStatus::HTTP_CREATED,
+            ResponseStatus::HTTP_ACCEPTED,
             $response->getStatusCode()
-        ); //201
+        ); //202
+
+        $response = $this->getMessageService()->create([], 'conversationId');
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
+        $this->assertNull($response->getCreatedItemId());
+        $this->assertEquals(
+            ResponseStatus::HTTP_BAD_REQUEST,
+            $response->getStatusCode()
+        ); //400
+
+        $response = $this->getMessageService()->create([], 'wrongId');
+        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
+        $this->assertFalse($response->isSuccessful());
+        $this->assertNull($response->getCreatedItemId());
+        $this->assertEquals(
+            ResponseStatus::HTTP_NOT_FOUND,
+            $response->getStatusCode()
+        ); //404;
     }
 
     /**
@@ -76,26 +102,25 @@ class MessageServiceTest extends BaseClass
      */
     public function testGetAll(): void
     {
-        $response = $this->getMessageService()->all('id');
+        $response = $this->getMessageService()->all('conversationId');
         $content  = $response->getContents();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
         $this->assertInternalType('array', $content);
-        $this->assertEquals(
-            ResponseStatus::HTTP_OK,
-            $response->getStatusCode()
-        ); //200
+        $this->assertTrue(in_array($response->getStatusCode(),
+            [
+                ResponseStatus::HTTP_OK,
+                ResponseStatus::HTTP_PARTIAL_CONTENT
+            ]
+        ));
 
-        $response = $this->getMessageService()->all('wrongId');
-        $content  = $response->getContents();
+        $response = $this->getMessageService()->all('wrongid');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertFalse($response->isSuccessful());
-        $this->assertInternalType('array', $content);
-        $this->assertEmpty($content);
         $this->assertEquals(
             ResponseStatus::HTTP_NOT_FOUND,
             $response->getStatusCode()
-        ); //200
+        ); //404
     }
 
     /**
@@ -105,35 +130,31 @@ class MessageServiceTest extends BaseClass
      */
     public function testGetMessage(): void
     {
-        $response = $this->getMessageService()->get('messageId', 'convId');
+        $response = $this->getMessageService()->get('messageId', 'conversationId');
         $content  = $response->getContents();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
-        $this->assertInternalType('array', $content);
         $this->assertEquals(
             ResponseStatus::HTTP_OK,
             $response->getStatusCode()
         ); //200
+        $this->assertInternalType('array', $content);
 
-        $response = $this->getMessageService()->get('messageId', 'wrongConvId');
-        $content  = $response->getContents();
+        $response = $this->getMessageService()->get('messageId', 'wrongId');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertFalse($response->isSuccessful());
-        $this->assertInternalType('array', $content);
         $this->assertEquals(
             ResponseStatus::HTTP_NOT_FOUND,
             $response->getStatusCode()
         ); //404
 
-        $response = $this->getMessageService()->get('wrongMessageId', 'convId');
-        $content  = $response->getContents();
+        $response = $this->getMessageService()->get('wrongId', 'conversationId');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertFalse($response->isSuccessful());
-        $this->assertInternalType('array', $content);
         $this->assertEquals(
-            ResponseStatus::HTTP_NOT_FOUND,
+            ResponseStatus::HTTP_BAD_REQUEST,
             $response->getStatusCode()
-        ); //404
+        ); //400
     }
 
     /**
@@ -143,7 +164,7 @@ class MessageServiceTest extends BaseClass
      */
     public function testDeleteMessage(): void
     {
-        $response = $this->getMessageService()->delete('messageId', 'ConvId');
+        $response = $this->getMessageService()->delete('wrongId', 'conversationId');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
@@ -151,68 +172,12 @@ class MessageServiceTest extends BaseClass
             $response->getStatusCode()
         ); //204
 
-        $response = $this->getMessageService()->delete('messageId', 'ConvId');
+        $response = $this->getMessageService()->delete('wrongId', 'wrongId');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertFalse($response->isSuccessful());
         $this->assertEquals(
             ResponseStatus::HTTP_NOT_FOUND,
             $response->getStatusCode()
         ); //404
-    }
-
-    /**
-     * Test send receipt
-     *
-     * @return void
-     */
-    public function testSendReceipt(): void
-    {
-        $response = $this->getUserDataService()->sendReceipt('read', 'userId', 'messageId');
-        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
-        $this->assertTrue($response->isSuccessful());
-        $this->assertEquals(
-            ResponseStatus::HTTP_NO_CONTENT,
-            $response->getStatusCode()
-        ); //204
-
-        $response = $this->getUserDataService()->sendReceipt('read', 'wrongId', 'wrongId');
-        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
-        $this->assertFalse($response->isSuccessful());
-        $this->assertEquals(
-            ResponseStatus::HTTP_BAD_REQUEST,
-            $response->getStatusCode()
-        ); //400
-
-        $response = $this->getUserDataService()->sendReceipt('read', 'userId', 'messageId');
-        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
-        $this->assertFalse($response->isSuccessful());
-        $this->assertEquals(
-            ResponseStatus::HTTP_UNPROCESSABLE_ENTITY,
-            $response->getStatusCode()
-        ); //400
-    }
-
-    /**
-     * Test message deletion
-     *
-     * @return void
-     */
-    public function testUserDataDeleteMessage(): void
-    {
-        $response = $this->getUserDataService()->deleteMessage('tu1', 'messageId');
-        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
-        $this->assertTrue($response->isSuccessful());
-        $this->assertEquals(
-            ResponseStatus::HTTP_NO_CONTENT,
-            $response->getStatusCode()
-        ); //204
-
-        $response = $this->getUserDataService()->deleteMessage('wrongId', 'wrongId');
-        $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
-        $this->assertFalse($response->isSuccessful());
-        $this->assertEquals(
-            ResponseStatus::HTTP_BAD_REQUEST,
-            $response->getStatusCode()
-        ); //400
     }
 }

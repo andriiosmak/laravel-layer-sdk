@@ -5,5 +5,5 @@ return [
     'LAYER_SDK_AUTH'             => env('LAYER_SDK_AUTH', '-YOUR_APP_AUTH_TOKEN-'),
     'LAYER_SDK_BASE_URL'         => env('LAYER_SDK_BASE_URL', 'https://api.layer.com/apps/'),
     'LAYER_SDK_SHOW_HTTP_ERRORS' => env('LAYER_SDK_SHOW_HTTP_ERRORS', false),
-    'LAYER_SDK_API_VERSION'      => env('LAYER_SDK_API_VERSION', '1.1')
+    'LAYER_SDK_API_VERSION'      => env('LAYER_SDK_API_VERSION', '3.0')
 ];

@@ -2,54 +2,53 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Response;
-use Aosmak\Laravel\Layer\Sdk\Routers\Router;
-use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
-use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter;
+use GuzzleHttp\ClientInterface;
+use Aosmak\Laravel\Layer\Sdk\Routers\RouterInterface;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\RequestServiceInterface;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\BaseServiceInterface;
 
 /**
  * Class BaseService
- * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices
  */
-abstract class BaseService
+abstract class BaseService implements BaseServiceInterface
 {
     /**
      * Router
      *
-     * @var \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter
+     * @var \Aosmak\Laravel\Layer\Sdk\Routers\RouterInterface
      */
     protected $router;
 
     /**
      * Request service
      *
-     * @var \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService
+     * @var \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestServiceInterface
      */
     private $requestService;
 
     /**
-     * Constructor
+     * Set a Guzzle client
      *
-     * @param \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService $requestService
+     * @param \GuzzleHttp\ClientInterface $client
      *
      * @return void
      */
-    public function __construct(RequestService $requestService)
+    public function setClient(ClientInterface $client): void
     {
-        $this->requestService = $requestService;
+        $this->requestService->setClient($client);
     }
 
     /**
-     * Set a Guzzle client
+     * Set a request service
      *
-     * @param \GuzzleHttp\Client $client
+     * @param \Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\RequestServiceInterface $requestService
      *
      * @return void
      */
-    public function setClient(Client $client): void
+    public function setRequestService(RequestServiceInterface $requestService): void
     {
-        $this->requestService->setClient($client);
+        $this->requestService = $requestService;
     }
 
     /**
@@ -67,11 +66,11 @@ abstract class BaseService
     /**
      * Set a router
      *
-     * @param \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter $router
+     * @param \Aosmak\Laravel\Layer\Sdk\Routers\RouterInterface $router
      *
      * @return void
      */
-    public function setRouter(BaseRouter $router): void
+    public function setRouter(RouterInterface $router): void
     {
         $this->router = $router;
     }
@@ -79,9 +78,9 @@ abstract class BaseService
     /**
      * Get a request service
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService
+     * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestServiceInterface
      */
-    public function getRequestService(): RequestService
+    public function getRequestService(): RequestServiceInterface
     {
         return $this->requestService;
     }
@@ -89,9 +88,9 @@ abstract class BaseService
     /**
      * Get a router
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter
+     * @return \Aosmak\Laravel\Layer\Sdk\Routers\RouterInterface
      */
-    public function getRouter(): BaseRouter
+    public function getRouter(): RouterInterface
     {
         return $this->router;
     }

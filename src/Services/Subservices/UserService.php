@@ -2,13 +2,14 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
-use Aosmak\Laravel\Layer\Sdk\Models\Response;
+use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\UserServiceInterface;
 
 /**
  * Class UserService
- * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
+ * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices
  */
-class UserService extends BaseService
+class UserService extends BaseService implements UserServiceInterface
 {
     /**
      * Create a user
@@ -16,11 +17,12 @@ class UserService extends BaseService
      * @param array $data user data
      * @param string $userId user ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function create(array $data, string $userId): Response
+    public function create(array $data, string $userId): ResponseInterface
     {
-        return $this->getRequestService()->makePostRequest($this->getRouter()->getURL($userId), $data);
+        return $this->getRequestService()
+            ->makePostRequest($this->getRouter()->getShortUrl('users', $userId, 'identity'), $data);
     }
 
     /**
@@ -29,11 +31,12 @@ class UserService extends BaseService
      * @param array $data user data
      * @param string $userId user ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function update(array $data, string $userId): Response
+    public function update(array $data, string $userId): ResponseInterface
     {
-        return $this->getRequestService()->makePatchRequest($this->getRouter()->getURL($userId), $data);
+        return $this->getRequestService()
+            ->makePatchRequest($this->getRouter()->getShortUrl('users', $userId, 'identity'), $data);
     }
 
     /**
@@ -42,11 +45,12 @@ class UserService extends BaseService
      * @param array $data user data
      * @param string $userId user ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function replace(array $data, string $userId): Response
+    public function replace(array $data, string $userId): ResponseInterface
     {
-        return $this->getRequestService()->makePutRequest($this->getRouter()->getURL($userId), $data);
+        return $this->getRequestService()
+            ->makePutRequest($this->getRouter()->getShortUrl('users', $userId, 'identity'), $data);
     }
 
     /**
@@ -54,11 +58,12 @@ class UserService extends BaseService
      *
      * @param string $userId user ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function get(string $userId): Response
+    public function get(string $userId): ResponseInterface
     {
-        return $this->getRequestService()->makeGetRequest($this->getRouter()->getURL($userId));
+        return $this->getRequestService()
+            ->makeGetRequest($this->getRouter()->getShortUrl('users', $userId, 'identity'));
     }
 
     /**
@@ -66,11 +71,12 @@ class UserService extends BaseService
      *
      * @param string $userId user ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function delete(string $userId): Response
+    public function delete(string $userId): ResponseInterface
     {
-        return $this->getRequestService()->makeDeleteRequest($this->getRouter()->getURL($userId));
+        return $this->getRequestService()
+            ->makeDeleteRequest($this->getRouter()->getShortUrl('users', $userId, 'identity'));
     }
 
     /**
@@ -79,11 +85,12 @@ class UserService extends BaseService
      * @param array $data badge data
      * @param string $userId user ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function createBadge(array $data, string $userId): Response
+    public function createBadge(array $data, string $userId): ResponseInterface
     {
-        return $this->getRequestService()->makePutRequest($this->getRouter()->getBadgeURL($userId), $data);
+        return $this->getRequestService()
+            ->makePutRequest($this->getRouter()->getShortUrl('users', $userId, 'badge'), $data);
     }
 
     /**
@@ -91,11 +98,12 @@ class UserService extends BaseService
      *
      * @param string $userId user ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function getBadges(string $userId): Response
+    public function getBadges(string $userId): ResponseInterface
     {
-        return $this->getRequestService()->makeGetRequest($this->getRouter()->getBadgeURL($userId));
+        return $this->getRequestService()
+            ->makeGetRequest($this->getRouter()->getShortUrl('users', $userId, 'badge'));
     }
 
     /**
@@ -104,12 +112,12 @@ class UserService extends BaseService
      * @param array $data user data
      * @param string $userId user ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function updateBlockList(array $data, string $userId): Response
+    public function updateBlockList(array $data, string $userId): ResponseInterface
     {
         return $this->getRequestService()
-            ->makePatchRequest($this->getRouter()->getBlockListUpdateURL($userId), $data);
+            ->makePatchRequest($this->getRouter()->getShortUrl('users', $userId), $data);
     }
 
     /**
@@ -117,10 +125,80 @@ class UserService extends BaseService
      *
      * @param string $userId user ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function getBlockList(string $userId): Response
+    public function getBlockList(string $userId): ResponseInterface
     {
-        return $this->getRequestService()->makeGetRequest($this->getRouter()->getBlockListURL($userId));
+        return $this->getRequestService()
+            ->makeGetRequest($this->getRouter()->getShortUrl('users', $userId, 'blocks'));
+    }
+
+    /**
+     * Set suspended property
+     *
+     * @param string $userId user ID
+     * @param bool $value user ID
+     *
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
+     */
+    public function suspend(string $userId, bool $value): ResponseInterface
+    {
+        $data = [
+            [
+                'operation' => 'set',
+                'property'  => 'suspended',
+                'value'     => $value
+            ]
+        ];
+
+        return $this->getRequestService()
+            ->makePatchRequest($this->getRouter()->getShortUrl('users', $userId), $data);
+    }
+
+    /**
+     * Set TTL in seconds
+     *
+     * @param bool $value user ID
+     *
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
+     */
+    public function setTtl(int $value): ResponseInterface
+    {
+        $data = [
+            [
+                'operation' => 'set',
+                'property'  => 'session_ttl_in_seconds',
+                'value'     => $value
+            ]
+        ];
+
+        return $this->getRequestService()
+            ->makePatchRequest($this->getRouter()->genereteURL('', []), $data);
+    }
+
+    /**
+     * Get user status
+     *
+     * @param string $userId user ID
+     *
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
+     */
+    public function getUserStatus(string $userId): ResponseInterface
+    {
+        return $this->getRequestService()
+            ->makeGetRequest($this->getRouter()->getShortUrl('users', $userId));
+    }
+
+    /**
+     * Delete a user
+     *
+     * @param string $userId user ID
+     *
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
+     */
+    public function deleteSessions(string $userId): ResponseInterface
+    {
+        return $this->getRequestService()
+            ->makeDeleteRequest($this->getRouter()->getShortUrl('users', $userId, 'sessions'));
     }
 }

@@ -2,29 +2,31 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
-use Aosmak\Laravel\Layer\Sdk\Models\Response;
+use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\ConversationServiceInterface;
 
 /**
  * Class ConversationService
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices
  */
-class ConversationService extends BaseService
+class ConversationService extends BaseService implements ConversationServiceInterface
 {
     /**
      * Create a conversation
      *
      * @param array $data conversation data
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function create(array $data): Response
+    public function create(array $data): ResponseInterface
     {
         //set default value
         if (!isset($data['distinct'])) {
             $data['distinct'] = true;
         }
 
-        return $this->getRequestService()->makePostRequest($this->getRouter()->getURL(), $data);
+        return $this->getRequestService()
+            ->makePostRequest($this->getRouter()->getShortUrl('conversations'), $data);
     }
 
     /**
@@ -33,12 +35,12 @@ class ConversationService extends BaseService
      * @param array $data conversation data
      * @param string $conversationId conversation ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function update(array $data, string $conversationId): Response
+    public function update(array $data, string $conversationId): ResponseInterface
     {
         return $this->getRequestService()
-            ->makePatchRequest($this->getRouter()->getConversationURL($conversationId), $data);
+            ->makePatchRequest($this->getRouter()->getShortUrl('conversations', $conversationId), $data);
     }
 
     /**
@@ -46,23 +48,12 @@ class ConversationService extends BaseService
      *
      * @param string $conversationId conversation ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function get(string $conversationId): Response
+    public function get(string $conversationId): ResponseInterface
     {
-        return $this->getRequestService()->makeGetRequest($this->getRouter()->getConversationURL($conversationId));
-    }
-
-    /**
-     * Get all conversations by user ID
-     *
-     * @param string $userId user ID
-     *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
-     */
-    public function all(string $userId): Response
-    {
-        return $this->getRequestService()->makeGetRequest($this->getRouter()->getConversationsURL($userId));
+        return $this->getRequestService()
+            ->makeGetRequest($this->getRouter()->getShortUrl('conversations', $conversationId));
     }
 
     /**
@@ -70,11 +61,11 @@ class ConversationService extends BaseService
      *
      * @param string $conversationId conversation ID
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Models\Response
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function delete(string $conversationId): Response
+    public function delete(string $conversationId): ResponseInterface
     {
         return $this->getRequestService()
-            ->makeDeleteRequest($this->getRouter()->getConversationURL($conversationId));
+            ->makeDeleteRequest($this->getRouter()->getShortUrl('conversations', $conversationId));
     }
 }

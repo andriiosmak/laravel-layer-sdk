@@ -18,9 +18,18 @@ class NotificationServiceTest extends BaseClass
     public function testCreateNotification(): void
     {
         $data = [
+            "first_name"   => 'testName',
+            "last_name"    => 'testSurname',
+            "display_name" => 'testDisplayName',
+            "phone_number" => 'testPhoneNumber',
+        ];
+
+        $this->getUserService()->create($data, 'testUserOne');
+        $response = $this->getUserService()->get('testUserOne');
+        $userId   = $response->getContents()['id'];
+        $data     = [
             'recipients' => [
-                "tu1",
-                "tu2",
+                $userId
             ],
             'notification' => [
                 'title' => 'New notification',
