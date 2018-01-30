@@ -2,7 +2,7 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Functional;
 
-use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
+use Symfony\Component\HttpFoundation\Response as ResponseStatus;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7;
 

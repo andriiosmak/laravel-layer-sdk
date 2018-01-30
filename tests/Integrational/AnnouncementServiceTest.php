@@ -3,7 +3,7 @@
 namespace Aosmak\Laravel\Layer\Sdk\Integrational;
 
 use Aosmak\Laravel\Layer\Sdk\Models\Response;
-use Aosmak\Laravel\Layer\Sdk\Models\ResponseStatus;
+use Symfony\Component\HttpFoundation\Response as ResponseStatus;
 
 /**
  * Class AnnouncementServiceTest
