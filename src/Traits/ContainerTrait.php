@@ -2,7 +2,7 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Traits;
 
-use Illuminate\Contracts\Container\Container;
+use Illuminate\Contracts\Container\Container as ContainerInterface;
 
 /**
  * Trait ContainerTrait
@@ -24,7 +24,7 @@ trait ContainerTrait
      *
      * @return void
      */
-    public function setContainer(Container $container): void
+    public function setContainer(ContainerInterface $container): void
     {
         $this->container = $container;
     }

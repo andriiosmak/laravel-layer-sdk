@@ -5,7 +5,7 @@ namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces;
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
 
 /**
- * Interface IdentityService
+ * Interface IdentityServiceInterface
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces
  */
 interface IdentityServiceInterface
