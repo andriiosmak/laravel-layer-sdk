@@ -67,7 +67,7 @@ class IdentityService extends BaseService implements IdentityServiceInterface
     }
 
     /**
-     * Delete a identity
+     * Delete an identity
      *
      * @param string $identityId identity ID
      *

@@ -54,7 +54,7 @@ abstract class BaseService implements BaseServiceInterface
     /**
      * Set a configuration array
      *
-     * @param array $config
+     * @param array $config configuration array
      *
      * @return void
      */
@@ -66,7 +66,7 @@ abstract class BaseService implements BaseServiceInterface
     /**
      * Set a router
      *
-     * @param \Aosmak\Laravel\Layer\Sdk\Routers\RouterInterface $router
+     * @param \Aosmak\Laravel\Layer\Sdk\Routers\RouterInterface $router router
      *
      * @return void
      */
