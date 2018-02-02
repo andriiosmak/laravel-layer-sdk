@@ -190,7 +190,7 @@ class UserService extends BaseService implements UserServiceInterface
     }
 
     /**
-     * Delete a user
+     * Delete user sessions
      *
      * @param string $userId user ID
      *

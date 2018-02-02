@@ -5,7 +5,7 @@ namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces;
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
 
 /**
- * Interface UserService
+ * Interface UserServiceInterface
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces
  */
 interface UserServiceInterface
@@ -125,7 +125,7 @@ interface UserServiceInterface
     public function getUserStatus(string $userId): ResponseInterface;
 
     /**
-     * Delete a user
+     * Delete user sessions
      *
      * @param string $userId user ID
      *

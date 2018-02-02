@@ -2,7 +2,7 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Models;
 
-use GuzzleHttp\Psr7\Response as GuzzleResponse;
+use Psr\Http\Message\ResponseInterface as GuzzleResponseInterface;
 
 /**
  * Class Response
@@ -34,11 +34,11 @@ class Response implements ResponseInterface
     /**
      * Get status code
      *
-     * @param GuzzleHttp\Psr7\Response $response
+     * @param Psr\Http\Message\ResponseInterface $response
      *
      * @return void
      */
-    public function __construct(GuzzleResponse $response)
+    public function __construct(GuzzleResponseInterface $response)
     {
         $this->statusCode = $response->getStatusCode();
         $this->headers    = $response->getHeaders();
