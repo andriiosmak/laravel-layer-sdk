@@ -39,9 +39,6 @@ interface ResponseInterface
     /**
      * Get an item ID
      *
-     * @return string $statusId
-     * @return string $path
-     *
      * @return string|null conversation ID
      */
     public function getCreatedItemId(): ?string;
