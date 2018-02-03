@@ -3,7 +3,6 @@
 [![Build Status](https://travis-ci.org/andriiosmak/laravel-layer-sdk.svg)](https://travis-ci.org/andriiosmak/laravel-layer-sdk)
 ![Downloads][ico-downloads]
 ![Stable][ico-stable]
-![Unstable][ico-unstable]
 [![Software License][ico-license]](LICENSE.md)
 
 The Layer Server API SDK for Laravel 5 is a library with powerful features that alollows PHP developers to easily make requests to [Layer Server API](https://docs.layer.com/reference/server_api/introduction). Despite the fact this package was designed to be easily integrated to projects based on Laravel 5.5+ framework, it can be integrated to projects based on other web frameworks.
@@ -46,4 +45,3 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg
 [ico-downloads]: https://img.shields.io/packagist/dt/aosmak/laravel-layer-sdk.svg
 [ico-stable]: https://poser.pugx.org/aosmak/laravel-layer-sdk/v/stable.svg
-[ico-unstable]: https://poser.pugx.org/aosmak/laravel-layer-sdk/v/unstable.svg

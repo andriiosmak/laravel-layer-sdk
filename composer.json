@@ -50,9 +50,6 @@
             "providers": [
                 "Aosmak\\Laravel\\Layer\\Sdk\\LayerProvider"
             ]
-        },
-        "branch-alias": {
-            "dev-master": "dev-develop"
         }
     }
 }
