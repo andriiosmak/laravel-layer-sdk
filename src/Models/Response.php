@@ -88,9 +88,6 @@ class Response implements ResponseInterface
     /**
      * Get an item ID
      *
-     * @param string $statusId
-     * @param string $path
-     *
      * @return string|null conversation ID
      */
     public function getCreatedItemId(): ?string
@@ -105,7 +102,7 @@ class Response implements ResponseInterface
     /**
      * Get a response content
      *
-     * @param string $contents
+     * @param string $contents request contents
      *
      * @return array
      */
