@@ -78,7 +78,7 @@ class Response implements ResponseInterface
     /**
      * Check whether a request was successful
      *
-     * @return array request content
+     * @return bool
      */
     public function isSuccessful(): bool
     {
