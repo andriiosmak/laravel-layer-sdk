@@ -61,7 +61,7 @@ class IdentityServiceTest extends BaseClass
             $response->getStatusCode()
         ); //201
 
-        $response = $this->getUserService()->create([], 'testBotOne');
+        $response = $this->getIdentityService()->create([], 'testBotOne');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertFalse($response->isSuccessful());
         $this->assertInternalType('array', $content);
@@ -86,7 +86,7 @@ class IdentityServiceTest extends BaseClass
             "identity_type" => 'bot',
         ];
 
-        $response = $this->getUserService()->replace($data, 'testBotOne');
+        $response = $this->getIdentityService()->replace($data, 'testBotOne');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
@@ -94,7 +94,7 @@ class IdentityServiceTest extends BaseClass
             $response->getStatusCode()
         ); //204
 
-        $response = $this->getUserService()->replace([], 'testBotOne');
+        $response = $this->getIdentityService()->replace([], 'testBotOne');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertFalse($response->isSuccessful());
         $this->assertEquals(
@@ -118,7 +118,7 @@ class IdentityServiceTest extends BaseClass
             ],
         ];
 
-        $response = $this->getUserService()->update($data, 'testBotOne');
+        $response = $this->getIdentityService()->update($data, 'testBotOne');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
@@ -134,7 +134,7 @@ class IdentityServiceTest extends BaseClass
      */
     public function testGetUser(): void
     {
-        $response = $this->getUserService()->get('testBotOne');
+        $response = $this->getIdentityService()->get('testBotOne');
         $content  = $response->getContents();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
@@ -145,7 +145,7 @@ class IdentityServiceTest extends BaseClass
         $this->assertInternalType('array', $content);
 
         //get user with wrong id
-        $response = $this->getUserService()->get(time());
+        $response = $this->getIdentityService()->get(time());
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertFalse($response->isSuccessful());
         $this->assertEquals(
@@ -161,7 +161,7 @@ class IdentityServiceTest extends BaseClass
      */
     public function testDeleteUser(): void
     {
-        $response = $this->getUserService()->delete('testBotOne');
+        $response = $this->getIdentityService()->delete('testBotOne');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
@@ -169,7 +169,7 @@ class IdentityServiceTest extends BaseClass
             $response->getStatusCode()
         ); //204
 
-        $response = $this->getUserService()->delete(time());
+        $response = $this->getIdentityService()->delete(time());
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertFalse($response->isSuccessful());
         $this->assertEquals(

@@ -61,6 +61,7 @@ class AnnouncementServiceTest extends BaseClass
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
         $this->assertInternalType('array', $response->getContents());
+        $this->assertInternalType('array', $response->getHeaders());
         $this->assertInternalType('string', $response->getCreatedItemId());
         $this->assertEquals(
             ResponseStatus::HTTP_ACCEPTED,
