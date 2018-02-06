@@ -48,7 +48,6 @@ abstract class BaseClass extends TestCase
             'LAYER_SDK_APP_ID'           => 'id',
             'LAYER_SDK_AUTH'             => 'key',
             'LAYER_SDK_BASE_URL'         => 'url',
-            'LAYER_SDK_API_VERSION'      => '3.0',
             'LAYER_SDK_SHOW_HTTP_ERRORS' => false
         ]);
         $reflection = new \ReflectionClass($service);
