@@ -16,6 +16,11 @@ class RequestService implements RequestServiceInterface
 {
     use ConfigTrait, ClientTrait, ContainerTrait;
 
+    /**
+     * Version of Server API
+     *
+     * @const float
+     */
     private const LAYER_SDK_API_VERSION = '3.0';
 
     /**
