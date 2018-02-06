@@ -32,15 +32,12 @@ interface ResponseInterface
     /**
      * Check whether a request was successful
      *
-     * @return array request content
+     * @return bool
      */
     public function isSuccessful(): bool;
 
     /**
      * Get an item ID
-     *
-     * @return string $statusId
-     * @return string $path
      *
      * @return string|null conversation ID
      */

@@ -78,7 +78,7 @@ class Response implements ResponseInterface
     /**
      * Check whether a request was successful
      *
-     * @return array request content
+     * @return bool
      */
     public function isSuccessful(): bool
     {
@@ -87,9 +87,6 @@ class Response implements ResponseInterface
 
     /**
      * Get an item ID
-     *
-     * @param string $statusId
-     * @param string $path
      *
      * @return string|null conversation ID
      */
@@ -105,7 +102,7 @@ class Response implements ResponseInterface
     /**
      * Get a response content
      *
-     * @param string $contents
+     * @param string $contents request contents
      *
      * @return array
      */

@@ -17,6 +17,13 @@ class RequestService implements RequestServiceInterface
     use ConfigTrait, ClientTrait, ContainerTrait;
 
     /**
+     * Version of Server API
+     *
+     * @const float
+     */
+    private const LAYER_SERVER_API_VERSION = '3.0';
+
+    /**
      * Make a POST request
      *
      * @param string $url request url
@@ -109,7 +116,7 @@ class RequestService implements RequestServiceInterface
         $defaultHeaders = [
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->config['LAYER_SDK_AUTH'],
-                'Accept'        => 'application/vnd.layer+json; version=' . $this->config['LAYER_SDK_API_VERSION'],
+                'Accept'        => 'application/vnd.layer+json; version=' . self::LAYER_SERVER_API_VERSION,
                 'Content-Type'  => 'application/json',
             ],
             'json'           => $data,
