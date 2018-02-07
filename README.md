@@ -16,8 +16,8 @@ The Layer Server API SDK for Laravel 5 is a library with powerful features that 
 
 ## Requirements
 
-* PHP : 7.2+,
-* Laravel 5.5+,
+* PHP : 7.2+
+* Laravel 5.5+
 
 ## Usage
 
