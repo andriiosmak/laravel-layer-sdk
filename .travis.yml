@@ -3,8 +3,15 @@ language: php
 php:
   - 7.2
 
+matrix:
+    fast_finish: true
+
+env:
+    - LARAVEL_VERSION="5.5.*"
+
 before_script:
   - composer install
+  - composer require --no-update "laravel/laravel:${LARAVEL_VERSION}"
 
 script:
   - vendor/bin/phpcs --extensions=php --standard=PSR2 src
