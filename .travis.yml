@@ -4,10 +4,11 @@ php:
   - 7.2
 
 matrix:
-    fast_finish: true
+    fast_finish: false
 
 env:
     - LARAVEL_VERSION="5.5.*"
+    - LARAVEL_VERSION="5.6.*"
 
 before_script:
   - composer install
