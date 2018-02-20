@@ -87,7 +87,7 @@ class LayerService implements LayerServiceInterface
     /**
      * Get a message service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageServiceInterface\MessageService
+     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\MessageServiceInterface
      */
     public function getMessageService(): MessageServiceInterface
     {
