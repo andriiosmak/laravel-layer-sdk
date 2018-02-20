@@ -109,7 +109,8 @@ class Response implements ResponseInterface
     private function obtainResponseContent(string $contents): array
     {
         if (strlen($contents) > 1) {
-            return is_array(json_decode($contents, 1))? json_decode($contents, 1): [];
+            $contents = json_decode($contents, 1);
+            return is_array($contents)? $contents: [];
         }
 
         return [];
