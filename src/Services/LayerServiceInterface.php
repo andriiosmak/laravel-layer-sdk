@@ -28,7 +28,7 @@ interface LayerServiceInterface
     /**
      * Get a message service
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageServiceInterface\MessageServiceInterface
+     * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\MessageServiceInterface
      */
     public function getMessageService(): MessageServiceInterface;
 
