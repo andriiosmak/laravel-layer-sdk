@@ -3,13 +3,14 @@
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices;
 
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\BaseServiceInterface;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\AnnouncementServiceInterface;
 
 /**
  * Class AnnouncementService
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices
  */
-class AnnouncementService extends BaseService implements AnnouncementServiceInterface
+class AnnouncementService extends BaseService implements BaseServiceInterface, AnnouncementServiceInterface
 {
     /**
      * Create an announcement
