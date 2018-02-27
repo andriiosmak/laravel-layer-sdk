@@ -83,4 +83,14 @@ interface RequestServiceInterface
      * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
     public function makeDeleteRequest(string $url, array $data = [], array $requestHeaders = []): ResponseInterface;
+
+    /**
+     * Upload file request
+     *
+     * @param string $url request url
+     * @param string $path file path
+     *
+     * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
+     */
+    public function uploadFile(string $url, string $path): ResponseInterface;
 }
