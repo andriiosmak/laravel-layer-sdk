@@ -181,11 +181,9 @@ class LayerService implements LayerServiceInterface
             $service->setClient($this->client);
             $service->setRouter($this->getRouter());
             $this->$propName = $service;
-        } else {
-            $service = $this->$propName;
         }
 
-        return $service;
+        return $this->$propName;
     }
 
     /**
