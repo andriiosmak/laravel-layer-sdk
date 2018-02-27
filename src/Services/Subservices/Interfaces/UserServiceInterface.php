@@ -8,7 +8,7 @@ use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
  * Interface UserServiceInterface
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces
  */
-interface UserServiceInterface
+interface UserServiceInterface extends BaseServiceInterface
 {
     /**
      * Create a user

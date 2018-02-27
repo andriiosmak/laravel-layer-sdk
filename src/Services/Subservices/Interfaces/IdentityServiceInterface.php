@@ -8,7 +8,7 @@ use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
  * Interface IdentityServiceInterface
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces
  */
-interface IdentityServiceInterface
+interface IdentityServiceInterface extends BaseServiceInterface
 {
     /**
      * Create a identity

@@ -8,7 +8,7 @@ use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
  * Interface UserDataServiceInterface
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces
  */
-interface UserDataServiceInterface
+interface UserDataServiceInterface extends BaseServiceInterface
 {
     /**
      * Get user conversations

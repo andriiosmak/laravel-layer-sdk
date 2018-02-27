@@ -8,7 +8,7 @@ use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
  * Interface NotificationServiceInterface
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces
  */
-interface NotificationServiceInterface
+interface NotificationServiceInterface extends BaseServiceInterface
 {
     /**
      * Create a notification

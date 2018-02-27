@@ -8,7 +8,7 @@ use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
  * Interface AnnouncementServiceInterface
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces
  */
-interface AnnouncementServiceInterface
+interface AnnouncementServiceInterface extends BaseServiceInterface
 {
     /**
      * Create an announcement

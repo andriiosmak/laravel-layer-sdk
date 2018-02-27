@@ -8,7 +8,7 @@ use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
  * Interface DataServiceInterface
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces
  */
-interface DataServiceInterface
+interface DataServiceInterface extends BaseServiceInterface
 {
     /**
      * Register public key

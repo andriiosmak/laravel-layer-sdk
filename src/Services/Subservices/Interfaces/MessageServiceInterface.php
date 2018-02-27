@@ -8,7 +8,7 @@ use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
  * Interface MessageServiceInterface
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces
  */
-interface MessageServiceInterface
+interface MessageServiceInterface extends BaseServiceInterface
 {
     /**
      * Send a message
