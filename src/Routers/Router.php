@@ -3,7 +3,6 @@
 namespace Aosmak\Laravel\Layer\Sdk\Routers;
 
 use Aosmak\Laravel\Layer\Sdk\Traits\ContainerTrait;
-use Aosmak\Laravel\Layer\Sdk\Routers\Subrouters\BaseRouter;
 
 /**
  * Class Router
@@ -62,10 +61,7 @@ class Router implements RouterInterface
      */
     public function getShortUrl(string $pattern, string $entityId = null, string $path = null): string
     {
-        $data = [];
-
         if (!empty($entityId)) {
-            $data    = [':entity_id' => $entityId];
             $pattern = implode([$pattern, '/:entity_id']);
         }
 

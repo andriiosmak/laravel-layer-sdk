@@ -23,7 +23,7 @@ abstract class BaseService implements BaseServiceInterface
     /**
      * Request service
      *
-     * @var \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestServiceInterface
+     * @var \Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\RequestServiceInterface
      */
     private $requestService;
 
