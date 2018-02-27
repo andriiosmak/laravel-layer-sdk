@@ -17,7 +17,7 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\MessageServiceInter
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\NotificationServiceInterface;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\DataServiceInterface;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService;
-use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\BaseServiceInterface;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\BaseService;
 
 /**
  * Class LayerService
@@ -169,9 +169,9 @@ class LayerService implements LayerServiceInterface
      *
      * @param string $serviceName service name
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\BaseServiceInterface
+     * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\BaseService
      */
-    private function getService(string $serviceName): BaseServiceInterface
+    private function getService(string $serviceName): BaseService
     {
         $propName = lcfirst($serviceName);
         if (empty($this->$propName)) {
