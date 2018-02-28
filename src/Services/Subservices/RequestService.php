@@ -154,7 +154,7 @@ class RequestService implements RequestServiceInterface
      *
      * @return \Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface
      */
-    public function uploadFile(string $url, string $path)
+    public function uploadFile(string $url, string $path): ResponseInterface
     {
         $headers = [
             'multipart' => [
