@@ -175,7 +175,7 @@ class LayerService implements LayerServiceInterface
     {
         $propName = lcfirst($serviceName);
         if (empty($this->$propName)) {
-            $service = $this->container->make('Aosmak\Laravel\Layer\Sdk\Services\Subservices\\'. $serviceName);
+            $service = $this->container->make('Aosmak\Laravel\Layer\Sdk\Services\Subservices\\' . $serviceName);
             $service->setRequestService($this->requestService);
             $service->setConfig($this->config);
             $service->setClient($this->client);
