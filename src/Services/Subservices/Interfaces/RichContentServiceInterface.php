@@ -8,7 +8,7 @@ use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
  * Interface RichContentServiceInterface
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces
  */
-interface RichContentServiceInterface
+interface RichContentServiceInterface extends BaseServiceInterface
 {
     /**
      * Request rich content upload

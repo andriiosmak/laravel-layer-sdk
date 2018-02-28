@@ -21,6 +21,7 @@ class RichContentService extends BaseService implements RichContentServiceInterf
      */
     public function requestUpload(string $conversationId, string $path): ?ResponseInterface
     {
+        $headers            = [];
         $headers['headers'] = [
             'Upload-Content-Type'   => mime_content_type($path),
             'Upload-Content-Length' => filesize($path) + 161,

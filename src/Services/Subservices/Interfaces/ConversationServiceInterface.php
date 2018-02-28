@@ -8,7 +8,7 @@ use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
  * Interface ConversationServiceInterface
  * @package namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces
  */
-interface ConversationServiceInterface
+interface ConversationServiceInterface extends BaseServiceInterface
 {
     /**
      * Create a conversation

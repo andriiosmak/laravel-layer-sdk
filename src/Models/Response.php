@@ -34,7 +34,7 @@ class Response implements ResponseInterface
     /**
      * Get status code
      *
-     * @param Psr\Http\Message\ResponseInterface $response
+     * @param \Psr\Http\Message\ResponseInterface $response
      *
      * @return void
      */

@@ -77,7 +77,7 @@ class LayerService implements LayerServiceInterface
     /**
      * Get a conversation service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\ConversationServiceInterface
+     * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\ConversationServiceInterface
      */
     public function getConversationService(): ConversationServiceInterface
     {
@@ -87,7 +87,7 @@ class LayerService implements LayerServiceInterface
     /**
      * Get a message service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\MessageServiceInterface
+     * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\MessageServiceInterface
      */
     public function getMessageService(): MessageServiceInterface
     {
@@ -97,7 +97,7 @@ class LayerService implements LayerServiceInterface
     /**
      * Get a user service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\UserServiceInterface
+     * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\UserServiceInterface
      */
     public function getUserService(): UserServiceInterface
     {
@@ -107,7 +107,7 @@ class LayerService implements LayerServiceInterface
     /**
      * Get an identity service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\IdentityServiceInterface
+     * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\IdentityServiceInterface
      */
     public function getIdentityService(): IdentityServiceInterface
     {
@@ -117,7 +117,7 @@ class LayerService implements LayerServiceInterface
     /**
      * Get a user data service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\UserDataServiceInterface
+     * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\UserDataServiceInterface
      */
     public function getUserDataService(): UserDataServiceInterface
     {
@@ -127,7 +127,7 @@ class LayerService implements LayerServiceInterface
     /**
      * Get an announcement service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\AnnouncementServiceInterface
+     * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\AnnouncementServiceInterface
      */
     public function getAnnouncementService(): AnnouncementServiceInterface
     {
@@ -137,7 +137,7 @@ class LayerService implements LayerServiceInterface
     /**
      * Get a notification service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\NotificationServiceInterface
+     * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\NotificationServiceInterface
      */
     public function getNotificationService(): NotificationServiceInterface
     {
@@ -147,7 +147,7 @@ class LayerService implements LayerServiceInterface
     /**
      * Get a data service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\DataServiceInterface
+     * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\DataServiceInterface
      */
     public function getDataService(): DataServiceInterface
     {
@@ -157,7 +157,7 @@ class LayerService implements LayerServiceInterface
     /**
      * Get a rich content service
      *
-     * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\RichContentServiceInterface
+     * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\RichContentServiceInterface
      */
     public function getRichContentService(): RichContentServiceInterface
     {

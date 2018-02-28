@@ -23,7 +23,7 @@ abstract class BaseService implements BaseServiceInterface
     /**
      * Request service
      *
-     * @var \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestServiceInterface
+     * @var \Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\RequestServiceInterface
      */
     private $requestService;
 
@@ -78,7 +78,7 @@ abstract class BaseService implements BaseServiceInterface
     /**
      * Get a request service
      *
-     * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestServiceInterface
+     * @return \Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\RequestServiceInterface
      */
     public function getRequestService(): RequestServiceInterface
     {

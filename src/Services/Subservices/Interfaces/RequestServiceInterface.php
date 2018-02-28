@@ -2,6 +2,7 @@
 
 namespace Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces;
 
+use GuzzleHttp\ClientInterface;
 use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
 
 /**
@@ -10,6 +11,24 @@ use Aosmak\Laravel\Layer\Sdk\Models\ResponseInterface;
  */
 interface RequestServiceInterface
 {
+    /**
+     * Set Guzzle client
+     *
+     * @param \GuzzleHttp\ClientInterface $client
+     *
+     * @return void
+     */
+    public function setClient(ClientInterface $client): void;
+
+    /**
+     * Set config
+     *
+     * @param array $config contains configuration variables
+     *
+     * @return void
+     */
+    public function setConfig(array $config): void;
+
     /**
      * Make a POST request
      *
