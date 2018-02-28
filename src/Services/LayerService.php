@@ -16,6 +16,15 @@ use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\RichContentServiceI
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\MessageServiceInterface;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\NotificationServiceInterface;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\DataServiceInterface;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\AnnouncementService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\ConversationService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\IdentityService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\UserDataService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\RichContentService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\MessageService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\NotificationService;
+use Aosmak\Laravel\Layer\Sdk\Services\Subservices\DataService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\RequestService;
 use Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\BaseServiceInterface;
 
@@ -81,7 +90,7 @@ class LayerService implements LayerServiceInterface
      */
     public function getConversationService(): ConversationServiceInterface
     {
-        return $this->getService('ConversationService');
+        return $this->getService(\ConversationService::class);
     }
 
     /**
@@ -91,7 +100,7 @@ class LayerService implements LayerServiceInterface
      */
     public function getMessageService(): MessageServiceInterface
     {
-        return $this->getService('MessageService');
+        return $this->getService(\MessageService::class);
     }
 
     /**
@@ -101,7 +110,7 @@ class LayerService implements LayerServiceInterface
      */
     public function getUserService(): UserServiceInterface
     {
-        return $this->getService('UserService');
+        return $this->getService(\UserService::class);
     }
 
     /**
@@ -111,7 +120,7 @@ class LayerService implements LayerServiceInterface
      */
     public function getIdentityService(): IdentityServiceInterface
     {
-        return $this->getService('IdentityService');
+        return $this->getService(\IdentityService::class);
     }
 
     /**
@@ -121,7 +130,7 @@ class LayerService implements LayerServiceInterface
      */
     public function getUserDataService(): UserDataServiceInterface
     {
-        return $this->getService('UserDataService');
+        return $this->getService(\UserDataService::class);
     }
 
     /**
@@ -131,7 +140,7 @@ class LayerService implements LayerServiceInterface
      */
     public function getAnnouncementService(): AnnouncementServiceInterface
     {
-        return $this->getService('AnnouncementService');
+        return $this->getService(\AnnouncementService::class);
     }
 
     /**
@@ -141,7 +150,7 @@ class LayerService implements LayerServiceInterface
      */
     public function getNotificationService(): NotificationServiceInterface
     {
-        return $this->getService('NotificationService');
+        return $this->getService(\NotificationService::class);
     }
 
     /**
@@ -151,7 +160,7 @@ class LayerService implements LayerServiceInterface
      */
     public function getDataService(): DataServiceInterface
     {
-        return $this->getService('DataService');
+        return $this->getService(\DataService::class);
     }
 
     /**
@@ -161,7 +170,7 @@ class LayerService implements LayerServiceInterface
      */
     public function getRichContentService(): RichContentServiceInterface
     {
-        return $this->getService('RichContentService');
+        return $this->getService(\RichContentService::class);
     }
 
     /**

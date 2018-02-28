@@ -82,7 +82,7 @@ class Response implements ResponseInterface
      */
     public function isSuccessful(): bool
     {
-        return ($this->statusCode >= 200 && $this->statusCode <= 299) ? true : false;
+        return ($this->statusCode >= 200 && $this->statusCode <= 299);
     }
 
     /**
