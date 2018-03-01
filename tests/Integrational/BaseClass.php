@@ -53,6 +53,16 @@ abstract class BaseClass extends TestCase
     }
 
     /**
+     * Get unique entity ID
+     *
+     * @return string
+     */
+    public static function getUniqueEntityId(string $value): string
+    {
+        return $value . '_' . time();
+    }
+
+    /**
      * Get a conversation service
      *
      * @return Aosmak\Laravel\Layer\Sdk\Services\Subservices\Interfaces\ConversationService
