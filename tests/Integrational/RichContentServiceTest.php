@@ -75,7 +75,7 @@ class RichContentServiceTest extends BaseClass
         $response = $this->getConversationService()->create([
             'participants' => [
                 $userId,
-                "tu2",
+                'tu2' . time(),
             ],
         ]);
 

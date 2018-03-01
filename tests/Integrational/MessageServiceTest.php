@@ -45,7 +45,7 @@ class MessageServiceTest extends BaseClass
         self::$conversationId = $this->getConversationService()->create([
             'participants' => [
                 $userId,
-                "tu2",
+                'tu2' . time(),
             ],
         ])->getCreatedItemId();
 

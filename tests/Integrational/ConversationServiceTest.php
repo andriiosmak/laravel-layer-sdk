@@ -26,8 +26,8 @@ class ConversationServiceTest extends BaseClass
     {
         $response = $this->getConversationService()->create([
             'participants' => [
-                "tu1",
-                "tu2",
+                'tu1' . time(),
+                'tu3' . time()
             ],
         ]);
         $content              = $response->getContents();
