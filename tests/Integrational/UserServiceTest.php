@@ -11,14 +11,23 @@ use Symfony\Component\HttpFoundation\Response as ResponseStatus;
 class UserServiceTest extends BaseClass
 {
     /**
+     * User ID
+     *
+     * @var string
+     */
+    public static $userId;
+
+    /**
      * Test user creation
      *
      * @return void
      */
     public function testCreateUser(): void
     {
+        self::$userId = self::getUniqueEntityId('testUserOne');
+
         //delete if exists
-        $this->getUserService()->delete('testUserOne');
+        $this->getUserService()->delete(self::$userId);
 
         $data = [
             "first_name"   => 'testName',
@@ -27,7 +36,7 @@ class UserServiceTest extends BaseClass
             "phone_number" => 'testPhoneNumber',
         ];
 
-        $response = $this->getUserService()->create($data, 'testUserOne');
+        $response = $this->getUserService()->create($data, self::$userId);
         $content  = $response->getContents();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
@@ -37,7 +46,7 @@ class UserServiceTest extends BaseClass
             $response->getStatusCode()
         ); //201
 
-        $response = $this->getUserService()->create([], 'testUserOne');
+        $response = $this->getUserService()->create([], self::$userId);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertFalse($response->isSuccessful());
         $this->assertInternalType('array', $content);
@@ -61,7 +70,7 @@ class UserServiceTest extends BaseClass
             "phone_number" => 'testPhoneNumberUpdated',
         ];
 
-        $response = $this->getUserService()->replace($data, 'testUserOne');
+        $response = $this->getUserService()->replace($data, self::$userId);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
@@ -69,7 +78,7 @@ class UserServiceTest extends BaseClass
             $response->getStatusCode()
         ); //204
 
-        $response = $this->getUserService()->replace([], 'testUserOne');
+        $response = $this->getUserService()->replace([], self::$userId);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertFalse($response->isSuccessful());
         $this->assertEquals(
@@ -93,7 +102,7 @@ class UserServiceTest extends BaseClass
             ],
         ];
 
-        $response = $this->getUserService()->update($data, 'testUserOne');
+        $response = $this->getUserService()->update($data, self::$userId);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
@@ -109,7 +118,7 @@ class UserServiceTest extends BaseClass
      */
     public function testGetUser(): void
     {
-        $response = $this->getUserService()->get('testUserOne');
+        $response = $this->getUserService()->get(self::$userId);
         $content  = $response->getContents();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
@@ -153,7 +162,7 @@ class UserServiceTest extends BaseClass
             "external_unread_count" => 15,
         ];
 
-        $response = $this->getUserService()->createBadge($data, 'testUserOne');
+        $response = $this->getUserService()->createBadge($data, self::$userId);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
@@ -177,7 +186,7 @@ class UserServiceTest extends BaseClass
      */
     public function testGetBadge(): void
     {
-        $response = $this->getUserService()->getBadges('testUserOne');
+        $response = $this->getUserService()->getBadges(self::$userId);
         $content  = $response->getContents();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
@@ -206,7 +215,7 @@ class UserServiceTest extends BaseClass
             ]
         ];
 
-        $response = $this->getUserService()->updateBlockList($data, 'testUserOne');
+        $response = $this->getUserService()->updateBlockList($data, self::$userId);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
@@ -222,7 +231,7 @@ class UserServiceTest extends BaseClass
      */
     public function testGetBlockList(): void
     {
-        $response = $this->getUserService()->getBlockList('testUserOne');
+        $response = $this->getUserService()->getBlockList(self::$userId);
         $content  = $response->getContents();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
@@ -242,7 +251,7 @@ class UserServiceTest extends BaseClass
     public function testSuspend(): void
     {
         //set true
-        $response = $this->getUserService()->suspend('testUserOne', true);
+        $response = $this->getUserService()->suspend(self::$userId, true);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
@@ -251,7 +260,7 @@ class UserServiceTest extends BaseClass
         ); //202
 
         //check status
-        $response = $this->getUserService()->getUserStatus('testUserOne');
+        $response = $this->getUserService()->getUserStatus(self::$userId);
         $content  = $response->getContents();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
@@ -265,7 +274,7 @@ class UserServiceTest extends BaseClass
         $this->assertEquals($content['suspended'], true);
 
         //set false
-        $response = $this->getUserService()->suspend('testUserOne', false);
+        $response = $this->getUserService()->suspend(self::$userId, false);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
@@ -274,7 +283,7 @@ class UserServiceTest extends BaseClass
         ); //202
 
         //check status
-        $response = $this->getUserService()->getUserStatus('testUserOne');
+        $response = $this->getUserService()->getUserStatus(self::$userId);
         $content  = $response->getContents();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
@@ -311,7 +320,7 @@ class UserServiceTest extends BaseClass
      */
     public function testDeleteSessions(): void
     {
-        $response = $this->getUserService()->deleteSessions('testUserOne');
+        $response = $this->getUserService()->deleteSessions(self::$userId);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
@@ -335,7 +344,7 @@ class UserServiceTest extends BaseClass
      */
     public function testDeleteUser(): void
     {
-        $response = $this->getUserService()->delete('testUserOne');
+        $response = $this->getUserService()->delete(self::$userId);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals(

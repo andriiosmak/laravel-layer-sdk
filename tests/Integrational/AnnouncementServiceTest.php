@@ -18,15 +18,17 @@ class AnnouncementServiceTest extends BaseClass
      */
     public function testCreateAnnouncement(): void
     {
-        $data = [
+        $userId = self::getUniqueEntityId('testUserOne');
+        $botId  = self::getUniqueEntityId('testBotOne');
+        $data   = [
             "first_name"   => 'testName',
             "last_name"    => 'testSurname',
             "display_name" => 'testDisplayName',
             "phone_number" => 'testPhoneNumber',
         ];
 
-        $this->getUserService()->create($data, 'testUserOne');
-        $response = $this->getUserService()->get('testUserOne');
+        $this->getUserService()->create($data, $userId);
+        $response = $this->getUserService()->get($userId);
         $useId    = $response->getContents()['id'];
         $data     = [
             "first_name"    => 'testName',
@@ -36,8 +38,8 @@ class AnnouncementServiceTest extends BaseClass
             "identity_type" => 'bot',
         ];
 
-        $response = $this->getIdentityService()->create($data, 'testBotOne');
-        $response = $this->getIdentityService()->get('testBotOne');
+        $response = $this->getIdentityService()->create($data, $botId);
+        $response = $this->getIdentityService()->get($botId);
         $botId    = $response->getContents()['id'];
         $data     = [
             'recipients' => [
