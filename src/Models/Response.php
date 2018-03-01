@@ -110,7 +110,7 @@ class Response implements ResponseInterface
     {
         if (strlen($contents) > 1) {
             $contents = json_decode($contents, 1);
-            return is_array($contents) ? $contents: [];
+            return is_array($contents) ? $contents : [];
         }
 
         return [];
