@@ -94,17 +94,4 @@ abstract class BaseService implements BaseServiceInterface
     {
         return $this->router;
     }
-
-    /**
-     * Generate a request URL
-     *
-     * @param integer $id user ID
-     * @param array $data user data
-     *
-     * @return string
-     */
-    public function genereteURL(string $url, array $data): string
-    {
-        return str_replace(array_keys($data), $data, $url);
-    }
 }

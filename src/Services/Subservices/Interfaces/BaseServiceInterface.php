@@ -60,14 +60,4 @@ interface BaseServiceInterface
      * @return \Aosmak\Laravel\Layer\Sdk\Routers\RouterInterface
      */
     public function getRouter(): RouterInterface;
-
-    /**
-     * Generate a request URL
-     *
-     * @param integer $id user ID
-     * @param array $data user data
-     *
-     * @return string
-     */
-    public function genereteURL(string $url, array $data): string;
 }
