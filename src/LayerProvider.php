@@ -18,7 +18,7 @@ class LayerProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../config/layer.php' => config_path('layer.php')
+            __DIR__ . '/../config/layer.php' => $this->app->make('path.config') . '/layer.php'
         ], 'config');
 
         $this->app->bind('Aosmak\Laravel\Layer\Sdk\Services\LayerServiceInterface', function ($app) {
