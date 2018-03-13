@@ -40,10 +40,13 @@ class UserDataServiceTest extends BaseClass
         $content  = $response->getContents();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
-        $this->assertEquals(
-            ResponseStatus::HTTP_OK,
-            $response->getStatusCode()
-        ); //200
+        $this->assertContains(
+            $response->getStatusCode(),
+            [
+                ResponseStatus::HTTP_OK, //200
+                ResponseStatus::HTTP_PARTIAL_CONTENT //206
+            ]
+        );
         $this->assertInternalType('array', $content);
         $this->assertArrayHasKey('id', $content[0]);
         $this->assertArrayHasKey('url', $content[0]);
