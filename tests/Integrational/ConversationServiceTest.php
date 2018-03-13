@@ -107,10 +107,13 @@ class ConversationServiceTest extends BaseClass
         $this->assertArrayHasKey('metadata', $content);
         $this->assertArrayHasKey('created_at', $content);
         $this->assertArrayHasKey('messages_url', $content);
-        $this->assertEquals(
-            ResponseStatus::HTTP_OK,
-            $response->getStatusCode()
-        ); //200
+        $this->assertContains(
+            $response->getStatusCode(),
+            [
+                ResponseStatus::HTTP_OK, //200
+                ResponseStatus::HTTP_PARTIAL_CONTENT //206
+            ]
+        );
 
         $response = $this->getConversationService()->get('wrongid');
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
