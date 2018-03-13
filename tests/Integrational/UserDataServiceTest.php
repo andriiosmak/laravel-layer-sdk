@@ -11,11 +11,32 @@ use Symfony\Component\HttpFoundation\Response as ResponseStatus;
 class UserDataServiceTest extends BaseClass
 {
     /**
+     * User ID
+     *
+     * @var string
+     */
+    public static $userId;
+
+    /**
+     * Second User ID
+     *
+     * @var string
+     */
+    public static $secondUserId;
+
+    /**
      * Message ID
      *
      * @var string
      */
     public static $messageId;
+
+    /**
+     * Conversation ID
+     *
+     * @var string
+     */
+    public static $conversationId;
 
     /**
      * Get all conversations by user
@@ -24,8 +45,11 @@ class UserDataServiceTest extends BaseClass
      */
     public function testGetConversations(): void
     {
+        self::$userId       = self::getUniqueEntityId('testUserOne');
+        self::$secondUserId = self::getUniqueEntityId('testUserTwo');
+
         //delete if exists
-        $this->getUserService()->delete('testUserOne');
+        $this->getUserService()->delete(self::$userId);
 
         $data = [
             "first_name"   => 'testName',
@@ -34,9 +58,16 @@ class UserDataServiceTest extends BaseClass
             "phone_number" => 'testPhoneNumber',
         ];
 
-        $this->getUserService()->create($data, 'testUserOne');
+        $this->getUserService()->create($data, self::$userId);
 
-        $response = $this->getUserDataService()->getConversations('testUserOne');
+        self::$conversationId = $this->getConversationService()->create([
+            'participants' => [
+                self::$userId,
+                self::$secondUserId
+            ],
+        ])->getCreatedItemId();
+
+        $response = $this->getUserDataService()->getConversations(self::$userId);
         $content  = $response->getContents();
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
@@ -53,7 +84,6 @@ class UserDataServiceTest extends BaseClass
         $this->assertArrayHasKey('messages_url', $content[0]);
         $this->assertArrayHasKey('created_at', $content[0]);
         $this->assertArrayHasKey('last_message', $content[0]);
-        $this->assertInternalType('array', $content[0]['last_message']);
 
         $response = $this->getUserDataService()->getConversations('wrongId');
         $content  = $response->getContents();
@@ -83,14 +113,7 @@ class UserDataServiceTest extends BaseClass
             ],
         ];
 
-        $conversationId = $this->getConversationService()->create([
-            'participants' => [
-                "tu1",
-                "tu2",
-            ],
-        ])->getCreatedItemId();
-
-        $response = $this->getUserDataService()->sendMessage($data, "tu1", $conversationId);
+        $response = $this->getUserDataService()->sendMessage($data, self::$userId, self::$conversationId);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
         $this->assertInternalType('string', $response->getCreatedItemId());
@@ -99,7 +122,7 @@ class UserDataServiceTest extends BaseClass
             $response->getStatusCode()
         ); //201
 
-        $response = $this->getUserDataService()->sendMessage([], "tu1", $conversationId);
+        $response = $this->getUserDataService()->sendMessage([], self::$userId, self::$conversationId);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertFalse($response->isSuccessful());
         $this->assertNull($response->getCreatedItemId());
@@ -116,17 +139,9 @@ class UserDataServiceTest extends BaseClass
      */
     public function testSendReceipt(): void
     {
-        $response = $this->getUserService()->get('testUserOne');
+        $response = $this->getUserService()->get(self::$userId);
         $userId   = $response->getContents()['id'];
-
-        $conversationId = $this->getConversationService()->create([
-            'participants' => [
-                "tu1",
-                $userId
-            ],
-        ])->getCreatedItemId();
-
-        $data = [
+        $data     = [
             'sender_id' => $userId,
             'parts'     => [
                 [
@@ -136,9 +151,9 @@ class UserDataServiceTest extends BaseClass
             ],
         ];
 
-        $response  = $this->getMessageService()->create($data, $conversationId);
+        $response        = $this->getMessageService()->create($data, self::$conversationId);
         self::$messageId = $response->getCreatedItemId();
-        $response  = $this->getUserDataService()->sendReceipt('read', 'tu1', self::$messageId);
+        $response        = $this->getUserDataService()->sendReceipt('read', self::$secondUserId, self::$messageId);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
@@ -154,7 +169,7 @@ class UserDataServiceTest extends BaseClass
             $response->getStatusCode()
         ); //400
 
-        $response = $this->getUserDataService()->sendReceipt('test', 'tu1', self::$messageId);
+        $response = $this->getUserDataService()->sendReceipt('test', self::$secondUserId, self::$messageId);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertFalse($response->isSuccessful());
         $this->assertEquals(
@@ -170,7 +185,7 @@ class UserDataServiceTest extends BaseClass
      */
     public function testUserDataDeleteMessage(): void
     {
-        $response = $this->getUserDataService()->deleteMessage('tu1', self::$messageId);
+        $response = $this->getUserDataService()->deleteMessage(self::$secondUserId, self::$messageId);
         $this->assertInstanceOf('Aosmak\Laravel\Layer\Sdk\Models\Response', $response);
         $this->assertTrue($response->isSuccessful());
         $this->assertEquals(
@@ -185,5 +200,8 @@ class UserDataServiceTest extends BaseClass
             ResponseStatus::HTTP_BAD_REQUEST,
             $response->getStatusCode()
         ); //400
+        $this->getConversationService()->delete(self::$conversationId);
+        $this->getUserService()->delete(self::$secondUserId);
+        $this->getUserService()->delete(self::$userId);
     }
 }
